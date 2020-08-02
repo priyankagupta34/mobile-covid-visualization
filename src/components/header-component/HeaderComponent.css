@@ -25,7 +25,7 @@
     font-size: 2em;
     color: white;
     cursor: pointer;
-    
+
 }
 
 .hc3 {
@@ -90,7 +90,7 @@
     text-decoration: none;
 }
 
-.hc8{
+.hc8 {
     width: 26vw;
     text-align: right;
     background: #5d1212;
@@ -107,8 +107,29 @@
     max-height: 43px;
 }
 
-.hc_ic{
+.hc_ic {
     font-size: 1em;
     color: white;
     margin-right: 5px;
 }
+
+
+.spin_corona{
+    font-size:3em;
+    color: #460606;
+    position: relative;
+    animation: spin_corona 20s linear infinite;
+    transform-origin: 43% 40%;
+    
+  }
+  
+  @keyframes spin_corona{
+    0%{
+        transform: rotateZ(0);
+    }
+    100%{
+        transform: rotateZ(360deg);
+    }
+  }
+
+

@@ -39,11 +39,19 @@ export default class HeaderComponent extends Component {
             <div>
                 <div className="hc1">
                     <i className="material-icons my_ic1" onClick={this.openMenuForSm.bind(this)} >menu</i>
-                    <div className="hc8">
+                    <div className="righted">
+                            <i className="material-icons spin_corona" >coronavirus</i>
+                        </div>
+                    <div>
+                        <div className="hc8">
 
-                        <div className="hc_cntry"> <i className="material-icons hc_ic">flare</i>{loggedCountryName}</div>
-                        <div className="hc_tle">{new Date().toDateString()}</div>
+                            <div className="hc_cntry"> <i className="material-icons hc_ic">flare</i>{loggedCountryName}</div>
+                            <div className="hc_tle">{new Date().toDateString()}</div>
 
+                        </div>
+                        <div className="righted">
+                            <i className="material-icons spin_corona" >coronavirus</i>
+                        </div>
                     </div>
                 </div>
                 {openMenu && <div className="hc2 slideInFromLeft" id="hc1">
