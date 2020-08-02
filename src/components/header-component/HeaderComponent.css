@@ -1,0 +1,86 @@
+.hc1 {
+    height: 20vh;
+    background-image: url('/imgs/1.jpg');
+    background-size: cover;
+    background-color: rgb(0 0 0 / 37%);
+    background-blend-mode: color;
+    position: absolute;
+    width: 100%;
+    padding: 3vw
+}
+
+.hc2 {
+    position: absolute;
+    width: 50vw;
+    height: 100%;
+    background-color: #5d1212;
+    z-index: 2;
+    box-shadow: 0px 0px 20px 4px #5d1212;
+    padding: 2.5vh;
+}
+
+.my_ic1 {
+    font-size: 2em;
+    color: white;
+    cursor: pointer;
+}
+
+.hc3 {
+    height: 10vh;
+}
+
+.hc4 {
+    height: 35vh;
+}
+
+.hc5 {
+    height: 30vh;
+}
+
+.hc6 {
+    height: 10vh;
+    text-align: center;
+}
+
+.hc7 {
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.btn1 {
+    width: 40vw;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    padding: 11px;
+    margin-top: 10px;
+    background: #500a0a;
+    color: white;
+    letter-spacing: 1.3px;
+    outline: none;
+    cursor: pointer;
+    outline: none;
+    font-size: 0.7em;
+}
+
+.ver,
+.ver1 {
+    color: wheat;
+    font-size: 0.65em;
+}
+
+.ver1 {
+    font-size: 0.65em;
+    color: #880909;
+}
+
+.my_ic2 {
+    color: #901a1a;
+    padding: 2vh;
+    font-size: medium;
+}
+
+.hc7 a {
+    text-decoration: none;
+}

@@ -11,3 +11,88 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.no_compatibility_mobile {
+  display: none;
+}
+
+@media screen and (min-width: 800px) {
+  .compatibility_mobile {
+    display: none;
+  }
+
+  .no_compatibility_mobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .no_compat {
+    border: 1px solid gray;
+    padding: 100px;
+    border-radius: 4px;
+    font-size: small;
+    letter-spacing: 0.3px;
+    line-height: 25px;
+    text-align: center;
+  }
+
+}
+
+
+
+/* Css from here */
+
+body{
+  margin: 0;
+  width: 100%;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+.centered {
+  text-align: center;
+}
+
+.righted{
+  text-align: right;
+}
+
+
+
+.slideInFromLeft {
+  position: relative;
+  animation: slideInFromLeft 0.5s;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    left: -50vw;
+  }
+
+  100% {
+    left: 0;
+  }
+}
+
+.slideOutFromLeft {
+  position: relative;
+  animation: slideOutFromLeft 0.5s;
+  /* transition: all 0.3s; */
+}
+
+@keyframes slideOutFromLeft {
+  0% {
+    left: 0;
+  }
+
+  100% {
+    left: -50vw;
+  }
+}
