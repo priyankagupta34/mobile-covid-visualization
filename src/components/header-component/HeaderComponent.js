@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
-import './HeaderComponent.css'
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
 import PackageJson from './../../../package.json';
+import './HeaderComponent.css';
 
 export default class HeaderComponent extends Component {
 
@@ -66,13 +65,13 @@ export default class HeaderComponent extends Component {
                         <small className="ver1">Priyanka</small>
                     </div>
                     <div className="hc7">
-                        <a href="https://www.facebook.com/Priyannca" target="_blank">
+                        <a href="https://www.facebook.com/Priyannca" target="_blank" rel="noopener noreferrer" >
                             <i class="material-icons my_ic2">facebook</i>
                         </a>
                         <a href="tel:+917903365508">
                             <i class="material-icons my_ic2">call</i>
                         </a>
-                        <a href="mailto:34priyankagupta@gmail.com" target="_blank">
+                        <a href="mailto:34priyankagupta@gmail.com">
                             <i class="material-icons my_ic2">email</i>
                         </a>
                     </div>
