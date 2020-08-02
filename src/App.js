@@ -49,7 +49,13 @@ export default class App extends Component {
   }
 
   render() {
-    const { summaryDataCountries, loggedCountryName, loggedCountryCode, totals, countryList } = this.state;
+    const { 
+      // summaryDataCountries, 
+      loggedCountryName,
+      //  loggedCountryCode, 
+       totals
+        // countryList
+       } = this.state;
     return (
       <div>
         <div className="compatibility_mobile">
