@@ -7,6 +7,8 @@
     position: absolute;
     width: 100%;
     padding: 2.5vh;
+    display: flex;
+    justify-content: space-between;
 }
 
 .hc2 {
@@ -23,6 +25,7 @@
     font-size: 2em;
     color: white;
     cursor: pointer;
+    
 }
 
 .hc3 {
@@ -85,4 +88,26 @@
 
 .hc7 a {
     text-decoration: none;
+}
+
+.hc8{
+    width: 26vw;
+    text-align: right;
+    background: #5d1212;
+    color: white;
+    padding: 1vh;
+    height: 7vh;
+    border-radius: 4px;
+    font-size: 0.7em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 122px;
+    min-width: 97px;
+}
+
+.hc_ic{
+    font-size: 1em;
+    color: white;
+    margin-right: 5px;
 }

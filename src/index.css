@@ -45,7 +45,7 @@ code {
 
 /* Css from here */
 
-body{
+body {
   margin: 0;
   width: 100%;
 }
@@ -54,17 +54,24 @@ body{
 *::after,
 *::before {
   box-sizing: border-box;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .centered {
   text-align: center;
 }
 
-.righted{
+.righted {
   text-align: right;
 }
 
-article{
+article {
   height: 80vh;
   width: 100%;
 }

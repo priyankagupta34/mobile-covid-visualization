@@ -7,7 +7,7 @@ export default class HeaderComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            openMenu: true,
+            openMenu: false,
         }
     }
 
@@ -34,10 +34,17 @@ export default class HeaderComponent extends Component {
 
     render() {
         const { openMenu } = this.state;
+        const { loggedCountryName } = this.props;
         return (
             <div>
                 <div className="hc1">
                     <i className="material-icons my_ic1" onClick={this.openMenuForSm.bind(this)} >menu</i>
+                    <div className="hc8">
+                    
+                        <div className="hc_cntry"> <i className="material-icons hc_ic">flare</i>{loggedCountryName}</div>
+                        <div className="hc_tle">{new Date().toDateString()}</div>
+
+                    </div>
                 </div>
                 {openMenu && <div className="hc2 slideInFromLeft" id="hc1">
                     <div className="hc3 righted">
