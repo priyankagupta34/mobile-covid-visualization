@@ -64,6 +64,10 @@ body{
   text-align: right;
 }
 
+article{
+  height: 80vh;
+  width: 100%;
+}
 
 
 .slideInFromLeft {

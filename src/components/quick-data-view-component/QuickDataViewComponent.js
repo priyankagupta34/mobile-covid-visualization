@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import './TopFiveCategoryComponent.css'
 
-export default class TopFiveCategoryComponent extends Component {
-
+export default class QuickDataViewComponent extends Component {
     componentDidMount(){
         
     }

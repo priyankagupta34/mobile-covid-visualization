@@ -44,17 +44,19 @@ export default class HeaderComponent extends Component {
                         <i class="material-icons my_ic1" onClick={this.closeMenuForSm.bind(this)}>menu_open</i>
                     </div>
                     <div className="hc4">
-                        {/* <Link to="/login" > */}
-                        <button className="btn1" onClick={this.closeMenuForSm.bind(this)}>Top Fives</button>
-                        {/* </Link> */}
-                        <br />
-                        {/* <Link to="/signup"> */}
-                        <button className="btn1" onClick={this.closeMenuForSm.bind(this)}>Signup</button>
-                        {/* </Link> */}
-                        <br />
-                        {/* <Link to="/contact"> */}
-                        <button className="btn1" onClick={this.closeMenuForSm.bind(this)}>Contact</button>
-                        {/* </Link> */}
+                        <div>
+                            {/* <Link to="/login" > */}
+                            <button className="btn1" onClick={this.closeMenuForSm.bind(this)}>Top Fives</button>
+                            {/* </Link> */}
+                            <br />
+                            {/* <Link to="/signup"> */}
+                            <button className="btn1" onClick={this.closeMenuForSm.bind(this)}>Signup</button>
+                            {/* </Link> */}
+                            <br />
+                            {/* <Link to="/contact"> */}
+                            <button className="btn1" onClick={this.closeMenuForSm.bind(this)}>Contact</button>
+                            {/* </Link> */}
+                        </div>
                     </div>
                     <div className="hc5"></div>
                     <div className="hc6">
