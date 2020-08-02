@@ -39,9 +39,6 @@ export default class HeaderComponent extends Component {
             <div>
                 <div className="hc1">
                     <i className="material-icons my_ic1" onClick={this.openMenuForSm.bind(this)} >menu</i>
-                    <div className="righted">
-                            <i className="material-icons spin_corona" >coronavirus</i>
-                        </div>
                     <div>
                         <div className="hc8">
 
