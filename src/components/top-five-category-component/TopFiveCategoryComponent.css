@@ -6,3 +6,10 @@
 .tx_mn{
     font-size: 0.6em;
 }
+
+
+.top_content_viw{
+    height: 69vh;
+    background: lavenderblush;
+    min-height: 65vh;
+}

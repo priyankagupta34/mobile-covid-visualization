@@ -1,0 +1,9 @@
+#map {
+    /* width: 1300px; */
+    border-radius: 6px;
+    margin: 20px;
+    height: 40vh;
+    margin: 2vh auto;
+    cursor: unset;
+    width: 80vw;
+}

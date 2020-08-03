@@ -3,6 +3,7 @@ import HeaderComponent from './components/header-component/HeaderComponent';
 import QuickDataViewComponent from './components/quick-data-view-component/QuickDataViewComponent';
 import { CovidServices } from './services/CovidServices';
 import TopFiveCategoryComponent from './components/top-five-category-component/TopFiveCategoryComponent';
+import WorldMapCoverComponent from './components/world-map-cover-component/WorldMapCoverComponent';
 
 export default class App extends Component {
   constructor(props) {
@@ -89,6 +90,7 @@ export default class App extends Component {
             <QuickDataViewComponent totals={totals} totalLoader={totalLoader} />
             <TopFiveCategoryComponent  summaryDataCountries={summaryDataCountries}
               loggedCountryName={loggedCountryName} />
+            <WorldMapCoverComponent  summaryDataCountries={summaryDataCountries}  />
 
           </article>
         </div>

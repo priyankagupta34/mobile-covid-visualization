@@ -166,7 +166,7 @@ export default class TopFiveCategoryComponent extends Component {
     render() {
         const { topData, eventData } = this.state;
         return (
-            <div>
+            <div className="top_content_viw">
                 <TitleIconComponent icon={'stairs'} title="World's Most" />
 
                 <div className="vhpadtopbot1 flexCenterX">
