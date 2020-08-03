@@ -7,3 +7,9 @@
     cursor: unset;
     width: 80vw;
 }
+
+.wmcc1 {
+    height: 60vh;
+    min-height: 382px;
+    background: white;
+}

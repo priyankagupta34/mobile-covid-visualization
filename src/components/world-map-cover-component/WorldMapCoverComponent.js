@@ -129,7 +129,7 @@ export default class WorldMapCoverComponent extends Component {
 
     render() {
         return (
-            <div>
+            <div className="wmcc1">
                 <TitleIconComponent icon={'map'} title="Track through Map" />
                 <div id="map"></div>
             </div>

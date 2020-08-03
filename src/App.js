@@ -71,7 +71,7 @@ export default class App extends Component {
 
   render() {
     const {
-      summaryDataCountries, 
+      summaryDataCountries,
       loggedCountryName,
       //  loggedCountryCode, 
       totals,
@@ -88,11 +88,20 @@ export default class App extends Component {
 
           <article>
             <QuickDataViewComponent totals={totals} totalLoader={totalLoader} />
-            <TopFiveCategoryComponent  summaryDataCountries={summaryDataCountries}
+            <TopFiveCategoryComponent summaryDataCountries={summaryDataCountries}
               loggedCountryName={loggedCountryName} />
-            <WorldMapCoverComponent  summaryDataCountries={summaryDataCountries}  />
+            <WorldMapCoverComponent summaryDataCountries={summaryDataCountries} />
+
+
+            <footer>
+                <i className="material-icons  material-icons-outlined qdvc_in_ic">leak_add</i>
+                <div><font color="white">END</font></div>
+                <i className="material-icons  material-icons-outlined qdvc_in_ic">leak_add</i>              
+            </footer>
 
           </article>
+
+
         </div>
 
         <div className="no_compatibility_mobile">

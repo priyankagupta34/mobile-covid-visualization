@@ -10,14 +10,17 @@
     display: flex;
     justify-content: space-between;
     min-height: 108px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 0 0 10px #5d1212;
 }
 
 .hc2 {
-    position: absolute;
+    position: fixed;
     width: 50vw;
     height: 100vh;
     background-color: #5d1212;
-    z-index: 10;
+    z-index: 999;
     box-shadow: 0px 0px 20px 4px #5d1212;
     padding: 2.5vh;
 }
@@ -118,22 +121,21 @@
 }
 
 
-.spin_corona{
-    font-size:3em;
+.spin_corona {
+    font-size: 3em;
     color: #460606;
     position: relative;
     animation: spin_corona 20s linear infinite;
     transform-origin: 23% 40%;
-    
-  }
-  
-  @keyframes spin_corona{
-    0%{
+
+}
+
+@keyframes spin_corona {
+    0% {
         transform: rotateZ(0);
     }
-    100%{
+
+    100% {
         transform: rotateZ(360deg);
     }
-  }
-
-
+}
