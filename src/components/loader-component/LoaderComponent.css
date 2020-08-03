@@ -1,0 +1,16 @@
+.corn_spin {
+    font-size: 2em;
+    animation: corn_spin 3s linear infinite;
+    position: relative;
+    color: #ff787a;
+}
+
+@keyframes corn_spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

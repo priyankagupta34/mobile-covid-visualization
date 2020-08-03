@@ -1,0 +1,28 @@
+.tic1 {}
+
+.tic_ti {
+    font-size: small;
+    letter-spacing: 0.4px;
+    color: #5d1212;
+    text-transform: capitalize;
+    font-weight: 700;
+
+}
+
+.tic_ti::after {
+    content: '';
+    display: block;
+    height: 0.5px;
+    background-color: #5d1212a4;
+    width: 10vw;
+    margin: 4px auto;
+    width: 100%;
+    /* text-align: center; */
+}
+
+
+.qdvc_in_ic {
+    font-size: 2em;
+    color: #f3b3b9;
+    margin-top: 6px;
+}

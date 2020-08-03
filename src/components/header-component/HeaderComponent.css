@@ -9,6 +9,7 @@
     padding: 2.5vh;
     display: flex;
     justify-content: space-between;
+    min-height: 108px;
 }
 
 .hc2 {
@@ -16,7 +17,7 @@
     width: 50vw;
     height: 100vh;
     background-color: #5d1212;
-    z-index: 2;
+    z-index: 10;
     box-shadow: 0px 0px 20px 4px #5d1212;
     padding: 2.5vh;
 }
@@ -96,7 +97,7 @@
     background: #5d1212;
     color: white;
     padding: 1vh;
-    height: 7vh;
+    height: 10vh;
     border-radius: 4px;
     font-size: 0.7em;
     overflow: hidden;
@@ -104,8 +105,10 @@
     text-overflow: ellipsis;
     max-width: 122px;
     min-width: 97px;
-    max-height: 43px;
+    /* max-height: 43px; */
     box-shadow: 0 0 8px 0px #a10013;
+    min-height: 43px;
+    max-height: 46px;
 }
 
 .hc_ic {

@@ -77,6 +77,12 @@ article {
   width: 100%;
 }
 
+header{
+  width: 100vw;
+  height: 20vh;
+  min-height: 108px;
+}
+
 
 .slideInFromLeft {
   position: relative;
@@ -107,4 +113,34 @@ article {
   100% {
     left: -50vw;
   }
+}
+
+.flexCenterX{
+  display: flex;
+  justify-content: center;
+}
+
+
+.content2{
+  padding: 2vh;
+  background: lavenderblush;
+}
+.content1{
+  padding: 2vh;
+  background: white;
+}
+
+
+svg {
+  overflow: visible;
+}
+
+text{
+  color: #a50404;
+}
+
+.grid{
+  /* fill: lavenderblush; */
+  color: rgb(255, 226, 236);
+
 }

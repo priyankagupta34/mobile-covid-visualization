@@ -1,0 +1,56 @@
+.qdvc1 {
+    display: grid;
+    position: relative;
+    top: -1px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 4px;
+    background-color: white;
+    height: 6.5vh;
+    min-height: 41px;
+}
+
+.qdvc_ic {
+    text-align: center;
+    box-shadow: 0 3px 4px #f7e3e9;
+    font-size: 0.8em;
+    padding: 5px 0;
+    font-weight: 100;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.qvdc_nm {
+    font-size: 0.8em;
+
+}
+
+.qvdc_title {}
+
+.tab_content{
+    display: flex;
+   
+}
+
+.tab{
+    margin-right: 6px;
+    width: 16vw;
+    font-size: small;
+    padding: 2px;
+    box-shadow: 0 -1px 1px #e26565db;
+    border-radius: 2px;
+    cursor: pointer;
+    min-width: 59px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    border-bottom: 1px solid white;
+    font-weight: 600;
+}
+
+.selectedTab{
+    background-color: #e26565;
+    color: white;
+}
