@@ -142,5 +142,8 @@ text{
 .grid{
   /* fill: lavenderblush; */
   color: rgb(255, 226, 236);
+}
 
+.vhpadtopbot1{
+  padding: 1vh 0;
 }

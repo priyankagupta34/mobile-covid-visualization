@@ -30,14 +30,15 @@
 
 .tab_content{
     display: flex;
+    justify-content: center;
    
 }
 
-.tab{
+.tab, .selectedTab{
     margin-right: 6px;
-    width: 16vw;
+    width: 23vw;
     font-size: small;
-    padding: 2px;
+    padding: 4px;
     box-shadow: 0 -1px 1px #e26565db;
     border-radius: 2px;
     cursor: pointer;
@@ -47,7 +48,12 @@
     align-items: center;
     z-index: 2;
     border-bottom: 1px solid white;
-    font-weight: 600;
+    font-weight: 100;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .selectedTab{

@@ -6,8 +6,23 @@ import './TopFiveCategoryComponent.css';
 
 export default class TopFiveCategoryComponent extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            topData: 'top10',
+            eventData: 'NewConfirmed'
+        }
+    }
+
 
     drawNewDeathChartForCurrent(data, sliceLength, type) {
+        console.log('sliceLength', sliceLength)
+        if (sliceLength === 'top10') {
+            sliceLength = 10;
+        }
+        if (sliceLength === 'top15') {
+            sliceLength = 15;
+        }
         let slice = 40;
         let newDataSet = [];
         newDataSet = LimitServices.sortTopLivesInEvents(data, type, sliceLength);
@@ -52,7 +67,7 @@ export default class TopFiveCategoryComponent extends Component {
             .attr('width', 10)
             .attr('height', (d, i) => height - yScale(d[type]))
             .attr('fill', (d, i) => '#a50404')
-            .attr('rx', 3)
+            // .attr('rx', 3)
 
 
         /* Adding data over the bars for better visual effects */
@@ -124,16 +139,51 @@ export default class TopFiveCategoryComponent extends Component {
 
     }
     componentDidMount() {
-        this.drawNewDeathChartForCurrent(this.props.summaryDataCountries, 10, 'NewConfirmed');
+        this.drawNewDeathChartForCurrent(this.props.summaryDataCountries, this.state.topData, this.state.eventData);
     }
 
     componentDidUpdate() {
-        this.drawNewDeathChartForCurrent(this.props.summaryDataCountries, 10, 'NewConfirmed');
+        this.drawNewDeathChartForCurrent(this.props.summaryDataCountries, this.state.topData, this.state.eventData);
+    }
+
+    changeEventDataHandler(e) {
+        this.setState({
+            ...this.state,
+            eventData: e.target.value
+        }, () => {
+            this.drawNewDeathChartForCurrent(this.props.summaryDataCountries, this.state.topData, this.state.eventData);
+        })
+    }
+
+    changeTopDataHandler(e) {
+        this.setState({
+            ...this.state,
+            topData: e.target.value
+        }, () => {
+            this.drawNewDeathChartForCurrent(this.props.summaryDataCountries, this.state.topData, this.state.eventData);
+        })
     }
     render() {
+        const { topData, eventData } = this.state;
         return (
             <div>
-                <TitleIconComponent icon={'stairs'} title="World's Most"/>
+                <TitleIconComponent icon={'stairs'} title="World's Most" />
+
+                <div className="vhpadtopbot1 flexCenterX">
+                    <select className='selectedTab' onChange={this.changeTopDataHandler.bind(this)} value={topData}>
+                        <option value="top10">Top 10</option>
+                        <option value="top15">Top 15</option>
+                    </select>
+                    <select className='selectedTab' onChange={this.changeEventDataHandler.bind(this)} value={eventData} >
+                        <option value="NewConfirmed">New Confirmed</option>
+                        <option value="NewDeaths">New Deaths</option>
+                        <option value="NewRecovered">New Recovered</option>
+                        <option value="TotalConfirmed">Total Confirmed</option>
+                        <option value="TotalDeaths">Total Deaths</option>
+                        <option value="TotalRecovered">Total Recovered</option>
+                    </select>
+                </div>
+
                 <div id="cov_1"></div>
             </div>
         )
