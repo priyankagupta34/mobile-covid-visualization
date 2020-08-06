@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './QuickDataViewComponent.css'
 import TitleIconComponent from '../title-icon-component/TitleIconComponent'
 import LoaderComponent from '../loader-component/LoaderComponent';
+import { Waypoint } from 'react-waypoint';
 
 export default class QuickDataViewComponent extends Component {
     constructor(props) {
@@ -28,6 +29,11 @@ export default class QuickDataViewComponent extends Component {
         }
     }
 
+    addAnimationToWayUp(id, anim) {
+        const component = window.document.getElementById(id);
+        component.classList.add(anim);
+    }
+
 
 
     render() {
@@ -49,7 +55,8 @@ export default class QuickDataViewComponent extends Component {
                         </div>
                         {chosenTab ?
                             <div className="qdvc1">
-                                <div className="qdvc_ic">
+                            <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'rec', 'wayupanimation1')}>
+                                <div className="qdvc_ic" id="rec">
                                     {
                                         totalLoader ?
                                             <div>
@@ -59,7 +66,9 @@ export default class QuickDataViewComponent extends Component {
                                             <LoaderComponent />}
 
                                 </div>
-                                <div className="qdvc_ic">
+                                </Waypoint>
+                                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'dea', 'wayupanimation2')}>
+                                <div className="qdvc_ic" id="dea">
 
                                     {
                                         totalLoader ?
@@ -71,7 +80,9 @@ export default class QuickDataViewComponent extends Component {
 
 
                                 </div>
-                                <div className="qdvc_ic">
+                                </Waypoint>
+                                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'con', 'wayupanimation3')}>
+                                <div className="qdvc_ic" id="con">
                                     {
                                         totalLoader ?
                                             <div>
@@ -82,6 +93,7 @@ export default class QuickDataViewComponent extends Component {
 
 
                                 </div>
+                                </Waypoint>
                             </div>
                             :
 

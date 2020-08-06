@@ -178,7 +178,7 @@ a {
   color: #e46969;
 }
 
-.wayupanimation {
+.wayupanimation, .wayupanimation1, .wayupanimation2, .wayupanimation3 {
   position: relative;
   animation: wayupanimation 1s;
 }
@@ -194,3 +194,60 @@ a {
     opacity: 1;
   }
 }
+
+
+.wayupanimation1 {
+  position: relative;
+  animation: wayupanimation1 1.2s;
+}
+
+@keyframes wayupanimation1 {
+  0% {
+    top: 21vh;
+    opacity: 0;
+  }
+
+  100% {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+
+.wayupanimation2 {
+  position: relative;
+  animation: wayupanimation 1.4s;
+}
+
+@keyframes wayupanimation2 {
+  0% {
+    top: 22vh;
+    opacity: 0;
+  }
+
+  100% {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+
+.wayupanimation3 {
+  position: relative;
+  animation: wayupanimation3 1.6s;
+}
+
+@keyframes wayupanimation3 {
+  0% {
+    top: 23vh;
+    opacity: 0;
+  }
+
+  100% {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+
+
