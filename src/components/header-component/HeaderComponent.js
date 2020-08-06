@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PackageJson from './../../../package.json';
 import './HeaderComponent.css';
+import { Link } from 'react-router-dom';
 
 export default class HeaderComponent extends Component {
 
@@ -57,17 +58,9 @@ export default class HeaderComponent extends Component {
                     </div>
                     <div className="hc4">
                         <div>
-                            {/* <Link to="/login" > */}
-                            <button className="btn1" onClick={this.closeMenuForSm.bind(this)}>Top Fives</button>
-                            {/* </Link> */}
-                            <br />
-                            {/* <Link to="/signup"> */}
-                            <button className="btn1" onClick={this.closeMenuForSm.bind(this)}>Signup</button>
-                            {/* </Link> */}
-                            <br />
-                            {/* <Link to="/contact"> */}
-                            <button className="btn1" onClick={this.closeMenuForSm.bind(this)}>Contact</button>
-                            {/* </Link> */}
+                            <Link to="/world" >
+                                <button className="btn1" onClick={this.closeMenuForSm.bind(this)}>Quick World View</button>
+                            </Link>
                         </div>
                     </div>
                     <div className="hc5"></div>

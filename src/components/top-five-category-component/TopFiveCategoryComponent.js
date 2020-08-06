@@ -16,7 +16,6 @@ export default class TopFiveCategoryComponent extends Component {
 
 
     drawNewDeathChartForCurrent(data, sliceLength, type) {
-        console.log('sliceLength', sliceLength)
         if (sliceLength === 'top10') {
             sliceLength = 10;
         }
@@ -30,6 +29,8 @@ export default class TopFiveCategoryComponent extends Component {
             slice = newDataSet.length
         }
         d3.selectAll("#cov_1 > *").remove();
+        // const height = 300
+        // const width = 500
         const height = document.documentElement.clientHeight * 0.3;
         const width = document.documentElement.clientWidth * 0.7;
 
@@ -67,7 +68,7 @@ export default class TopFiveCategoryComponent extends Component {
             .attr('width', 10)
             .attr('height', (d, i) => height - yScale(d[type]))
             .attr('fill', (d, i) => '#a50404')
-            // .attr('rx', 3)
+        // .attr('rx', 3)
 
 
         /* Adding data over the bars for better visual effects */
@@ -185,6 +186,10 @@ export default class TopFiveCategoryComponent extends Component {
                 </div>
 
                 <div id="cov_1"></div>
+                {/* <svg id="cov_1"
+                    viewBox="0 0 960 500"
+                    preserveAspectRatio="xMidYMid meet">
+                </svg> */}
             </div>
         )
     }

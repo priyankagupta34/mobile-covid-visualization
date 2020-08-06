@@ -1,105 +1,49 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import HeaderComponent from './components/header-component/HeaderComponent';
-import QuickDataViewComponent from './components/quick-data-view-component/QuickDataViewComponent';
-import { CovidServices } from './services/CovidServices';
-import TopFiveCategoryComponent from './components/top-five-category-component/TopFiveCategoryComponent';
-import WorldMapCoverComponent from './components/world-map-cover-component/WorldMapCoverComponent';
+import WorldwideInfoComponent from './components/worldwide-info-component/WorldwideInfoComponent';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      summaryDataCountries: [],
-      loggedCountryName: '',
-      loggedCountryCode: '',
-      totals: '',
-      countryList: [],
-      totalLoader: false
+      loggedCountryName: 'India',
+      loggedCountryCode: 'IN'
     }
   }
 
   componentDidMount() {
-    Promise.all([
-      CovidServices.countryName(),
-      CovidServices.todaysSummary(),
-      CovidServices.listAllCountries()
-    ]).then(result => {
-      this.setState({
-        ...this.state,
-        loggedCountryName: result[0].data.country_name,
-        loggedCountryCode: result[0].data.country_code,
-        summaryDataCountries: result[1].data.Countries,
-        totals: result[1].data.Global,
-        countryList: result[2].data,
-        totalLoader: true
-
-      })
-    }).catch((err) => {
-    });
-    // CovidServices.countryName()
-    //   .then((result) => {
-    //     this.setState({
-    //       ...this.state,
-    //       loggedCountryName: result.data.country_name,
-    //       loggedCountryCode: result.data.country_code
-    //     })
-    //   }).catch((err) => {
-
-    //   });
-    // CovidServices.todaysSummary()
-    //   .then((result) => {
-    //     this.setState({
-    //       ...this.state,
-    //       summaryDataCountries: result.data.Countries,
-    //       totals: result.data.Global,
-    //       totalLoader: true
-    //     })
-    //   }).catch((err) => {
-
-    //   });
-    // CovidServices.listAllCountries()
-    //   .then((result) => {
-    //     this.setState({
-    //       ...this.state,
-    //       countryList: result.data
-    //     })
-    //   }).catch((err) => {
-
-    //   });
 
   }
 
   render() {
     const {
-      summaryDataCountries,
-      loggedCountryName,
-      //  loggedCountryCode, 
-      totals,
-      totalLoader
-      // countryList
+      loggedCountryName
     } = this.state;
     return (
       <div>
         <div className="compatibility_mobile">
-          <header>
-            <HeaderComponent loggedCountryName={loggedCountryName} />
-          </header>
+          <Router>
+            <header>
+              <HeaderComponent loggedCountryName={loggedCountryName} />
+            </header>
 
 
-          <article>
-            <QuickDataViewComponent totals={totals} totalLoader={totalLoader} />
-            <TopFiveCategoryComponent summaryDataCountries={summaryDataCountries}
-              loggedCountryName={loggedCountryName} />
-            <WorldMapCoverComponent summaryDataCountries={summaryDataCountries} />
-
+            <article className="article1">
+              <Switch>
+                <Route path="/world" exact component={WorldwideInfoComponent} />
+              </Switch>
+            </article>
 
             <footer>
-                <i className="material-icons  material-icons-outlined qdvc_in_ic">leak_add</i>
-                <div><font color="white">END</font></div>
-                <i className="material-icons  material-icons-outlined qdvc_in_ic">leak_add</i>              
+              <i className="material-icons  material-icons-outlined qdvc_in_ic">leak_add</i>
+              <div><font color="white">
+                <small>Created with React.js and d3.js</small>
+              </font></div>
+              <i className="material-icons  material-icons-outlined qdvc_in_ic">leak_add</i>
             </footer>
 
-          </article>
+          </Router>
 
 
         </div>

@@ -72,9 +72,10 @@ body {
   text-align: right;
 }
 
-article {
-  height: 80vh;
+.article1 {
+  /* height: 80vh; */
   width: 100%;
+  padding-top: 20px;
 }
 
 header{
@@ -160,4 +161,7 @@ footer{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100vw;
+  position: relative;
+  bottom: 0px;
 }

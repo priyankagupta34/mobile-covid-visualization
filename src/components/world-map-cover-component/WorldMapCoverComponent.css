@@ -13,3 +13,9 @@
     min-height: 382px;
     background: white;
 }
+
+.infoContent{
+    font-size: 0.6em;
+    text-align: center;
+    color: #c12727;
+}
