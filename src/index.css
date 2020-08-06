@@ -78,7 +78,7 @@ body {
   padding-top: 20px;
 }
 
-header{
+header {
   width: 100vw;
   height: 20vh;
   min-height: 108px;
@@ -116,22 +116,23 @@ header{
   }
 }
 
-.flexCenterX{
+.flexCenterX {
   display: flex;
   justify-content: center;
 }
 
 
-.content2{
+.content2 {
   padding: 2vh;
   background: lavenderblush;
 }
-.content1{
+
+.content1 {
   padding: 2vh;
   background: white;
   height: 16vh;
   min-height: 103px;
-  
+
 }
 
 
@@ -139,20 +140,20 @@ svg {
   overflow: visible;
 }
 
-text{
+text {
   color: #a50404;
 }
 
-.grid{
+.grid {
   /* fill: lavenderblush; */
   color: rgb(255, 226, 236);
 }
 
-.vhpadtopbot1{
+.vhpadtopbot1 {
   padding: 1vh 0;
 }
 
-footer{
+footer {
   background-color: #5d1212;
   height: 15vh;
   border-top-left-radius: 5px;
@@ -166,26 +167,27 @@ footer{
   bottom: 0px;
 }
 
-a{
+a {
   color: #e46969;
 }
 
-.colorfordark{
+.colorfordark {
   color: #e46969;
 }
 
-.wayupanimation{
+.wayupanimation {
   position: relative;
-  animation: wayupanimation 0.7s;
+  animation: wayupanimation 1s;
 }
 
-@keyframes wayupanimation{
-  0%{
-    top: 40px;    
+@keyframes wayupanimation {
+  0% {
+    top: 20vh;
     opacity: 0;
   }
-  100%{
-    top: 0;   
-    opacity: 1; 
+
+  100% {
+    top: 0;
+    opacity: 1;
   }
 }
