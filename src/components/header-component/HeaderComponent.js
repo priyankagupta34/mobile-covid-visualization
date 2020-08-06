@@ -54,7 +54,7 @@ export default class HeaderComponent extends Component {
                 </div>
                 {openMenu && <div className="hc2 slideInFromLeft" id="hc1">
                     <div className="hc3 righted">
-                        <i class="material-icons my_ic1" onClick={this.closeMenuForSm.bind(this)}>menu_open</i>
+                        <i className="material-icons my_ic1" onClick={this.closeMenuForSm.bind(this)}>menu_open</i>
                     </div>
                     <div className="hc4">
                         <div>
@@ -73,13 +73,13 @@ export default class HeaderComponent extends Component {
                     </div>
                     <div className="hc7">
                         <a href="https://www.facebook.com/Priyannca" target="_blank" rel="noopener noreferrer" >
-                            <i class="material-icons my_ic2">facebook</i>
+                            <i className="material-icons my_ic2">facebook</i>
                         </a>
                         <a href="tel:+917903365508">
-                            <i class="material-icons my_ic2">call</i>
+                            <i className="material-icons my_ic2">call</i>
                         </a>
                         <a href="mailto:34priyankagupta@gmail.com">
-                            <i class="material-icons my_ic2">email</i>
+                            <i className="material-icons my_ic2">email</i>
                         </a>
                     </div>
                 </div>

@@ -16,6 +16,8 @@ export default class App extends Component {
 
   }
 
+
+
   render() {
     const {
       loggedCountryName
@@ -37,8 +39,10 @@ export default class App extends Component {
 
             <footer>
               <i className="material-icons  material-icons-outlined qdvc_in_ic">leak_add</i>
-              <div><font color="white">
-                <small>Created with React.js and d3.js</small>
+              <div className="centered"><font color="white">
+                <small className="colorfordark">Created with React.js and d3.js</small>
+                <br></br>
+                <small className="colorfordark">Used apis from <a href="https://covid19api.com/">covid19</a> &&nbsp;<a href="https://www.covid19india.org//">covid19india</a></small>
               </font></div>
               <i className="material-icons  material-icons-outlined qdvc_in_ic">leak_add</i>
             </footer>

@@ -4,6 +4,7 @@ import QuickDataViewComponent from '../quick-data-view-component/QuickDataViewCo
 import TopFiveCategoryComponent from '../top-five-category-component/TopFiveCategoryComponent'
 import WorldMapCoverComponent from '../world-map-cover-component/WorldMapCoverComponent'
 import './WorldwideInfoComponent.css'
+import { Waypoint } from 'react-waypoint';
 
 export default class WorldwideInfoComponent extends Component {
     constructor(props) {
@@ -16,6 +17,11 @@ export default class WorldwideInfoComponent extends Component {
             countryList: [],
             totalLoader: false
         }
+    }
+
+    addAnimationToWayUp(id) {
+        const component = window.document.getElementById(id);
+        component.classList.add('wayupanimation');
     }
 
     componentDidMount() {
@@ -48,10 +54,23 @@ export default class WorldwideInfoComponent extends Component {
 
         return (
             <div>
-                <QuickDataViewComponent totals={totals} totalLoader={totalLoader} />
-                <TopFiveCategoryComponent summaryDataCountries={summaryDataCountries}
-                    loggedCountryName={loggedCountryName} />
-                <WorldMapCoverComponent summaryDataCountries={summaryDataCountries} />
+                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'quickDataViewComponent')}>
+                    <div id="quickDataViewComponent">
+                        <QuickDataViewComponent totals={totals} totalLoader={totalLoader} />
+                    </div>
+                </Waypoint>
+                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'topFiveCategoryComponent')}>
+                    <div id="topFiveCategoryComponent">
+                        <TopFiveCategoryComponent summaryDataCountries={summaryDataCountries}
+                            loggedCountryName={loggedCountryName} />
+                    </div>
+                </Waypoint>
+
+                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'worldMapCoverComponent')}>
+                    <div id="worldMapCoverComponent">
+                        <WorldMapCoverComponent summaryDataCountries={summaryDataCountries} />
+                    </div>
+                </Waypoint>
             </div>
         )
     }

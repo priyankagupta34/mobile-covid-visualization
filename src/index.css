@@ -165,3 +165,27 @@ footer{
   position: relative;
   bottom: 0px;
 }
+
+a{
+  color: #e46969;
+}
+
+.colorfordark{
+  color: #e46969;
+}
+
+.wayupanimation{
+  position: relative;
+  animation: wayupanimation 0.7s;
+}
+
+@keyframes wayupanimation{
+  0%{
+    top: 40px;    
+    opacity: 0;
+  }
+  100%{
+    top: 0;   
+    opacity: 1; 
+  }
+}
