@@ -203,7 +203,7 @@ a {
 
 @keyframes wayupanimation1 {
   0% {
-    top: 21vh;
+    top: 22vh;
     opacity: 0;
   }
 
@@ -221,7 +221,7 @@ a {
 
 @keyframes wayupanimation2 {
   0% {
-    top: 22vh;
+    top: 24vh;
     opacity: 0;
   }
 
@@ -239,7 +239,7 @@ a {
 
 @keyframes wayupanimation3 {
   0% {
-    top: 23vh;
+    top: 26vh;
     opacity: 0;
   }
 

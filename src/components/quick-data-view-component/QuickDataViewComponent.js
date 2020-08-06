@@ -43,18 +43,18 @@ export default class QuickDataViewComponent extends Component {
             <>
 
                 <TitleIconComponent icon="menu_book" title={chosenTab ? 'new cases' : 'total cases'} />
-                    <div className="content1" id="quickDataContent">
+                <div className="content1" id="quickDataContent">
 
-                        <div className="tab_content">
-                            <div className={chosenTab ? 'tab' : 'tab selectedTab'} onClick={this.choseTabHandler.bind(this, 'new')}>
-                                New
+                    <div className="tab_content">
+                        <div className={chosenTab ? 'tab' : 'tab selectedTab'} onClick={this.choseTabHandler.bind(this, 'new')}>
+                            New
                         </div>
-                            <div className={!chosenTab ? 'tab' : 'tab selectedTab'} onClick={this.choseTabHandler.bind(this, 'total')}>
-                                Total
+                        <div className={!chosenTab ? 'tab' : 'tab selectedTab'} onClick={this.choseTabHandler.bind(this, 'total')}>
+                            Total
                         </div>
-                        </div>
-                        {chosenTab ?
-                            <div className="qdvc1">
+                    </div>
+                    {chosenTab ?
+                        <div className="qdvc1">
                             <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'rec', 'wayupanimation1')}>
                                 <div className="qdvc_ic" id="rec">
                                     {
@@ -66,8 +66,8 @@ export default class QuickDataViewComponent extends Component {
                                             <LoaderComponent />}
 
                                 </div>
-                                </Waypoint>
-                                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'dea', 'wayupanimation2')}>
+                            </Waypoint>
+                            <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'dea', 'wayupanimation2')}>
                                 <div className="qdvc_ic" id="dea">
 
                                     {
@@ -80,8 +80,8 @@ export default class QuickDataViewComponent extends Component {
 
 
                                 </div>
-                                </Waypoint>
-                                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'con', 'wayupanimation3')}>
+                            </Waypoint>
+                            <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'con', 'wayupanimation3')}>
                                 <div className="qdvc_ic" id="con">
                                     {
                                         totalLoader ?
@@ -93,47 +93,47 @@ export default class QuickDataViewComponent extends Component {
 
 
                                 </div>
-                                </Waypoint>
-                            </div>
-                            :
+                            </Waypoint>
+                        </div>
+                        :
 
-                            <div className="content">
-                                <div className="qdvc1">
-                                    <div className="qdvc_ic">
-                                        {
-                                            totalLoader ?
-                                                <div>
-                                                    <div>Recovered</div>
-                                                    <div className="qvdc_nm">{totals.TotalRecovered}</div>
-                                                </div> :
-                                                <LoaderComponent />}
-
-
-                                    </div>
-                                    <div className="qdvc_ic">
-                                        {
-                                            totalLoader ?
-                                                <div>
-                                                    <div>Deaths</div>
-                                                    <div className="qvdc_nm">{totals.TotalDeaths}</div>
-                                                </div> :
-                                                <LoaderComponent />}
-
-                                    </div>
-                                    <div className="qdvc_ic">   {
+                        <div className="content">
+                            <div className="qdvc1">
+                                <div className="qdvc_ic">
+                                    {
                                         totalLoader ?
                                             <div>
-                                                <div>Confirmed</div>
-                                                <div className="qvdc_nm">{totals.TotalConfirmed}</div>
+                                                <div>Recovered</div>
+                                                <div className="qvdc_nm">{totals.TotalRecovered}</div>
                                             </div> :
                                             <LoaderComponent />}
-                                    </div>
+
+
+                                </div>
+                                <div className="qdvc_ic">
+                                    {
+                                        totalLoader ?
+                                            <div>
+                                                <div>Deaths</div>
+                                                <div className="qvdc_nm">{totals.TotalDeaths}</div>
+                                            </div> :
+                                            <LoaderComponent />}
+
+                                </div>
+                                <div className="qdvc_ic">   {
+                                    totalLoader ?
+                                        <div>
+                                            <div>Confirmed</div>
+                                            <div className="qvdc_nm">{totals.TotalConfirmed}</div>
+                                        </div> :
+                                        <LoaderComponent />}
                                 </div>
                             </div>
+                        </div>
 
-                        }
+                    }
 
-                    </div>
+                </div>
             </>
         )
     }
