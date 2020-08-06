@@ -165,6 +165,9 @@ footer {
   width: 100vw;
   position: relative;
   bottom: 0px;
+  font-size: small;
+  letter-spacing: 0.5px;
+  word-spacing: 6px;
 }
 
 a {
