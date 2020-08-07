@@ -38,8 +38,9 @@
 
 .hc4 {
     height: 35vh;
-    display: flex;
-    justify-content: center;
+    /* display: flex;
+    justify-content: center; */
+    text-align: center;
 }
 
 .hc5 {
@@ -95,7 +96,7 @@
 }
 
 .hc8 {
-    width: 26vw;
+    width: 32vw;
     text-align: right;
     background: #5d1212;
     color: white;
@@ -107,8 +108,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     max-width: 122px;
-    min-width: 97px;
-    /* max-height: 43px; */
+    min-width: 115px;
     box-shadow: 0 0 8px 0px #a10013;
     min-height: 43px;
     max-height: 46px;
@@ -138,4 +138,79 @@
     100% {
         transform: rotateZ(360deg);
     }
+}
+
+
+.reminbell {
+    color: white;
+    margin: 3px;
+    font-size: 2em;
+    animation: reminbell 0.7s;
+}
+
+@keyframes reminbell {
+    0% {
+        transform: rotate(50deg);
+    }
+
+    20% {
+        transform: rotate(-40deg);
+    }
+
+    40% {
+        transform: rotate(30deg);
+    }
+
+    60% {
+        transform: rotate(-20deg);
+    }
+
+    80% {
+        transform: rotate(10deg);
+    }
+
+    100% {
+        transform: rotate(0);
+    }
+}
+
+.notificationPanel {
+    position: absolute;
+    /* border: 1px solid white; */
+    width: 80vw;
+    height: 81vh;
+    background: white;
+    left: 11vw;
+    top: 10vh;
+    border-radius: 3px;
+    box-shadow: 0 0 7px #78010185;
+    z-index: 13;
+    animation: notificationPanelAnim 0.6s;
+    overflow-y: auto;
+    padding: 2vh;
+    font-size: 0.7em;
+    color: #bf6f71;
+    line-height: 16px;
+}
+
+@keyframes notificationPanelAnim {
+    0% {
+        top: 5vh;
+    }
+
+    100% {
+        top: 10vh;
+    }
+}
+
+.notice{
+    padding: 1vh;
+    box-shadow: 0 0 4px #89010166;
+    margin: 2vh;
+    border-radius: 2px;
+    background: lavenderblush;
+}
+
+.noticeUpdate{
+    color: #a10013;
 }

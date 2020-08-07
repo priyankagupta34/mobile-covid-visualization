@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { CovidServices } from '../../services/CovidServices'
 import QuickDataViewComponent from '../quick-data-view-component/QuickDataViewComponent'
-import TopFiveCategoryComponent from '../top-five-category-component/TopFiveCategoryComponent'
+import TopChartComponent from '../top-chart-component/TopChartComponent'
 import WorldMapCoverComponent from '../world-map-cover-component/WorldMapCoverComponent'
 import './WorldwideInfoComponent.css'
 import { Waypoint } from 'react-waypoint';
@@ -59,9 +59,9 @@ export default class WorldwideInfoComponent extends Component {
                         <QuickDataViewComponent totals={totals} totalLoader={totalLoader} />
                     </div>
                 </Waypoint>
-                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'topFiveCategoryComponent')}>
-                    <div id="topFiveCategoryComponent">
-                        <TopFiveCategoryComponent summaryDataCountries={summaryDataCountries}
+                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'TopChartComponent')}>
+                    <div id="TopChartComponent">
+                        <TopChartComponent summaryDataCountries={summaryDataCountries}
                             loggedCountryName={loggedCountryName} />
                     </div>
                 </Waypoint>

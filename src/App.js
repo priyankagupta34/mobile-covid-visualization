@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import HeaderComponent from './components/header-component/HeaderComponent';
 import WorldwideInfoComponent from './components/worldwide-info-component/WorldwideInfoComponent';
+import IndiaCovidshowComponent from './components/india-covidshow-component/IndiaCovidshowComponent';
 
 export default class App extends Component {
   constructor(props) {
@@ -34,6 +35,7 @@ export default class App extends Component {
             <article className="article1">
               <Switch>
                 <Route path="/world" exact component={WorldwideInfoComponent} />
+                <Route path="/india" exact component={IndiaCovidshowComponent} />
               </Switch>
             </article>
 

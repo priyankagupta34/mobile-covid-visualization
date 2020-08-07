@@ -5,7 +5,8 @@ export const CovidServices = {
     totalCount,
     listAllCountries,
     listAllLatLongs,
-    getCountryPopulation
+    getCountryPopulation,
+    getNotifications
 }
 
 const axios = require('axios');
@@ -47,4 +48,10 @@ function getCountryPopulation(countrycode) {
         }).catch((err) => {
 
         });
+}
+
+
+function getNotifications(){
+    return axios.get('https://api.covid19india.org/updatelog/log.json');
+
 }

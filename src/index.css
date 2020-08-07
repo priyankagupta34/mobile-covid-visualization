@@ -64,6 +64,10 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+.flex{
+  display: flex;
+}
+
 .centered {
   text-align: center;
 }
@@ -178,7 +182,10 @@ a {
   color: #e46969;
 }
 
-.wayupanimation, .wayupanimation1, .wayupanimation2, .wayupanimation3 {
+.wayupanimation,
+.wayupanimation1,
+.wayupanimation2,
+.wayupanimation3 {
   position: relative;
   animation: wayupanimation 1s;
 }
@@ -191,7 +198,7 @@ a {
 
   100% {
     top: 0;
-    opacity: 1;
+    opacity: 0.8;
   }
 }
 
@@ -209,7 +216,7 @@ a {
 
   100% {
     top: 0;
-    opacity: 1;
+    opacity: 0.8;
   }
 }
 
@@ -227,7 +234,7 @@ a {
 
   100% {
     top: 0;
-    opacity: 1;
+    opacity: 0.8;
   }
 }
 
@@ -245,9 +252,6 @@ a {
 
   100% {
     top: 0;
-    opacity: 1;
+    opacity: 0.8;
   }
 }
-
-
-

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PackageJson from './../../../package.json';
 import './HeaderComponent.css';
 import { Link } from 'react-router-dom';
+import { CovidServices } from '../../services/CovidServices';
 
 export default class HeaderComponent extends Component {
 
@@ -9,7 +10,40 @@ export default class HeaderComponent extends Component {
         super(props);
         this.state = {
             openMenu: false,
+            openNotificationPanel: false,
+            notificationCompleteset: []
         }
+    }
+
+    componentDidMount() {
+        this.getNotificationLogs();
+    }
+
+    getNotificationLogs() {
+
+        CovidServices.getNotifications()
+            .then(response => {
+                console.log('response ', response.data)
+                this.setState({
+                    ...this.state,
+                    notificationCompleteset: response.data
+                })
+            })
+            .catch(error => {
+
+            })
+    }
+
+    convertTimestampToEpochToDate(utcSeconds) {
+        const epochStamp = new Date(0);
+        const timestamp = epochStamp.setUTCSeconds(utcSeconds);
+        return new Date(timestamp).toDateString();
+    }
+
+    convertTimestampToEpochToTime(utcSeconds) {
+        const epochStamp = new Date(0);
+        const timestamp = epochStamp.setUTCSeconds(utcSeconds);
+        return new Date(timestamp).toLocaleTimeString();
     }
 
     openMenuForSm() {
@@ -17,7 +51,13 @@ export default class HeaderComponent extends Component {
             ...this.state,
             openMenu: true
         });
+    }
 
+    openNotificationPanelHandler() {
+        this.setState({
+            ...this.state,
+            openNotificationPanel: !this.state.openNotificationPanel
+        });
     }
 
     closeMenuForSm() {
@@ -34,22 +74,40 @@ export default class HeaderComponent extends Component {
     }
 
     render() {
-        const { openMenu } = this.state;
+        const { openMenu, openNotificationPanel, notificationCompleteset } = this.state;
         const { loggedCountryName } = this.props;
         return (
             <div>
                 <div className="hc1">
                     <i className="material-icons my_ic1" onClick={this.openMenuForSm.bind(this)} >menu</i>
                     <div>
-                        <div className="hc8">
-
-                            <div className="hc_cntry"> <i className="material-icons hc_ic">flare</i>{loggedCountryName}</div>
-                            <div className="hc_tle">{new Date().toDateString()}</div>
-
+                        <div className="notificationPoint">
+                            <div className="hc8">
+                                <div className="flex">
+                                    <div>
+                                        <div className="hc_cntry"> <i className="material-icons hc_ic">flare</i>{loggedCountryName}</div>
+                                        <div className="hc_tle">{new Date().toDateString()}</div>
+                                    </div>
+                                    {!openNotificationPanel ? <i className="material-icons material-icons-outlined hc_ic reminbell"
+                                        onClick={this.openNotificationPanelHandler.bind(this)} >notifications</i>
+                                        :
+                                        <i className="material-icons material-icons-outlined hc_ic reminbell"
+                                            onClick={this.openNotificationPanelHandler.bind(this)} >notifications_off</i>
+                                    }
+                                </div>
+                            </div>
+                            <div className="righted">
+                                <i className="material-icons spin_corona" >coronavirus</i>
+                            </div>
                         </div>
-                        <div className="righted">
-                            <i className="material-icons spin_corona" >coronavirus</i>
-                        </div>
+                        {openNotificationPanel && <div className="notificationPanel">
+                            {notificationCompleteset.reverse().map((item, index) => (
+                                <div key={item.timestamp} className="notice">
+                                    <div>{this.convertTimestampToEpochToDate(item.timestamp)}, {this.convertTimestampToEpochToTime(item.timestamp)}</div>
+                                    <div className="noticeUpdate">{item.update}</div>
+                                </div>
+                            ))}
+                        </div>}
                     </div>
                 </div>
                 {openMenu && <div className="hc2 slideInFromLeft" id="hc1">
@@ -57,6 +115,11 @@ export default class HeaderComponent extends Component {
                         <i className="material-icons my_ic1" onClick={this.closeMenuForSm.bind(this)}>menu_open</i>
                     </div>
                     <div className="hc4">
+                        <div>
+                            <Link to="/india" >
+                                <button className="btn1" onClick={this.closeMenuForSm.bind(this)}>Quick India View</button>
+                            </Link>
+                        </div>
                         <div>
                             <Link to="/world" >
                                 <button className="btn1" onClick={this.closeMenuForSm.bind(this)}>Quick World View</button>

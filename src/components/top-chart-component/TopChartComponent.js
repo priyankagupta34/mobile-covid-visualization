@@ -2,9 +2,9 @@ import * as d3 from 'd3';
 import React, { Component } from 'react';
 import { LimitServices } from '../../services/LimitServices';
 import TitleIconComponent from '../title-icon-component/TitleIconComponent';
-import './TopFiveCategoryComponent.css';
+import './TopChartComponent.css';
 
-export default class TopFiveCategoryComponent extends Component {
+export default class TopChartComponent extends Component {
 
     constructor(props) {
         super(props);
@@ -71,17 +71,17 @@ export default class TopFiveCategoryComponent extends Component {
         // .attr('rx', 3)
 
 
-        /* Adding data over the bars for better visual effects */
-        svg.selectAll('text')
-            .data(newDataSet)
-            .enter()
-            .append('text')
-            .attr('class', 'tx_mn')
-            .text(d => `${LimitServices.abbreviateIntToReadableString(d[type])}`)
-            .attr('dx', (d, i) => xScale(i))
-            .attr('dy', (d, i) => yScale(d[type]) - 10)
-            .style('fill', '#a50404')
-
+        if (sliceLength !== 15) {  /* Adding data over the bars for better visual effects */
+            svg.selectAll('text')
+                .data(newDataSet)
+                .enter()
+                .append('text')
+                .attr('class', 'tx_mn')
+                .text(d => `${LimitServices.abbreviateIntToReadableString(d[type])}`)
+                .attr('dx', (d, i) => xScale(i))
+                .attr('dy', (d, i) => yScale(d[type]) - 10)
+                .style('fill', '#a50404')
+        }
         /*  gridlines in x axis function */
         function make_x_gridlines() {
             return d3.axisBottom(xScale)

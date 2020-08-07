@@ -1,0 +1,12 @@
+.icsc_1{
+    width: 100vw;
+    height: 50vh;
+    overflow: hidden;
+}
+
+.icsc_tble{
+    width: 150vw;
+    height: 100%;
+    background-color: lavenderblush;
+    justify-content: space-between;
+}
