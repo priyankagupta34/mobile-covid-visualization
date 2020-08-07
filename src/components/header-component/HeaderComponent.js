@@ -37,13 +37,36 @@ export default class HeaderComponent extends Component {
     convertTimestampToEpochToDate(utcSeconds) {
         const epochStamp = new Date(0);
         const timestamp = epochStamp.setUTCSeconds(utcSeconds);
-        return new Date(timestamp).toDateString();
+        const currentTimeStamp = new Date().getTime();
+        console.log('new Date().toDateString() ', new Date().toDateString())
+        console.log('new Date(timestamp).toDateString()', new Date(timestamp).toDateString())
+        if(new Date().toDateString() === new Date(timestamp).toDateString()){
+            const hour = Math.ceil((currentTimeStamp-timestamp)/(3600*1000));
+            if(hour === 1){
+                return `${hour} Hour Ago`
+            }else{
+                return `${hour} Hours Ago`
+            }
+        }else
+            return new Date(timestamp).toDateString();
     }
 
     convertTimestampToEpochToTime(utcSeconds) {
         const epochStamp = new Date(0);
         const timestamp = epochStamp.setUTCSeconds(utcSeconds);
         return new Date(timestamp).toLocaleTimeString();
+    }
+
+    timeDifferenceBetweenEventNReal(utcSeconds){
+        const epochStamp = new Date(0);
+        const timestamp = epochStamp.setUTCSeconds(utcSeconds);
+        const currentTimeStamp = new Date().getTime();
+        const hour = Math.ceil(currentTimeStamp-timestamp)/(3600*1000);
+        if(hour === 1){
+            return `${hour} Hour Ago`
+        }else{
+            return `${hour} Hours Ago`
+        }
     }
 
     openMenuForSm() {
@@ -54,10 +77,21 @@ export default class HeaderComponent extends Component {
     }
 
     openNotificationPanelHandler() {
-        this.setState({
-            ...this.state,
-            openNotificationPanel: !this.state.openNotificationPanel
-        });
+        if (this.state.openNotificationPanel) {
+            const id = window.document.getElementById('notificationPanel');
+            id.classList.add('reverseNotificationPanelAnim');
+            setTimeout(() => {
+                this.setState({
+                    ...this.state,
+                    openNotificationPanel: false
+                });
+            }, 600);
+        } else {
+            this.setState({
+                ...this.state,
+                openNotificationPanel: true
+            });
+        }
     }
 
     closeMenuForSm() {
@@ -100,10 +134,13 @@ export default class HeaderComponent extends Component {
                                 <i className="material-icons spin_corona" >coronavirus</i>
                             </div>
                         </div>
-                        {openNotificationPanel && <div className="notificationPanel">
+                        {openNotificationPanel && <div className="notificationPanel" id="notificationPanel">
+                            <div className="heading">
+                                <b>Latest Information of Covid in India</b>
+                            </div>
                             {notificationCompleteset.reverse().map((item, index) => (
                                 <div key={item.timestamp} className="notice">
-                                    <div>{this.convertTimestampToEpochToDate(item.timestamp)}, {this.convertTimestampToEpochToTime(item.timestamp)}</div>
+                                        <div><font color="#e6acad">{this.convertTimestampToEpochToDate(item.timestamp)}</font></div>
                                     <div className="noticeUpdate">{item.update}</div>
                                 </div>
                             ))}

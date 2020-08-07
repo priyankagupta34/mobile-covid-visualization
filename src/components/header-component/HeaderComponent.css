@@ -178,7 +178,7 @@
     position: absolute;
     /* border: 1px solid white; */
     width: 80vw;
-    height: 81vh;
+    height: 77vh;
     background: white;
     left: 11vw;
     top: 10vh;
@@ -195,7 +195,7 @@
 
 @keyframes notificationPanelAnim {
     0% {
-        top: 5vh;
+        top: -100vh;
     }
 
     100% {
@@ -213,4 +213,25 @@
 
 .noticeUpdate{
     color: #a10013;
+}
+
+.reverseNotificationPanelAnim{
+    animation: reverseNotificationPanelAnim 0.6s;
+}
+
+
+@keyframes reverseNotificationPanelAnim {
+    0% {
+        top: 10vh;
+    }
+
+    100% {
+        top: -100vh;
+    }
+}
+
+
+.heading{
+    padding: 10px;
+    text-align: center;
 }
