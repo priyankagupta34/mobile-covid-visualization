@@ -60,7 +60,7 @@ export default class QuickDataViewComponent extends Component {
                                     {
                                         totalLoader ?
                                             <div>
-                                                <div>Recovered</div>
+                                                <div className="fontwt500">Recovered</div>
                                                 <div className="qvdc_nm">{totals.NewRecovered}</div>
                                             </div> :
                                             <LoaderComponent />}
@@ -73,7 +73,7 @@ export default class QuickDataViewComponent extends Component {
                                     {
                                         totalLoader ?
                                             <div>
-                                                <div>Deaths</div>
+                                                <div className="fontwt500">Deaths</div>
                                                 <div className="qvdc_nm">{totals.NewDeaths}</div>
                                             </div> :
                                             <LoaderComponent />}
@@ -86,7 +86,7 @@ export default class QuickDataViewComponent extends Component {
                                     {
                                         totalLoader ?
                                             <div>
-                                                <div>Confirmed</div>
+                                                <div className="fontwt500">Confirmed</div>
                                                 <div className="qvdc_nm">{totals.NewConfirmed}</div>
                                             </div> :
                                             <LoaderComponent />}
@@ -99,35 +99,41 @@ export default class QuickDataViewComponent extends Component {
 
                         <div className="content">
                             <div className="qdvc1">
-                                <div className="qdvc_ic">
+                            <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'rec1', 'wayupanimation1')}>
+                                <div className="qdvc_ic" id="rec1">
                                     {
                                         totalLoader ?
                                             <div>
-                                                <div>Recovered</div>
+                                                <div className="fontwt500">Recovered</div>
                                                 <div className="qvdc_nm">{totals.TotalRecovered}</div>
                                             </div> :
                                             <LoaderComponent />}
 
 
                                 </div>
-                                <div className="qdvc_ic">
+                                </Waypoint>
+                                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'dea1', 'wayupanimation2')}>
+                                <div className="qdvc_ic" id="dea1">
                                     {
                                         totalLoader ?
                                             <div>
-                                                <div>Deaths</div>
+                                                <div className="fontwt500">Deaths</div>
                                                 <div className="qvdc_nm">{totals.TotalDeaths}</div>
                                             </div> :
                                             <LoaderComponent />}
 
                                 </div>
-                                <div className="qdvc_ic">   {
+                                </Waypoint>
+                                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'con1', 'wayupanimation3')}>
+                                <div className="qdvc_ic" id="con1">   {
                                     totalLoader ?
                                         <div>
-                                            <div>Confirmed</div>
+                                            <div className="fontwt500">Confirmed</div>
                                             <div className="qvdc_nm">{totals.TotalConfirmed}</div>
                                         </div> :
                                         <LoaderComponent />}
                                 </div>
+                                </Waypoint>
                             </div>
                         </div>
 

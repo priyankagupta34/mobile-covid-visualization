@@ -4,6 +4,7 @@ import './HeaderComponent.css';
 import { Link } from 'react-router-dom';
 import { CovidServices } from '../../services/CovidServices';
 import { Waypoint } from 'react-waypoint';
+import LoaderComponent from '../loader-component/LoaderComponent';
 
 export default class HeaderComponent extends Component {
 
@@ -12,7 +13,8 @@ export default class HeaderComponent extends Component {
         this.state = {
             openMenu: false,
             openNotificationPanel: false,
-            notificationCompleteset: []
+            notificationCompleteset: [],
+            notificationLoader: false
         }
     }
 
@@ -21,17 +23,22 @@ export default class HeaderComponent extends Component {
     }
 
     getNotificationLogs() {
-
-        CovidServices.getNotifications()
-            .then(response => {
-                this.setState({
-                    ...this.state,
-                    notificationCompleteset: response.data.reverse()
+        this.setState({
+            ...this.state,
+            notificationLoader: true
+        }, () => {
+            CovidServices.getNotifications()
+                .then(response => {
+                    this.setState({
+                        ...this.state,
+                        notificationLoader: false,
+                        notificationCompleteset: response.data.reverse()
+                    })
                 })
-            })
-            .catch(error => {
+                .catch(error => {
 
-            })
+                })
+        })
     }
 
     convertTimestampToEpochToDate(utcSeconds) {
@@ -40,14 +47,14 @@ export default class HeaderComponent extends Component {
         const currentTimeStamp = new Date().getTime();
         console.log('new Date().toDateString() ', new Date().toDateString())
         console.log('new Date(timestamp).toDateString()', new Date(timestamp).toDateString())
-        if(new Date().toDateString() === new Date(timestamp).toDateString()){
-            const hour = Math.ceil((currentTimeStamp-timestamp)/(3600*1000));
-            if(hour === 1){
+        if (new Date().toDateString() === new Date(timestamp).toDateString()) {
+            const hour = Math.ceil((currentTimeStamp - timestamp) / (3600 * 1000));
+            if (hour === 1) {
                 return `${hour} Hour Ago`
-            }else{
+            } else {
                 return `${hour} Hours Ago`
             }
-        }else
+        } else
             return new Date(timestamp).toDateString();
     }
 
@@ -57,14 +64,14 @@ export default class HeaderComponent extends Component {
         return new Date(timestamp).toLocaleTimeString();
     }
 
-    timeDifferenceBetweenEventNReal(utcSeconds){
+    timeDifferenceBetweenEventNReal(utcSeconds) {
         const epochStamp = new Date(0);
         const timestamp = epochStamp.setUTCSeconds(utcSeconds);
         const currentTimeStamp = new Date().getTime();
-        const hour = Math.ceil(currentTimeStamp-timestamp)/(3600*1000);
-        if(hour === 1){
+        const hour = Math.ceil(currentTimeStamp - timestamp) / (3600 * 1000);
+        if (hour === 1) {
             return `${hour} Hour Ago`
-        }else{
+        } else {
             return `${hour} Hours Ago`
         }
     }
@@ -114,7 +121,7 @@ export default class HeaderComponent extends Component {
 
 
     render() {
-        const { openMenu, openNotificationPanel, notificationCompleteset } = this.state;
+        const { openMenu, openNotificationPanel, notificationCompleteset, notificationLoader } = this.state;
         const { loggedCountryName } = this.props;
         return (
             <div>
@@ -144,14 +151,22 @@ export default class HeaderComponent extends Component {
                             <div className="heading">
                                 <b>Latest Information of Covid in India</b>
                             </div>
+                            {!notificationLoader ?
+                            <>
                             {notificationCompleteset.map((item, index) => (
                                 <Waypoint onEnter={this.addAnimationToWayUp.bind(this, item.timestamp)}>
                                     <div key={item.timestamp} className="notice" id={item.timestamp}>
-                                            <div><font color="#e6acad">{this.convertTimestampToEpochToDate(item.timestamp)}</font></div>
+                                        <div><font color="#e6acad">{this.convertTimestampToEpochToDate(item.timestamp)}</font></div>
                                         <div className="noticeUpdate">{item.update}</div>
                                     </div>
                                 </Waypoint>
                             ))}
+                            </>
+                            :
+                            <div className="loadinging">
+                                <LoaderComponent></LoaderComponent>
+                            </div>
+                            }
                         </div>}
                     </div>
                 </div>

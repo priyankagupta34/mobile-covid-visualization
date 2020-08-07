@@ -22,6 +22,9 @@ export default class TopChartComponent extends Component {
         if (sliceLength === 'top15') {
             sliceLength = 15;
         }
+        if (sliceLength === 'top20') {
+            sliceLength = 20;
+        }
         let slice = 40;
         let newDataSet = [];
         newDataSet = LimitServices.sortTopLivesInEvents(data, type, sliceLength);
@@ -71,7 +74,7 @@ export default class TopChartComponent extends Component {
         // .attr('rx', 3)
 
 
-        if (sliceLength !== 15) {  /* Adding data over the bars for better visual effects */
+        if (sliceLength === 10) {  /* Adding data over the bars for better visual effects */
             svg.selectAll('text')
                 .data(newDataSet)
                 .enter()
@@ -174,6 +177,7 @@ export default class TopChartComponent extends Component {
                     <select className='selectedTab' onChange={this.changeTopDataHandler.bind(this)} value={topData}>
                         <option value="top10">Top 10</option>
                         <option value="top15">Top 15</option>
+                        <option value="top20">Top 20</option>
                     </select>
                     <select className='selectedTab' onChange={this.changeEventDataHandler.bind(this)} value={eventData} >
                         <option value="NewConfirmed">New Confirmed</option>

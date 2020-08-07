@@ -15,7 +15,8 @@ export default class WorldwideInfoComponent extends Component {
             loggedCountryCode: 'IN',
             totals: '',
             countryList: [],
-            totalLoader: false
+            totalLoader: false,
+            tryAgainLoader: false
         }
     }
 
@@ -38,8 +39,16 @@ export default class WorldwideInfoComponent extends Component {
 
             })
         }).catch((err) => {
+            this.setState({
+                ...this.state,
+                tryAgainLoader: true
+            })
         });
 
+    }
+
+    reload() {
+        window.location.reload()
     }
 
     render() {
@@ -48,7 +57,8 @@ export default class WorldwideInfoComponent extends Component {
             loggedCountryName,
             //  loggedCountryCode, 
             totals,
-            totalLoader
+            totalLoader,
+            tryAgainLoader
             // countryList
         } = this.state;
 
@@ -71,6 +81,17 @@ export default class WorldwideInfoComponent extends Component {
                         <WorldMapCoverComponent summaryDataCountries={summaryDataCountries} />
                     </div>
                 </Waypoint>
+
+                {tryAgainLoader &&
+                    <div className="tryagainloader">
+                        <div>
+                            <div>No internet.</div>
+                            <div>Please Reload</div>
+                            <div>
+                                <i className="material-icons my_ic1" onClick={this.reload}>refresh</i>
+                            </div>
+                        </div>
+                    </div>}
             </div>
         )
     }

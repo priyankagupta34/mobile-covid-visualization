@@ -64,7 +64,7 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-.flex{
+.flex {
   display: flex;
 }
 
@@ -254,4 +254,27 @@ a {
     top: 0;
     opacity: 0.8;
   }
+}
+
+
+.fontwt500 {
+  font-weight: 500;
+}
+
+.tryagainloader {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(89 23 30);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  overflow: hidden;
+  z-index: 999999;
+  color: white;
+  top: 0;
+  left: 0;
+  backface-visibility: hidden;
+  font-size: 0.8em;
+  text-align: center;
 }
