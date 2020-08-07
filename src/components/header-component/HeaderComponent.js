@@ -3,6 +3,7 @@ import PackageJson from './../../../package.json';
 import './HeaderComponent.css';
 import { Link } from 'react-router-dom';
 import { CovidServices } from '../../services/CovidServices';
+import { Waypoint } from 'react-waypoint';
 
 export default class HeaderComponent extends Component {
 
@@ -23,10 +24,9 @@ export default class HeaderComponent extends Component {
 
         CovidServices.getNotifications()
             .then(response => {
-                console.log('response ', response.data)
                 this.setState({
                     ...this.state,
-                    notificationCompleteset: response.data
+                    notificationCompleteset: response.data.reverse()
                 })
             })
             .catch(error => {
@@ -107,6 +107,12 @@ export default class HeaderComponent extends Component {
 
     }
 
+    addAnimationToWayUp(id) {
+        const component = window.document.getElementById(id);
+        component.classList.add('wayupanimation');
+    }
+
+
     render() {
         const { openMenu, openNotificationPanel, notificationCompleteset } = this.state;
         const { loggedCountryName } = this.props;
@@ -138,11 +144,13 @@ export default class HeaderComponent extends Component {
                             <div className="heading">
                                 <b>Latest Information of Covid in India</b>
                             </div>
-                            {notificationCompleteset.reverse().map((item, index) => (
-                                <div key={item.timestamp} className="notice">
-                                        <div><font color="#e6acad">{this.convertTimestampToEpochToDate(item.timestamp)}</font></div>
-                                    <div className="noticeUpdate">{item.update}</div>
-                                </div>
+                            {notificationCompleteset.map((item, index) => (
+                                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, item.timestamp)}>
+                                    <div key={item.timestamp} className="notice" id={item.timestamp}>
+                                            <div><font color="#e6acad">{this.convertTimestampToEpochToDate(item.timestamp)}</font></div>
+                                        <div className="noticeUpdate">{item.update}</div>
+                                    </div>
+                                </Waypoint>
                             ))}
                         </div>}
                     </div>
