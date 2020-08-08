@@ -47,7 +47,7 @@ export default class IndiaCovidshowComponent extends Component {
                     <TitleIconComponent icon="flare" title={completeDetailsOfRegion.info3.state === 'Total' ?
                         'India' : completeDetailsOfRegion.info3.state} />
                     <div className="main_lastUpdt">
-                        {this.props.convertDateToDate(completeDetailsOfRegion.info3.lastupdatedtime)}
+                        Last updated {this.props.convertDateToDate(completeDetailsOfRegion.info3.lastupdatedtime)}
                     </div>
                     <div className="icsc_qdvc">
                         <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'con2', 'wayupanimation1')}>
