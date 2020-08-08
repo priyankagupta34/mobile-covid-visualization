@@ -59,7 +59,7 @@ export default class IndiaCovidshowComponent extends Component {
 
                                             <div className="confirmedCo delta">
                                                 {completeDetailsOfRegion.info3.deltaconfirmed !== '0' &&
-                                                    <><i className="material-icons fontSize1 ">arrow_upward</i>
+                                                    <><i className="material-icons  fontSize1 ">arrow_upward</i>
                                                         {completeDetailsOfRegion.info3.deltaconfirmed}</>}
                                             </div>
 
@@ -134,7 +134,7 @@ export default class IndiaCovidshowComponent extends Component {
                             <div>
                                 <div className="fontwt100">Population</div>
                                 <div className="deceasedCo delta">
-                                    <i className="material-icons fontSize2 anyCo">groups</i>
+                                    <i className="material-icons material-icons-outlined fontSize2 anyCo">groups</i>
                                 </div>
                                 <div className="qvdc_nm">{completeDetailsOfRegion.info2.meta.population}</div>
                             </div>
