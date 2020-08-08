@@ -116,7 +116,7 @@ header {
   }
 
   100% {
-    left: -50vw;
+    left: -66vw;
   }
 }
 
@@ -172,6 +172,7 @@ footer {
   font-size: small;
   letter-spacing: 0.5px;
   word-spacing: 6px;
+  margin-top: 30px;
 }
 
 a {
@@ -256,9 +257,26 @@ a {
   }
 }
 
+.wayupanimation4 {
+  position: relative;
+  animation: wayupanimation4 1.6s;
+}
 
-.fontwt500 {
-  font-weight: 500;
+@keyframes wayupanimation4 {
+  0% {
+    top: 28vh;
+    opacity: 0;
+  }
+
+  100% {
+    top: 0;
+    opacity: 0.8;
+  }
+}
+
+
+.fontwt100 {
+  font-weight: 100;
 }
 
 .tryagainloader {
@@ -277,4 +295,45 @@ a {
   backface-visibility: hidden;
   font-size: 0.8em;
   text-align: center;
+}
+
+.recoveredBG {
+  background-color: #bafbbaa1;
+}
+
+.deceasedBG {
+  background-color: #96959529;
+}
+
+.confirmedBG {
+  background-color: #ff000021;
+}
+
+.activeBG {
+  background-color: #d5d5fb80;
+}
+
+.recoveredCo {
+  color: #17da17;
+}
+
+.deceasedCo {
+  color: #969595;
+}
+
+.confirmedCo {
+  color: #ff0000;
+}
+
+.activeCo {
+  color: #d5d5fb;
+}
+
+.delta {
+  height: 21px;
+  margin-top: 10px;
+}
+
+.fontSize1{
+  font-size: 1em;
 }

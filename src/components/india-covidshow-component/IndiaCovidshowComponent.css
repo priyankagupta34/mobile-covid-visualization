@@ -1,12 +1,23 @@
-.icsc_1{
+.icsc_1 {
     width: 100vw;
     height: 50vh;
     overflow: hidden;
 }
 
-.icsc_tble{
+.icsc_tble {
     width: 150vw;
     height: 100%;
     background-color: lavenderblush;
     justify-content: space-between;
+}
+
+.icsc_qdvc {
+    display: grid;
+    position: relative;
+    top: -1px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-column-gap: 4px;
+    background-color: white;
+    /* height: 6.5vh;
+    min-height: 41px; */
 }

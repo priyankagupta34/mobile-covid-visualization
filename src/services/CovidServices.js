@@ -6,7 +6,10 @@ export const CovidServices = {
     listAllCountries,
     listAllLatLongs,
     getCountryPopulation,
-    getNotifications
+    getNotifications,
+    stateWiseForIndiaMinComplete,
+    stateWiseForIndia,
+    stateWiseForIndiaForActiveCase
 }
 
 const axios = require('axios');
@@ -51,7 +54,18 @@ function getCountryPopulation(countrycode) {
 }
 
 
-function getNotifications(){
+function getNotifications() {
     return axios.get('https://api.covid19india.org/updatelog/log.json');
+}
 
+function stateWiseForIndiaMinComplete() {
+    return axios.get('https://api.covid19india.org/v5/min/data.min.json');
+}
+
+function stateWiseForIndia() {
+    return axios.get('https://api.covid19india.org/state_district_wise.json');
+}
+
+function stateWiseForIndiaForActiveCase() {
+    return axios.get('https://api.covid19india.org/data.json');
 }

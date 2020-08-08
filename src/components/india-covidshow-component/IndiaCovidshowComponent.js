@@ -1,16 +1,133 @@
 import React, { Component } from 'react'
 import './IndiaCovidshowComponent.css'
+import { Waypoint } from 'react-waypoint'
+import LoaderComponent from '../loader-component/LoaderComponent';
+import TitleIconComponent from '../title-icon-component/TitleIconComponent';
 
 export default class IndiaCovidshowComponent extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            completeDetailsOfRegion: ''
+        }
+    }
+    componentDidMount() {
+        this.setState({
+            ...this.state,
+            completeDetailsOfRegion: this.props.findDetailsByCode('DL')
+        })
+    }
+
+    componentDidUpdate(prev) {
+        if (prev !== this.props) {
+            this.setState({
+                ...this.state,
+                completeDetailsOfRegion: this.props.findDetailsByCode('DL')
+            })
+        }
+    }
+
+    addAnimationToWayUp(id, anim) {
+        const component = window.document.getElementById(id);
+        component.classList.add(anim);
+    }
+
     render() {
+        const { stateInfoLoader } = this.props;
+        const { completeDetailsOfRegion } = this.state;
+        console.log(this.props)
+        console.log(this.state)
+
         return (
             <div>
-                <div className="icsc_1">
-                    {/* <div className="icsc_tble">
-                        
-                    </div> */}
-                </div>
+
+
+                {completeDetailsOfRegion !== '' && <> 
+                 <TitleIconComponent icon="flare" title={completeDetailsOfRegion.info3.state === 'Total' ? 'India' : completeDetailsOfRegion.info3.state} />
+                    <div className="icsc_qdvc">
+                        <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'con2', 'wayupanimation1')}>
+                            <div className="qdvc_ic " id="con2">
+                                {
+                                    stateInfoLoader && completeDetailsOfRegion !== '' ?
+                                        <div>
+                                            <div className="fontwt500">Confirmed</div>
+
+                                            <div className="confirmedCo delta">
+                                                {completeDetailsOfRegion.info3.deltaconfirmed !== 0 &&
+                                                    <><i className="material-icons fontSize1 ">arrow_upward</i>  {completeDetailsOfRegion.info3.deltaconfirmed}</>}
+                                            </div>
+
+                                            <div className="qvdc_nm">{completeDetailsOfRegion.info3.confirmed}</div>
+                                        </div> :
+                                        <LoaderComponent />}
+
+                            </div>
+                        </Waypoint>
+                        <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'act2', 'wayupanimation2')}>
+                            <div className="qdvc_ic" id="act2">
+
+                                {
+                                    stateInfoLoader && completeDetailsOfRegion !== '' ?
+                                        <div>
+                                            <div className="fontwt500">Active</div>
+
+                                            <div className="activeCo delta">
+                                                {/* {completeDetailsOfRegion.info3.deltaactive !== 0 &&<>
+                                                <i className="material-icons fontSize1">arrow_upward</i> {completeDetailsOfRegion.info3.deltaactive}</>} */}
+                                            </div>
+
+                                            <div className="qvdc_nm">{completeDetailsOfRegion.info3.active}</div>
+                                        </div> :
+                                        <LoaderComponent />}
+
+
+                            </div>
+                        </Waypoint>
+                        <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'rec2', 'wayupanimation3')}>
+                            <div className="qdvc_ic" id="rec2">
+                                {
+                                    stateInfoLoader && completeDetailsOfRegion !== '' ?
+                                        <div>
+                                            <div className="fontwt500">Recovered</div>
+
+                                            <div className="recoveredCo delta">
+                                                {completeDetailsOfRegion.info3.deltarecovered !== 0 &&
+                                                    <><i className="material-icons fontSize1">arrow_upward</i>  {completeDetailsOfRegion.info3.deltarecovered}</>}
+                                            </div>
+
+                                            <div className="qvdc_nm">{completeDetailsOfRegion.info3.recovered}</div>
+                                        </div> :
+                                        <LoaderComponent />}
+
+
+                            </div>
+                        </Waypoint>
+                        <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'dea2', 'wayupanimation4')}>
+                            <div className="qdvc_ic" id="dea2">
+                                {
+                                    stateInfoLoader && completeDetailsOfRegion !== '' ?
+                                        <div>
+                                            <div className="fontwt100">Deceased</div>
+
+                                            <div className="deceasedCo delta">
+                                                {completeDetailsOfRegion.info3.deltadeaths !== 0 &&
+                                                    <><i className="material-icons fontSize1 ">arrow_upward</i>  {completeDetailsOfRegion.info3.deltadeaths}</>}
+                                            </div>
+
+                                            <div className="qvdc_nm">{completeDetailsOfRegion.info3.deaths}</div>
+                                        </div> :
+                                        <LoaderComponent />}
+
+
+                            </div>
+                        </Waypoint>
+                    </div>
+                </>
+                }
             </div>
         )
     }
 }
+
+
+

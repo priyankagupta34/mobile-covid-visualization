@@ -17,12 +17,13 @@
 
 .hc2 {
     position: fixed;
-    width: 50vw;
+    width: 66vw;
     height: 100vh;
     background-color: #5d1212;
     z-index: 999;
     box-shadow: 0px 0px 16px 0px #5d1212d1;
     padding: 2.5vh;
+    font-size: 0.89em;
 }
 
 .my_ic1 {

@@ -32,7 +32,6 @@ export default class WorldMapCoverComponent extends Component {
 
         CovidServices.listAllLatLongs()
             .then((result) => {
-                // console.log('result.data', result.data)
                 this.setState({
                     ...this.state,
                     listAllLatLongs: result.data.ref_country_codes
@@ -56,7 +55,6 @@ export default class WorldMapCoverComponent extends Component {
         }
         for (let i = 0; i < summaryDataCountries.length; i++) {
             for (let j = 0; j < this.state.listAllLatLongs.length; j++) {
-                // console.log('summaryDataCountries[i].CountryCode', summaryDataCountries[i].CountryCode)
                 if (this.state.listAllLatLongs[j].alpha2 === summaryDataCountries[i].CountryCode) {
                     geojson.data.features.push(
                         {
@@ -130,8 +128,8 @@ export default class WorldMapCoverComponent extends Component {
     render() {
         return (
             <div className="wmcc1">
-                <TitleIconComponent icon={'map'} title="Track through Map" />              
-                    <div className="infoContent">*Click on the dots to get an overview</div>
+                <TitleIconComponent icon={'map'} title="Track through Map" />
+                <div className="infoContent">*Click on the dots to get an overview</div>
                 <div id="map"></div>
             </div>
         )

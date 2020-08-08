@@ -44,7 +44,6 @@ export default class WorldwideInfoComponent extends Component {
                 tryAgainLoader: true
             })
         });
-
     }
 
     reload() {
