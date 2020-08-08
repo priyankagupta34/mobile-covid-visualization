@@ -3,6 +3,7 @@ import './IndiaCovidshowComponent.css'
 import { Waypoint } from 'react-waypoint'
 import LoaderComponent from '../loader-component/LoaderComponent';
 import TitleIconComponent from '../title-icon-component/TitleIconComponent';
+import SearchDetailedComponent from '../search-detailed-component/SearchDetailedComponent';
 
 export default class IndiaCovidshowComponent extends Component {
     constructor(props) {
@@ -22,7 +23,7 @@ export default class IndiaCovidshowComponent extends Component {
         if (prev !== this.props) {
             this.setState({
                 ...this.state,
-                completeDetailsOfRegion: this.props.findDetailsByCode('DL')
+                completeDetailsOfRegion: this.props.findDetailsByCode('BR')
             })
         }
     }
@@ -40,6 +41,16 @@ export default class IndiaCovidshowComponent extends Component {
         return (
             <div>
 
+                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'search', 'wayupanimation')}>
+                    <div id="search">
+                        <TitleIconComponent icon="search" title="Search" />
+                        <div className="main_lastUpdt">
+                            Search Any State or District
+                </div>
+                        <SearchDetailedComponent />
+
+                    </div>
+                </Waypoint>
 
                 {completeDetailsOfRegion !== '' && <>
 
@@ -49,13 +60,15 @@ export default class IndiaCovidshowComponent extends Component {
                     <div className="main_lastUpdt">
                         Last updated {this.props.convertDateToDate(completeDetailsOfRegion.info3.lastupdatedtime)}
                     </div>
+
+
                     <div className="icsc_qdvc">
                         <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'con2', 'wayupanimation1')}>
                             <div className="qdvc_ic clickConfirmedAnim" id="con2">
                                 {
                                     stateInfoLoader && completeDetailsOfRegion !== '' ?
                                         <div>
-                                            <div className="fontwt500">Confirmed</div>
+                                            <div className="fontwt500 confirmedCo">Confirmed</div>
 
                                             <div className="confirmedCo delta">
                                                 {completeDetailsOfRegion.info3.deltaconfirmed !== '0' &&
@@ -75,7 +88,7 @@ export default class IndiaCovidshowComponent extends Component {
                                 {
                                     stateInfoLoader && completeDetailsOfRegion !== '' ?
                                         <div>
-                                            <div className="fontwt500">Active</div>
+                                            <div className="fontwt500 activeCo">Active</div>
 
                                             <div className="activeCo delta">
                                                 {/* {completeDetailsOfRegion.info3.deltaactive !== 0 &&<>
@@ -94,7 +107,7 @@ export default class IndiaCovidshowComponent extends Component {
                                 {
                                     stateInfoLoader && completeDetailsOfRegion !== '' ?
                                         <div>
-                                            <div className="fontwt500">Recovered</div>
+                                            <div className="fontwt500 recoveredCo">Recovered</div>
 
                                             <div className="recoveredCo delta">
                                                 {completeDetailsOfRegion.info3.deltarecovered !== '0' &&
@@ -114,7 +127,7 @@ export default class IndiaCovidshowComponent extends Component {
                                 {
                                     stateInfoLoader && completeDetailsOfRegion !== '' ?
                                         <div>
-                                            <div className="fontwt100">Deceased</div>
+                                            <div className="fontwt100 deceasedCo">Deceased</div>
 
                                             <div className="deceasedCo delta">
                                                 {completeDetailsOfRegion.info3.deltadeaths !== '0' &&
@@ -144,14 +157,14 @@ export default class IndiaCovidshowComponent extends Component {
                                 <div className="fontwt100">Total Tests</div>
                                 <div className="deceasedCo delta">
                                     {completeDetailsOfRegion.info3.deltadeaths !== '0' &&
-                                        <><i className="material-icons fontSize1 ">arrow_upward</i> 
-                                        {completeDetailsOfRegion.info3.state === 'Total' ?completeDetailsOfRegion.info2.delta.tested.states.samples:
-                                        completeDetailsOfRegion.info2.delta.tested.samples}
+                                        <><i className="material-icons fontSize1 ">arrow_upward</i>
+                                            {completeDetailsOfRegion.info3.state === 'Total' ? completeDetailsOfRegion.info2.delta.tested.states.samples :
+                                                completeDetailsOfRegion.info2.delta.tested.samples}
                                         </>
-                                        }
+                                    }
                                 </div>
                                 {completeDetailsOfRegion.info3.state === 'Total' ? <div className="qvdc_nm">
-                                 {completeDetailsOfRegion.info2.total.tested.states.samples}</div> :
+                                    {completeDetailsOfRegion.info2.total.tested.states.samples}</div> :
                                     <div className="qvdc_nm"> {completeDetailsOfRegion.info2.total.tested.samples}</div>}
                             </div>
                         </div>
@@ -161,6 +174,7 @@ export default class IndiaCovidshowComponent extends Component {
 
                 </>
                 }
+
             </div>
         )
     }
