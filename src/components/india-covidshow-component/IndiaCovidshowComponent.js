@@ -46,9 +46,8 @@ export default class IndiaCovidshowComponent extends Component {
                         <TitleIconComponent icon="search" title="Search" />
                         <div className="main_lastUpdt">
                             Search Any State or District
-                </div>
+                        </div>
                         <SearchDetailedComponent />
-
                     </div>
                 </Waypoint>
 

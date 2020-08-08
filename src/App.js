@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import HeaderComponent from './components/header-component/HeaderComponent';
 import WorldwideInfoComponent from './components/worldwide-info-component/WorldwideInfoComponent';
 import IndiaCovidshowComponent from './components/india-covidshow-component/IndiaCovidshowComponent';
@@ -72,36 +72,36 @@ export default class App extends Component {
     return infoObject;
   }
 
-  
+
   convertTimestampToEpochToDate(utcSeconds) {
     const epochStamp = new Date(0);
     const timestamp = epochStamp.setUTCSeconds(utcSeconds);
     const currentTimeStamp = new Date().getTime();
     if (new Date().toDateString() === new Date(timestamp).toDateString()) {
-        const hour = Math.ceil((currentTimeStamp - timestamp) / (3600 * 1000));
-        if (hour === 1) {
-            return `${hour} Hour Ago`
-        } else {
-            return `${hour} Hours Ago`
-        }
+      const hour = Math.ceil((currentTimeStamp - timestamp) / (3600 * 1000));
+      if (hour === 1) {
+        return `${hour} Hour Ago`
+      } else {
+        return `${hour} Hours Ago`
+      }
     } else
-        return new Date(timestamp).toDateString();
-}
+      return new Date(timestamp).toDateString();
+  }
 
-  
+
   convertDateToDate(date) {
     const updateTimeStamp = new Date(date).getTime();
     const currentTimeStamp = new Date().getTime();
     if (new Date(date).toDateString() === new Date().toDateString()) {
-        const hour = Math.ceil((currentTimeStamp - updateTimeStamp) / (3600 * 1000));
-        if (hour === 1) {
-            return `${hour} Hour Ago`
-        } else {
-            return `${hour} Hours Ago`
-        }
+      const hour = Math.ceil((currentTimeStamp - updateTimeStamp) / (3600 * 1000));
+      if (hour === 1) {
+        return `${hour} Hour Ago`
+      } else {
+        return `${hour} Hours Ago`
+      }
     } else
-        return new Date(date).toDateString();
-}
+      return new Date(date).toDateString();
+  }
 
 
 
@@ -115,8 +115,8 @@ export default class App extends Component {
         <div className="compatibility_mobile">
           <Router>
             <header>
-              <HeaderComponent loggedCountryName={loggedCountryName} 
-              convertTimestampToEpochToDate={this.convertTimestampToEpochToDate}/>
+              <HeaderComponent loggedCountryName={loggedCountryName}
+                convertTimestampToEpochToDate={this.convertTimestampToEpochToDate} />
             </header>
 
 
@@ -145,6 +145,8 @@ export default class App extends Component {
                     convertTimestampToEpochToDate={this.convertTimestampToEpochToDate}
                     codeWiseQuick4Data={codeWiseQuick4Data} />);
                 }} />
+                <Redirect path="/" exact to='/india' />
+                <Redirect path="*" to='/india' />
               </Switch>
             </article>
 
