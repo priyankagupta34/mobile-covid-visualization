@@ -22,3 +22,43 @@
     margin: 10px 0;
     min-height: 75px;
 }
+
+.main_lastUpdt {
+    color: rgb(181 174 174);
+    font-size: 0.6em;
+    text-align: center;
+    font-weight: 600;
+}
+
+
+.clickConfirmedAnim:active {
+    background-color: aliceblue;
+    /* animation: clickConfirmedAnim 0.3s; */
+}
+
+@keyframes clickConfirmedAnim {
+    0% {
+        /* position: fixed; */
+        /* left: 10px; */
+    }
+
+    100% {
+        /* position: fixed; */
+        /* left: -10px; */
+    }
+}
+
+.metaPop {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 4px;
+    background-color: white;
+    height: 11vh;
+    margin: 10px 0;
+    min-height: 75px;
+}
+
+.metaPopGrid{
+    box-shadow: 0 0 5px #9c020930;
+    margin: 10px 0;
+}

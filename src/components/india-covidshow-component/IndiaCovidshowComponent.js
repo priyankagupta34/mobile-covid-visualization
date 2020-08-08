@@ -22,7 +22,7 @@ export default class IndiaCovidshowComponent extends Component {
         if (prev !== this.props) {
             this.setState({
                 ...this.state,
-                completeDetailsOfRegion: this.props.findDetailsByCode('TT')
+                completeDetailsOfRegion: this.props.findDetailsByCode('DL')
             })
         }
     }
@@ -35,7 +35,6 @@ export default class IndiaCovidshowComponent extends Component {
     render() {
         const { stateInfoLoader } = this.props;
         const { completeDetailsOfRegion } = this.state;
-        console.log(this.props)
         console.log(this.state)
 
         return (
@@ -43,10 +42,16 @@ export default class IndiaCovidshowComponent extends Component {
 
 
                 {completeDetailsOfRegion !== '' && <>
-                    <TitleIconComponent icon="flare" title={completeDetailsOfRegion.info3.state === 'Total' ? 'India' : completeDetailsOfRegion.info3.state} />
+
+
+                    <TitleIconComponent icon="flare" title={completeDetailsOfRegion.info3.state === 'Total' ?
+                        'India' : completeDetailsOfRegion.info3.state} />
+                    <div className="main_lastUpdt">
+                        {this.props.convertDateToDate(completeDetailsOfRegion.info3.lastupdatedtime)}
+                    </div>
                     <div className="icsc_qdvc">
                         <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'con2', 'wayupanimation1')}>
-                            <div className="qdvc_ic " id="con2">
+                            <div className="qdvc_ic clickConfirmedAnim" id="con2">
                                 {
                                     stateInfoLoader && completeDetailsOfRegion !== '' ?
                                         <div>
@@ -54,8 +59,8 @@ export default class IndiaCovidshowComponent extends Component {
 
                                             <div className="confirmedCo delta">
                                                 {completeDetailsOfRegion.info3.deltaconfirmed !== '0' &&
-                                                    <><i className="material-icons fontSize1 ">arrow_upward</i> 
-                                                     {completeDetailsOfRegion.info3.deltaconfirmed}</>}
+                                                    <><i className="material-icons fontSize1 ">arrow_upward</i>
+                                                        {completeDetailsOfRegion.info3.deltaconfirmed}</>}
                                             </div>
 
                                             <div className="qvdc_nm">{completeDetailsOfRegion.info3.confirmed}</div>
@@ -93,7 +98,8 @@ export default class IndiaCovidshowComponent extends Component {
 
                                             <div className="recoveredCo delta">
                                                 {completeDetailsOfRegion.info3.deltarecovered !== '0' &&
-                                                    <><i className="material-icons fontSize1">arrow_upward</i>  {completeDetailsOfRegion.info3.deltarecovered}</>}
+                                                    <><i className="material-icons fontSize1">arrow_upward</i>
+                                                        {completeDetailsOfRegion.info3.deltarecovered}</>}
                                             </div>
 
                                             <div className="qvdc_nm">{completeDetailsOfRegion.info3.recovered}</div>
@@ -112,17 +118,47 @@ export default class IndiaCovidshowComponent extends Component {
 
                                             <div className="deceasedCo delta">
                                                 {completeDetailsOfRegion.info3.deltadeaths !== '0' &&
-                                                    <><i className="material-icons fontSize1 ">arrow_upward</i>  {completeDetailsOfRegion.info3.deltadeaths}</>}
+                                                    <><i className="material-icons fontSize1 ">arrow_upward</i>
+                                                        {completeDetailsOfRegion.info3.deltadeaths}</>}
                                             </div>
 
                                             <div className="qvdc_nm">{completeDetailsOfRegion.info3.deaths}</div>
                                         </div> :
                                         <LoaderComponent />}
-
-
                             </div>
                         </Waypoint>
                     </div>
+
+                    {completeDetailsOfRegion.info2 !== '' && <div className="metaPop">
+                        <div className="qdvc_ic">
+                            <div>
+                                <div className="fontwt100">Population</div>
+                                <div className="deceasedCo delta">
+                                    <i className="material-icons fontSize2 anyCo">groups</i>
+                                </div>
+                                <div className="qvdc_nm">{completeDetailsOfRegion.info2.meta.population}</div>
+                            </div>
+                        </div>
+                        <div className="qdvc_ic">
+                            <div>
+                                <div className="fontwt100">Total Tests</div>
+                                <div className="deceasedCo delta">
+                                    {completeDetailsOfRegion.info3.deltadeaths !== '0' &&
+                                        <><i className="material-icons fontSize1 ">arrow_upward</i> 
+                                        {completeDetailsOfRegion.info3.state === 'Total' ?completeDetailsOfRegion.info2.delta.tested.states.samples:
+                                        completeDetailsOfRegion.info2.delta.tested.samples}
+                                        </>
+                                        }
+                                </div>
+                                {completeDetailsOfRegion.info3.state === 'Total' ? <div className="qvdc_nm">
+                                 {completeDetailsOfRegion.info2.total.tested.states.samples}</div> :
+                                    <div className="qvdc_nm"> {completeDetailsOfRegion.info2.total.tested.samples}</div>}
+                            </div>
+                        </div>
+                    </div>}
+
+
+
                 </>
                 }
             </div>

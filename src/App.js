@@ -22,6 +22,8 @@ export default class App extends Component {
     }
 
     this.loadStateWiseInfo = this.loadStateWiseInfo.bind(this);
+    this.convertTimestampToEpochToDate = this.convertTimestampToEpochToDate.bind(this);
+    this.convertDateToDate = this.convertDateToDate.bind(this);
   }
 
   componentDidMount() {
@@ -70,6 +72,37 @@ export default class App extends Component {
     return infoObject;
   }
 
+  
+  convertTimestampToEpochToDate(utcSeconds) {
+    const epochStamp = new Date(0);
+    const timestamp = epochStamp.setUTCSeconds(utcSeconds);
+    const currentTimeStamp = new Date().getTime();
+    if (new Date().toDateString() === new Date(timestamp).toDateString()) {
+        const hour = Math.ceil((currentTimeStamp - timestamp) / (3600 * 1000));
+        if (hour === 1) {
+            return `${hour} Hour Ago`
+        } else {
+            return `${hour} Hours Ago`
+        }
+    } else
+        return new Date(timestamp).toDateString();
+}
+
+  
+  convertDateToDate(date) {
+    const updateTimeStamp = new Date(date).getTime();
+    const currentTimeStamp = new Date().getTime();
+    if (new Date(date).toDateString() === new Date().toDateString()) {
+        const hour = Math.ceil((currentTimeStamp - updateTimeStamp) / (3600 * 1000));
+        if (hour === 1) {
+            return `${hour} Hour Ago`
+        } else {
+            return `${hour} Hours Ago`
+        }
+    } else
+        return new Date(date).toDateString();
+}
+
 
 
   render() {
@@ -82,7 +115,8 @@ export default class App extends Component {
         <div className="compatibility_mobile">
           <Router>
             <header>
-              <HeaderComponent loggedCountryName={loggedCountryName} />
+              <HeaderComponent loggedCountryName={loggedCountryName} 
+              convertTimestampToEpochToDate={this.convertTimestampToEpochToDate}/>
             </header>
 
 
@@ -98,6 +132,7 @@ export default class App extends Component {
                     stateInfoLoader={stateInfoLoader}
                     codeWiseQuick4Data={codeWiseQuick4Data}
                     findDetailsByCode={this.findDetailsByCode.bind(this)}
+                    convertDateToDate={this.convertDateToDate}
 
                   />);
                 }} />
@@ -107,6 +142,7 @@ export default class App extends Component {
                     stateInfoWithCode={stateInfoWithCode}
                     completeStateInfoWithDelta={completeStateInfoWithDelta}
                     findDetailsByCode={this.findDetailsByCode.bind(this)}
+                    convertTimestampToEpochToDate={this.convertTimestampToEpochToDate}
                     codeWiseQuick4Data={codeWiseQuick4Data} />);
                 }} />
               </Switch>

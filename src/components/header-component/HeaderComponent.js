@@ -41,20 +41,6 @@ export default class HeaderComponent extends Component {
         })
     }
 
-    convertTimestampToEpochToDate(utcSeconds) {
-        const epochStamp = new Date(0);
-        const timestamp = epochStamp.setUTCSeconds(utcSeconds);
-        const currentTimeStamp = new Date().getTime();
-        if (new Date().toDateString() === new Date(timestamp).toDateString()) {
-            const hour = Math.ceil((currentTimeStamp - timestamp) / (3600 * 1000));
-            if (hour === 1) {
-                return `${hour} Hour Ago`
-            } else {
-                return `${hour} Hours Ago`
-            }
-        } else
-            return new Date(timestamp).toDateString();
-    }
 
     openMenuForSm() {
         this.setState({
@@ -99,6 +85,21 @@ export default class HeaderComponent extends Component {
         component.classList.add('wayupanimation');
     }
 
+    convertTimestampToEpochToDate(utcSeconds) {
+        const epochStamp = new Date(0);
+        const timestamp = epochStamp.setUTCSeconds(utcSeconds);
+        const currentTimeStamp = new Date().getTime();
+        if (new Date().toDateString() === new Date(timestamp).toDateString()) {
+            const hour = Math.ceil((currentTimeStamp - timestamp) / (3600 * 1000));
+            if (hour === 1) {
+                return `${hour} Hour Ago`
+            } else {
+                return `${hour} Hours Ago`
+            }
+        } else
+            return new Date(timestamp).toDateString();
+    }
+
 
     render() {
         const { openMenu, openNotificationPanel, notificationCompleteset, notificationLoader } = this.state;
@@ -136,7 +137,7 @@ export default class HeaderComponent extends Component {
                                     {notificationCompleteset.map((item, index) => (
                                         <Waypoint onEnter={this.addAnimationToWayUp.bind(this, item.timestamp)}>
                                             <div key={item.timestamp} className="notice" id={item.timestamp}>
-                                                <div><font color="#e6acad">{this.convertTimestampToEpochToDate(item.timestamp)}</font></div>
+                                                <div><font color="#e6acad">{this.props.convertTimestampToEpochToDate(item.timestamp)}</font></div>
                                                 <div className="noticeUpdate">{item.update}</div>
                                             </div>
                                         </Waypoint>

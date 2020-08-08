@@ -329,6 +329,10 @@ a {
   color: #d5d5fb;
 }
 
+.anyCo {
+  color: #8a2be2a8;
+}
+
 .delta {
   height: 21px;
   margin-top: 10px;
@@ -337,3 +341,9 @@ a {
 .fontSize1{
   font-size: 1em;
 }
+
+
+.fontSize2{
+  font-size: 2em;
+}
+
