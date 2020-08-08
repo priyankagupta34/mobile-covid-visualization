@@ -14,7 +14,7 @@ export default class IndiaCovidshowComponent extends Component {
     componentDidMount() {
         this.setState({
             ...this.state,
-            completeDetailsOfRegion: this.props.findDetailsByCode('DL')
+            completeDetailsOfRegion: this.props.findDetailsByCode('TT')
         })
     }
 
@@ -22,7 +22,7 @@ export default class IndiaCovidshowComponent extends Component {
         if (prev !== this.props) {
             this.setState({
                 ...this.state,
-                completeDetailsOfRegion: this.props.findDetailsByCode('DL')
+                completeDetailsOfRegion: this.props.findDetailsByCode('TT')
             })
         }
     }
@@ -42,8 +42,8 @@ export default class IndiaCovidshowComponent extends Component {
             <div>
 
 
-                {completeDetailsOfRegion !== '' && <> 
-                 <TitleIconComponent icon="flare" title={completeDetailsOfRegion.info3.state === 'Total' ? 'India' : completeDetailsOfRegion.info3.state} />
+                {completeDetailsOfRegion !== '' && <>
+                    <TitleIconComponent icon="flare" title={completeDetailsOfRegion.info3.state === 'Total' ? 'India' : completeDetailsOfRegion.info3.state} />
                     <div className="icsc_qdvc">
                         <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'con2', 'wayupanimation1')}>
                             <div className="qdvc_ic " id="con2">
@@ -53,8 +53,9 @@ export default class IndiaCovidshowComponent extends Component {
                                             <div className="fontwt500">Confirmed</div>
 
                                             <div className="confirmedCo delta">
-                                                {completeDetailsOfRegion.info3.deltaconfirmed !== 0 &&
-                                                    <><i className="material-icons fontSize1 ">arrow_upward</i>  {completeDetailsOfRegion.info3.deltaconfirmed}</>}
+                                                {completeDetailsOfRegion.info3.deltaconfirmed !== '0' &&
+                                                    <><i className="material-icons fontSize1 ">arrow_upward</i> 
+                                                     {completeDetailsOfRegion.info3.deltaconfirmed}</>}
                                             </div>
 
                                             <div className="qvdc_nm">{completeDetailsOfRegion.info3.confirmed}</div>
@@ -91,7 +92,7 @@ export default class IndiaCovidshowComponent extends Component {
                                             <div className="fontwt500">Recovered</div>
 
                                             <div className="recoveredCo delta">
-                                                {completeDetailsOfRegion.info3.deltarecovered !== 0 &&
+                                                {completeDetailsOfRegion.info3.deltarecovered !== '0' &&
                                                     <><i className="material-icons fontSize1">arrow_upward</i>  {completeDetailsOfRegion.info3.deltarecovered}</>}
                                             </div>
 
@@ -110,7 +111,7 @@ export default class IndiaCovidshowComponent extends Component {
                                             <div className="fontwt100">Deceased</div>
 
                                             <div className="deceasedCo delta">
-                                                {completeDetailsOfRegion.info3.deltadeaths !== 0 &&
+                                                {completeDetailsOfRegion.info3.deltadeaths !== '0' &&
                                                     <><i className="material-icons fontSize1 ">arrow_upward</i>  {completeDetailsOfRegion.info3.deltadeaths}</>}
                                             </div>
 
@@ -128,6 +129,4 @@ export default class IndiaCovidshowComponent extends Component {
         )
     }
 }
-
-
 

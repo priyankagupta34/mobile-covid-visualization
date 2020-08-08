@@ -18,6 +18,7 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-column-gap: 4px;
     background-color: white;
-    /* height: 6.5vh;
-    min-height: 41px; */
+    height: 11vh;
+    margin: 10px 0;
+    min-height: 75px;
 }
