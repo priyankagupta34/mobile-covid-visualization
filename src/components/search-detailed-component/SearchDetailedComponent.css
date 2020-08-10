@@ -36,8 +36,9 @@
     padding: 15px;
     overflow: auto;
     overflow-x: hidden;
-    padding: 0 7px;
+    padding: 7px;
     border-radius: 5px;
+    padding-top: 0;
 }
 
 .eachPlaceDisplay {
