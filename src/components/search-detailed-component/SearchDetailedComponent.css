@@ -2,12 +2,12 @@
     outline: none;
     box-shadow: 0 0 3px #90010240;
     border: none;
-    padding: 7px;
     border-radius: 4px;
-    margin: 13px auto;
+    margin: 0 auto;
     width: 70vw;
     transition: all 0.3s;
     display: flex;
+    height: 34px;
 }
 
 .input_search:focus {
@@ -24,6 +24,7 @@
     top: 20vh;
     display: flex;
     justify-content: center;
+    top: 36px;
 }
 
 .searchBox {
@@ -35,10 +36,12 @@
     padding: 15px;
     overflow: auto;
     overflow-x: hidden;
+    padding: 7px;
     border-radius: 5px;
+    height: 100%;
 }
 
-.eachPlaceDisplay{
+.eachPlaceDisplay {
     font-size: small;
     padding: 7px 0;
     box-shadow: 0 2px 3px #eca3bc73;
@@ -51,8 +54,28 @@
     color: #5d1212;
 }
 
-.insideInput{
+.insideInput {
     border: none;
     outline: none;
     width: 95%;
+    padding-left: 7px;
+    height: 100%;
+}
+
+.absoluteWrapper {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.times{
+    padding-top: 4px;
+    font-weight: 500;
+}
+
+.dfdetails{
+    height: 7vh;
+    min-height: 37px;
+    margin: 13px 0 20px 0;
 }

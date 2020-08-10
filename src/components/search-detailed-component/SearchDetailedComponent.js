@@ -16,7 +16,7 @@ export default class SearchDetailedComponent extends Component {
             this.props.filterStateDistrictHandler(this.state.stateOrDistrictSelected);
         })
     }
-    clearNCloseSearch(){
+    clearNCloseSearch() {
         this.setState({
             ...this.state,
             stateOrDistrictSelected: ''
@@ -28,22 +28,27 @@ export default class SearchDetailedComponent extends Component {
         const { searchList } = this.props;
         return (
             <div>
-                <div className="centered">
-                    <div  className="input_search">
-                        <input value={stateOrDistrictSelected}
-                            className="insideInput"
-                            onChange={this.filterStateDistrictHandler.bind(this)}></input>
-                        <div onClick={this.clearNCloseSearch.bind(this)}>&times;</div>
+                <div className="dfdetails">
+                    <div className="absoluteWrapper">
+                        <div className="input_search">
+                            <input value={stateOrDistrictSelected}
+                                className="insideInput"
+                                onChange={this.filterStateDistrictHandler.bind(this)}></input>
+                            <div onClick={this.clearNCloseSearch.bind(this)} className="times">&times;</div>
+                        </div>
+                        <div className="searchDisplayer">
+                        <div>
+                            {searchList.length !== 0 && <div className="searchBox">
+                                {searchList.map((item, index) => (
+                                    <div key={index} className="eachPlaceDisplay">
+                                        {item.place}
+                                    </div>
+                                ))}
+                            </div>}
+                        </div>
                     </div>
-                    <div className="searchDisplayer">
-                        {searchList.length !== 0 && <div className="searchBox">
-                            {searchList.map((item, index) => (
-                                <div key={index} className="eachPlaceDisplay">
-                                    {item.place}
-                                </div>
-                            ))}
-                        </div>}
                     </div>
+                  
                 </div>
             </div>
         )
