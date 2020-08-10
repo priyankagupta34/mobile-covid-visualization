@@ -29,29 +29,30 @@
 
 .searchBox {
     background-color: white;
-    height: 43vh;
-    width: 84vw;
-    box-shadow: 0 4px 7px #ffa9c6a1;
+    /* height: 74vw; */
+    width: 74vw;
+    /* box-shadow: 0 4px 7px #ffa9c6a1; */
     text-align: left;
     padding: 15px;
     overflow: auto;
     overflow-x: hidden;
-    padding: 7px;
+    padding: 0 7px;
     border-radius: 5px;
-    height: 100%;
 }
 
 .eachPlaceDisplay {
     font-size: small;
-    padding: 7px 0;
-    box-shadow: 0 2px 3px #eca3bc73;
-    height: 48px;
+    /* padding: 0px; */
+    box-shadow: 0 0px 2px #eca3bc73;
+    height: 47px;
     overflow-wrap: break-word;
     /* margin-bottom: 10px; */
     padding-left: 10px;
-    min-height: 48px;
+    min-height: 54px;
     font-weight: 500;
     color: #5d1212;
+    display: flex;
+    align-items: center;
 }
 
 .insideInput {

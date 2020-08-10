@@ -37,18 +37,18 @@ export default class SearchDetailedComponent extends Component {
                             <div onClick={this.clearNCloseSearch.bind(this)} className="times">&times;</div>
                         </div>
                         <div className="searchDisplayer">
-                        <div>
-                            {searchList.length !== 0 && <div className="searchBox">
-                                {searchList.map((item, index) => (
-                                    <div key={index} className="eachPlaceDisplay">
-                                        {item.place}
-                                    </div>
-                                ))}
-                            </div>}
+                            <div>
+                                {searchList.length !== 0 && <div className="searchBox">
+                                    {searchList.map((item, index) => (
+                                        <div key={index} className="eachPlaceDisplay">
+                                            {item.place}
+                                        </div>
+                                    ))}
+                                </div>}
+                            </div>
                         </div>
                     </div>
-                    </div>
-                  
+
                 </div>
             </div>
         )
