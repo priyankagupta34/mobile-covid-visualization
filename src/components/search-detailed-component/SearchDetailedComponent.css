@@ -42,18 +42,19 @@
 }
 
 .eachPlaceDisplay {
-    font-size: small;
     /* padding: 0px; */
     box-shadow: 0 0px 2px #eca3bc73;
     height: 47px;
     overflow-wrap: break-word;
     /* margin-bottom: 10px; */
-    padding-left: 10px;
+    padding: 0 10px;
     min-height: 54px;
     font-weight: 500;
     color: #5d1212;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    font-size: 0.7em;
 }
 
 .insideInput {
@@ -71,13 +72,28 @@
     width: 100%;
 }
 
-.times{
+.times {
     padding-top: 4px;
     font-weight: 500;
 }
 
-.dfdetails{
+.dfdetails {
     height: 7vh;
     min-height: 37px;
     margin: 13px 0 20px 0;
+}
+
+.place_spc{
+    width: 80%;
+}
+
+.code_spc{
+    background: bisque;
+    color: #b95252;
+    /* padding: 0 9px; */
+    border-radius: 3px;
+    /* font-weight: 100; */
+    margin-left: 4px;
+    width: 20%;
+    padding-left: 9px;
 }

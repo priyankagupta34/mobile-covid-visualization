@@ -41,7 +41,13 @@ export default class SearchDetailedComponent extends Component {
                                 {searchList.length !== 0 && <div className="searchBox">
                                     {searchList.map((item, index) => (
                                         <div key={index} className="eachPlaceDisplay">
-                                            {item.place}
+                                            <div className="place_spc">
+                                                {item.place}
+                                            </div>
+                                            <div className="code_spc">
+                                                {item.code}
+                                                <i className="material-icons fontSize1">arrow_forward</i>
+                                            </div>
                                         </div>
                                     ))}
                                 </div>}
