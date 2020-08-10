@@ -46,7 +46,7 @@ export default class SearchDetailedComponent extends Component {
                                             </div>
                                             <div className="code_spc">
                                                 {item.code}
-                                                <i className="material-icons fontSize1">arrow_forward</i>
+                                                <i className="material-icons codeArrow">arrow_circle_down</i>
                                             </div>
                                         </div>
                                     ))}
