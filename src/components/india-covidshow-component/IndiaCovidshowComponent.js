@@ -58,8 +58,11 @@ export default class IndiaCovidshowComponent extends Component {
         })
     }
 
+    provideDataOfPlace(place){
+        console.log(place)
+    }
+
     render() {
-        console.log(this.state)
         const { stateInfoLoader, stateDistrictCodeList } = this.props;
         const { completeDetailsOfRegion, searchList } = this.state;
 
@@ -78,6 +81,7 @@ export default class IndiaCovidshowComponent extends Component {
                         <SearchDetailedComponent
                             filterStateDistrictHandler={this.filterStateDistrictHandler.bind(this)}
                             clearNCloseSearch={this.clearNCloseSearch.bind(this)}
+                            provideDataOfPlace={this.provideDataOfPlace.bind(this)}
                             searchList={searchList}
                         />
                     </div>

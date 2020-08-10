@@ -39,6 +39,18 @@
     padding: 7px;
     border-radius: 5px;
     padding-top: 0;
+    animation: searchbox 1s;
+   
+    position: relative;
+}
+
+@keyframes searchbox{
+    0%{
+        bottom: -15px;
+    }
+    100%{
+        bottom: 0;;
+    }
 }
 
 .eachPlaceDisplay {
@@ -84,11 +96,11 @@
     margin: 13px 0 20px 0;
 }
 
-.place_spc{
+.place_spc {
     width: 80%;
 }
 
-.code_spc{
+.code_spc {
     background: bisque;
     color: #b95252;
     /* padding: 0 9px; */
@@ -101,7 +113,7 @@
     padding: 2px 0;
 }
 
-.codeArrow{
+.codeArrow {
     transform: rotate(-90deg);
     font-size: 1.4em;
     color: brown;

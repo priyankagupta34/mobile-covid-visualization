@@ -47,6 +47,7 @@ export default class App extends Component {
           stateDistrictCodeObject.place = objectKeyOfMainObject[i];
           stateDistrictCodeObject.search = objectKeyOfMainObject[i];
           stateDistrictCodeObject.code = code;
+          stateDistrictCodeObject.type = 'state';
           stateDistrictCodeObject.state = objectKeyOfMainObject[i];
           stateDistrictCodeList.push(stateDistrictCodeObject);
           const districtCode = Object.keys(mainObject[objectKeyOfMainObject[i]]['districtData']);
@@ -56,6 +57,7 @@ export default class App extends Component {
             districtCodeObject.search = districtCode[j];
             districtCodeObject.state = objectKeyOfMainObject[i];
             districtCodeObject.code = code;
+            districtCodeObject.type = 'district';
             stateDistrictCodeList.push(districtCodeObject);
           }
         }
