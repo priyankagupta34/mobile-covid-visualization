@@ -60,7 +60,7 @@
 .insideInput {
     border: none;
     outline: none;
-    width: 95%;
+    width: 93%;
     padding-left: 7px;
     height: 100%;
 }
@@ -75,6 +75,7 @@
 .times {
     padding-top: 4px;
     font-weight: 500;
+    color: #5d1212;
 }
 
 .dfdetails {
