@@ -333,6 +333,10 @@ a {
   color: #8a2be2a8;
 }
 
+.subCo{
+  color: darkblue;
+}
+
 .delta {
   height: 21px;
   margin-top: 10px;
@@ -346,5 +350,9 @@ a {
 
 .fontSize2{
   font-size: 2em;
+}
+
+.quickTitle{
+  font-weight: 500;
 }
 

@@ -1,12 +1,49 @@
-import React, { Component } from 'react'
-import './SearchDetailedComponent.css'
+import React, { Component } from 'react';
+import './SearchDetailedComponent.css';
 
 export default class SearchDetailedComponent extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            stateOrDistrictSelected: ''
+        }
+    }
+    filterStateDistrictHandler(event) {
+        this.setState({
+            ...this.state,
+            stateOrDistrictSelected: event.target.value
+        }, () => {
+            this.props.filterStateDistrictHandler(this.state.stateOrDistrictSelected);
+        })
+    }
+    clearNCloseSearch(){
+        this.setState({
+            ...this.state,
+            stateOrDistrictSelected: ''
+        })
+        this.props.clearNCloseSearch();
+    }
     render() {
+        const { stateOrDistrictSelected } = this.state;
+        const { searchList } = this.props;
         return (
             <div>
                 <div className="centered">
-                    <input className="input_search"></input>
+                    <div  className="input_search">
+                        <input value={stateOrDistrictSelected}
+                            className="insideInput"
+                            onChange={this.filterStateDistrictHandler.bind(this)}></input>
+                        <div onClick={this.clearNCloseSearch.bind(this)}>&times;</div>
+                    </div>
+                    <div className="searchDisplayer">
+                        {searchList.length !== 0 && <div className="searchBox">
+                            {searchList.map((item, index) => (
+                                <div key={index} className="eachPlaceDisplay">
+                                    {item.place}
+                                </div>
+                            ))}
+                        </div>}
+                    </div>
                 </div>
             </div>
         )

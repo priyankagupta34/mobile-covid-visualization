@@ -97,7 +97,7 @@
 }
 
 .hc8 {
-    width: 32vw;
+    width: 35vw;
     text-align: right;
     background: #5d1212;
     color: white;
@@ -108,8 +108,8 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    max-width: 122px;
-    min-width: 115px;
+    max-width: 130px;
+    min-width: 124px;
     box-shadow: 0 0 8px 0px #a10013;
     min-height: 43px;
     max-height: 46px;

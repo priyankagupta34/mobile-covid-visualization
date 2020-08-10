@@ -4,12 +4,15 @@ import { Waypoint } from 'react-waypoint'
 import LoaderComponent from '../loader-component/LoaderComponent';
 import TitleIconComponent from '../title-icon-component/TitleIconComponent';
 import SearchDetailedComponent from '../search-detailed-component/SearchDetailedComponent';
+import { DataStructureServices } from '../../services/DataStructureServices';
 
 export default class IndiaCovidshowComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            completeDetailsOfRegion: ''
+            completeDetailsOfRegion: '',
+            stateOrDistrictSelected: '',
+            searchList: []
         }
     }
     componentDidMount() {
@@ -33,11 +36,36 @@ export default class IndiaCovidshowComponent extends Component {
         component.classList.add(anim);
     }
 
-    render() {
-        const { stateInfoLoader } = this.props;
-        const { completeDetailsOfRegion } = this.state;
-        console.log(this.state)
+    filterStateDistrictHandler(words) {
+        // setTimeout(() => {
+        //     DataStructureServices.search(this.props.stateDistrictCodeList, 'search', words);
+        // }, 0);
+       setTimeout(() => {
+        const searchList = DataStructureServices.search(this.props.stateDistrictCodeList, 'search', words);
+            this.setState(state=>{
+                state.searchList = [];
+                state.searchList = searchList;
+                return state;
+            });
+        }, 0);
 
+    }
+
+    clearNCloseSearch(){
+        this.setState({
+            ...this.state,
+            searchList: []
+        })
+    }
+
+    render() {
+        console.log(this.state)
+        const { stateInfoLoader, stateDistrictCodeList } = this.props;
+        const { completeDetailsOfRegion, searchList } = this.state;
+
+        if (stateDistrictCodeList.length !== 0) {
+            // DataStructureServices.search(stateDistrictCodeList, 'search', 'Madh')
+        }
         return (
             <div>
 
@@ -47,7 +75,11 @@ export default class IndiaCovidshowComponent extends Component {
                         <div className="main_lastUpdt">
                             Search Any State or District
                         </div>
-                        <SearchDetailedComponent />
+                        <SearchDetailedComponent
+                            filterStateDistrictHandler={this.filterStateDistrictHandler.bind(this)}
+                            clearNCloseSearch={this.clearNCloseSearch.bind(this)}
+                            searchList={searchList}
+                        />
                     </div>
                 </Waypoint>
 
@@ -67,7 +99,7 @@ export default class IndiaCovidshowComponent extends Component {
                                 {
                                     stateInfoLoader && completeDetailsOfRegion !== '' ?
                                         <div>
-                                            <div className="fontwt500 confirmedCo">Confirmed</div>
+                                            <div className="quickTitle confirmedCo">Confirmed</div>
 
                                             <div className="confirmedCo delta">
                                                 {completeDetailsOfRegion.info3.deltaconfirmed !== '0' &&
@@ -87,7 +119,7 @@ export default class IndiaCovidshowComponent extends Component {
                                 {
                                     stateInfoLoader && completeDetailsOfRegion !== '' ?
                                         <div>
-                                            <div className="fontwt500 activeCo">Active</div>
+                                            <div className="quickTitle activeCo">Active</div>
 
                                             <div className="activeCo delta">
                                                 {/* {completeDetailsOfRegion.info3.deltaactive !== 0 &&<>
@@ -106,7 +138,7 @@ export default class IndiaCovidshowComponent extends Component {
                                 {
                                     stateInfoLoader && completeDetailsOfRegion !== '' ?
                                         <div>
-                                            <div className="fontwt500 recoveredCo">Recovered</div>
+                                            <div className="quickTitle recoveredCo">Recovered</div>
 
                                             <div className="recoveredCo delta">
                                                 {completeDetailsOfRegion.info3.deltarecovered !== '0' &&
@@ -126,7 +158,7 @@ export default class IndiaCovidshowComponent extends Component {
                                 {
                                     stateInfoLoader && completeDetailsOfRegion !== '' ?
                                         <div>
-                                            <div className="fontwt100 deceasedCo">Deceased</div>
+                                            <div className="quickTitle deceasedCo">Deceased</div>
 
                                             <div className="deceasedCo delta">
                                                 {completeDetailsOfRegion.info3.deltadeaths !== '0' &&
@@ -144,7 +176,7 @@ export default class IndiaCovidshowComponent extends Component {
                     {completeDetailsOfRegion.info2 !== '' && <div className="metaPop">
                         <div className="qdvc_ic">
                             <div>
-                                <div className="fontwt100">Population</div>
+                                <div className="quickTitle subCo">Population</div>
                                 <div className="deceasedCo delta">
                                     <i className="material-icons material-icons-outlined fontSize2 anyCo">groups</i>
                                 </div>
@@ -153,7 +185,7 @@ export default class IndiaCovidshowComponent extends Component {
                         </div>
                         <div className="qdvc_ic">
                             <div>
-                                <div className="fontwt100">Total Tests</div>
+                                <div className="quickTitle subCo">Total Tests</div>
                                 <div className="deceasedCo delta">
                                     {completeDetailsOfRegion.info3.deltadeaths !== '0' &&
                                         <><i className="material-icons fontSize1 ">arrow_upward</i>

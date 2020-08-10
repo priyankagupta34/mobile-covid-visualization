@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import HeaderComponent from './components/header-component/HeaderComponent';
-import WorldwideInfoComponent from './components/worldwide-info-component/WorldwideInfoComponent';
 import IndiaCovidshowComponent from './components/india-covidshow-component/IndiaCovidshowComponent';
 import SearchDetailedComponent from './components/search-detailed-component/SearchDetailedComponent';
+import WorldwideInfoComponent from './components/worldwide-info-component/WorldwideInfoComponent';
 import { CovidServices } from './services/CovidServices';
 
 export default class App extends Component {
@@ -18,7 +18,8 @@ export default class App extends Component {
       stateInfoWithCode: '',
       codeWiseQuick4Data: '',
       onlyCountryInfo: '',
-      wholeDetailsByCode: {}
+      wholeDetailsByCode: {},
+      stateDistrictCodeList: []
     }
 
     this.loadStateWiseInfo = this.loadStateWiseInfo.bind(this);
@@ -36,12 +37,35 @@ export default class App extends Component {
     CovidServices.stateWiseForIndiaForActiveCase()
     ])
       .then((result) => {
+
+        let stateDistrictCodeList = [];
+        const mainObject = result[0].data;
+        const objectKeyOfMainObject = Object.keys(mainObject);
+        for (let i = 0; i < objectKeyOfMainObject.length - 1; i++) {
+          let stateDistrictCodeObject = {};
+          const code = mainObject[objectKeyOfMainObject[i]]['statecode'];
+          stateDistrictCodeObject.place = objectKeyOfMainObject[i];
+          stateDistrictCodeObject.search = objectKeyOfMainObject[i];
+          stateDistrictCodeObject.code = code;
+          stateDistrictCodeObject.state = objectKeyOfMainObject[i];
+          stateDistrictCodeList.push(stateDistrictCodeObject);
+          const districtCode = Object.keys(mainObject[objectKeyOfMainObject[i]]['districtData']);
+          for (let j = 0; j < districtCode.length - 1; j++) {
+            let districtCodeObject = {};
+            districtCodeObject.place = `${districtCode[j]}, ${objectKeyOfMainObject[i]}`;
+            districtCodeObject.search = districtCode[j];
+            districtCodeObject.state = objectKeyOfMainObject[i];
+            districtCodeObject.code = code;
+            stateDistrictCodeList.push(districtCodeObject);
+          }
+        }
         this.setState({
           ...this.state,
           stateInfoLoader: true,
           stateInfoWithCode: result[0].data,
           completeStateInfoWithDelta: result[1].data,
-          codeWiseQuick4Data: result[2].data
+          codeWiseQuick4Data: result[2].data,
+          stateDistrictCodeList
         })
       }).catch((err) => {
         this.setState({
@@ -104,12 +128,21 @@ export default class App extends Component {
   }
 
 
+  reload() {
+    window.location.reload()
+  }
+
+
 
   render() {
 
     const {
-      loggedCountryName, tryAgainLoader, stateInfoWithCode, completeStateInfoWithDelta, stateInfoLoader, codeWiseQuick4Data
+      loggedCountryName, tryAgainLoader, stateInfoWithCode, 
+      completeStateInfoWithDelta, stateInfoLoader, codeWiseQuick4Data,
+      stateDistrictCodeList
     } = this.state;
+
+
     return (
       <div>
         <div className="compatibility_mobile">
@@ -130,6 +163,7 @@ export default class App extends Component {
                     completeStateInfoWithDelta={completeStateInfoWithDelta}
                     stateInfoWithCode={stateInfoWithCode}
                     stateInfoLoader={stateInfoLoader}
+                    stateDistrictCodeList={stateDistrictCodeList}
                     codeWiseQuick4Data={codeWiseQuick4Data}
                     findDetailsByCode={this.findDetailsByCode.bind(this)}
                     convertDateToDate={this.convertDateToDate}
