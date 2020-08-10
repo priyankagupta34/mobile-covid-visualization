@@ -96,9 +96,9 @@
     /* font-weight: 100; */
     margin-left: 4px;
     width: 20%;
-    padding-left: 9px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    padding: 2px 0;
 }
 
 .codeArrow{
