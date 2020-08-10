@@ -26,7 +26,7 @@ export default class IndiaCovidshowComponent extends Component {
         if (prev !== this.props) {
             this.setState({
                 ...this.state,
-                completeDetailsOfRegion: this.props.findDetailsByCode('BR')
+                completeDetailsOfRegion: this.props.findDetailsByCode('TT')
             })
         }
     }
@@ -59,16 +59,18 @@ export default class IndiaCovidshowComponent extends Component {
     }
 
     provideDataOfPlace(place){
-        console.log(place)
+        console.log(place);
+        this.setState({
+            ...this.state,
+            completeDetailsOfRegion: this.props.findDetailsByCode(place.code),
+            searchList: []
+        })
     }
 
     render() {
-        const { stateInfoLoader, stateDistrictCodeList } = this.props;
+        const { stateInfoLoader } = this.props;
         const { completeDetailsOfRegion, searchList } = this.state;
 
-        if (stateDistrictCodeList.length !== 0) {
-            // DataStructureServices.search(stateDistrictCodeList, 'search', 'Madh')
-        }
         return (
             <div>
 
