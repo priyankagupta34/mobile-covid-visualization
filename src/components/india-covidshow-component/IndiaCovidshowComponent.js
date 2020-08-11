@@ -60,7 +60,6 @@ export default class IndiaCovidshowComponent extends Component {
     }
 
     provideDataOfPlace(place) {
-        console.log(place);
         this.setState({
             ...this.state,
             completeDetailsOfRegion: this.props.findDetailsByCode(place.code),
@@ -79,7 +78,7 @@ export default class IndiaCovidshowComponent extends Component {
     render() {
         const { stateInfoLoader } = this.props;
         const { completeDetailsOfRegion, searchList, freshShow } = this.state;
-        console.log('completeDetailsOfRegion ', completeDetailsOfRegion)
+        
         return (
             <div>
 

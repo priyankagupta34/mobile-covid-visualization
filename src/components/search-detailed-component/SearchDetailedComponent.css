@@ -75,6 +75,8 @@
     width: 93%;
     padding-left: 7px;
     height: 100%;
+    color: #880101;
+    letter-spacing: 0.74px;
 }
 
 .absoluteWrapper {
@@ -117,4 +119,13 @@
     transform: rotate(-90deg);
     font-size: 1.4em;
     color: brown;
+}
+
+.playDisplyer{
+    z-index: 7;
+    position: relative;
+}
+
+.playDisplyer:active{
+    display: none;
 }

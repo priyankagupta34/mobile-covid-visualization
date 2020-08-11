@@ -12,7 +12,6 @@ function search(completearray, chosenField, word) {
             resultList.push(completearray[i]);
         }
     }
-    console.log('resultList', resultList);
     return resultList;
 }
 
