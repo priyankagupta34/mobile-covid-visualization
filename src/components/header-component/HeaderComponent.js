@@ -157,11 +157,6 @@ export default class HeaderComponent extends Component {
                     </div>
                     <div className="hc4">
                         <div>
-                            <Link to="/search" >
-                                <button className="btn1" onClick={this.closeMenuForSm.bind(this)}>Search Your Place</button>
-                            </Link>
-                        </div>
-                        <div>
                             <Link to="/india" >
                                 <button className="btn1" onClick={this.closeMenuForSm.bind(this)}>Quick India View</button>
                             </Link>

@@ -60,8 +60,8 @@ export default class QuickDataViewComponent extends Component {
                                     {
                                         totalLoader ?
                                             <div>
-                                                <div className="quickTitle">Recovered</div>
-                                                <div className="qvdc_nm">{totals.NewRecovered}</div>
+                                                <div className="quickTitle recoveredCo">Recovered</div>
+                                                <div className="qvdc_nm ">{totals.NewRecovered}</div>
                                             </div> :
                                             <LoaderComponent />}
 
@@ -73,8 +73,8 @@ export default class QuickDataViewComponent extends Component {
                                     {
                                         totalLoader ?
                                             <div>
-                                                <div className="quickTitle">Deaths</div>
-                                                <div className="qvdc_nm">{totals.NewDeaths}</div>
+                                                <div className="quickTitle deceasedCo">Deaths</div>
+                                                <div className="qvdc_nm ">{totals.NewDeaths}</div>
                                             </div> :
                                             <LoaderComponent />}
 
@@ -86,8 +86,8 @@ export default class QuickDataViewComponent extends Component {
                                     {
                                         totalLoader ?
                                             <div>
-                                                <div className="quickTitle">Confirmed</div>
-                                                <div className="qvdc_nm">{totals.NewConfirmed}</div>
+                                                <div className="quickTitle confirmedCo">Confirmed</div>
+                                                <div className="qvdc_nm ">{totals.NewConfirmed}</div>
                                             </div> :
                                             <LoaderComponent />}
 
@@ -104,8 +104,8 @@ export default class QuickDataViewComponent extends Component {
                                         {
                                             totalLoader ?
                                                 <div>
-                                                    <div className="quickTitle">Recovered</div>
-                                                    <div className="qvdc_nm">{totals.TotalRecovered}</div>
+                                                    <div className="quickTitle recoveredCo">Recovered</div>
+                                                    <div className="qvdc_nm ">{totals.TotalRecovered}</div>
                                                 </div> :
                                                 <LoaderComponent />}
 
@@ -117,7 +117,7 @@ export default class QuickDataViewComponent extends Component {
                                         {
                                             totalLoader ?
                                                 <div>
-                                                    <div className="quickTitle">Deaths</div>
+                                                    <div className="quickTitle deceasedCo">Deaths</div>
                                                     <div className="qvdc_nm">{totals.TotalDeaths}</div>
                                                 </div> :
                                                 <LoaderComponent />}
@@ -128,8 +128,8 @@ export default class QuickDataViewComponent extends Component {
                                     <div className="qdvc_ic" id="con1">   {
                                         totalLoader ?
                                             <div>
-                                                <div className="quickTitle">Confirmed</div>
-                                                <div className="qvdc_nm">{totals.TotalConfirmed}</div>
+                                                <div className="quickTitle confirmedCo">Confirmed</div>
+                                                <div className="qvdc_nm ">{totals.TotalConfirmed}</div>
                                             </div> :
                                             <LoaderComponent />}
                                     </div>

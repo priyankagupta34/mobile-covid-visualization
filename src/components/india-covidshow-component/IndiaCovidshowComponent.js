@@ -70,7 +70,7 @@ export default class IndiaCovidshowComponent extends Component {
     render() {
         const { stateInfoLoader } = this.props;
         const { completeDetailsOfRegion, searchList } = this.state;
-
+        console.log('completeDetailsOfRegion ', completeDetailsOfRegion)
         return (
             <div>
 
@@ -195,14 +195,21 @@ export default class IndiaCovidshowComponent extends Component {
                                 <div className="deceasedCo delta">
                                     {completeDetailsOfRegion.info3.deltadeaths !== '0' &&
                                         <><i className="material-icons fontSize1 ">arrow_upward</i>
-                                            {completeDetailsOfRegion.info3.state === 'Total' ? completeDetailsOfRegion.info2.delta.tested.states.samples :
+
+
+                                            {completeDetailsOfRegion.info3.state === 'Total' ?                                             
+                                            completeDetailsOfRegion.info2.delta.tested.states.samples :
                                                 completeDetailsOfRegion.info2.delta.tested.samples}
                                         </>
                                     }
                                 </div>
-                                {completeDetailsOfRegion.info3.state === 'Total' ? <div className="qvdc_nm">
+                                {typeof completeDetailsOfRegion.info2.total.tested !== undefined && <>{completeDetailsOfRegion.info3.state === 'Total' ? <div className="qvdc_nm">
                                     {completeDetailsOfRegion.info2.total.tested.states.samples}</div> :
-                                    <div className="qvdc_nm"> {completeDetailsOfRegion.info2.total.tested.samples}</div>}
+
+                                    <div className="qvdc_nm"> 
+                                    {completeDetailsOfRegion.info2.total.tested.samples}
+                                    </div>}
+                                    </>}
                             </div>
                         </div>
                     </div>}
