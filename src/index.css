@@ -212,12 +212,12 @@ a {
 
 @keyframes wayupanimation1 {
   0% {
-    top: 22vh;
+    left: 22vh;
     opacity: 0;
   }
 
   100% {
-    top: 0;
+    left: 0;
     opacity: 0.8;
   }
 }
@@ -230,12 +230,12 @@ a {
 
 @keyframes wayupanimation2 {
   0% {
-    top: 24vh;
+    left: 24vh;
     opacity: 0;
   }
 
   100% {
-    top: 0;
+    left: 0;
     opacity: 0.8;
   }
 }
@@ -248,12 +248,12 @@ a {
 
 @keyframes wayupanimation3 {
   0% {
-    top: 26vh;
+    left: 26vh;
     opacity: 0;
   }
 
   100% {
-    top: 0;
+    left: 0;
     opacity: 0.8;
   }
 }
@@ -265,12 +265,12 @@ a {
 
 @keyframes wayupanimation4 {
   0% {
-    top: 28vh;
+    left: 28vh;
     opacity: 0;
   }
 
   100% {
-    top: 0;
+    left: 0;
     opacity: 0.8;
   }
 }
