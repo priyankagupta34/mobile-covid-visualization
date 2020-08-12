@@ -10,7 +10,7 @@ export default class SearchDetailedComponent extends Component {
         }
     }
     componentDidMount() {
-        const nameList = ["Lakshadweep", "Nicobar", "Lakshadweep",
+        const nameList = ["Puducherry", "Nicobar", "Kashmir",
             "Madhepura", "Nicobar", "Lakshadweep", "Telangana", "Nicobar", "Lakshadweep", "Sikkim"];
         const randowm = Math.floor(Math.random() * 10);
         const name = nameList[randowm];
@@ -28,7 +28,7 @@ export default class SearchDetailedComponent extends Component {
                 })
                 i++;
                 this.nameLooper(name, i);
-            }, 500);
+            }, 200);
 
         }
 
@@ -51,7 +51,7 @@ export default class SearchDetailedComponent extends Component {
         this.props.clearNCloseSearch();
     }
 
-    hideDisplayInputShow(){
+    hideDisplayInputShow() {
 
     }
     render() {

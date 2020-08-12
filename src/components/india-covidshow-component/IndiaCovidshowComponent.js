@@ -78,7 +78,7 @@ export default class IndiaCovidshowComponent extends Component {
     render() {
         const { stateInfoLoader } = this.props;
         const { completeDetailsOfRegion, searchList, freshShow } = this.state;
-        
+
         return (
             <div>
 
@@ -195,9 +195,11 @@ export default class IndiaCovidshowComponent extends Component {
                                 <div>
                                     <div className="quickTitle subCo">Population</div>
                                     <div className="deceasedCo delta">
-                                        <i className="material-icons material-icons-outlined fontSize2 anyCo">groups</i>
+                                        <i className="material-icons material-icons-outlined 2 anyCo">groups</i>
                                     </div>
+                                    {typeof completeDetailsOfRegion.info2 !== undefined && 
                                     <div className="qvdc_nm">{completeDetailsOfRegion.info2.meta.population}</div>
+                                    }
                                 </div>
                             </div>
                             <div className="qdvc_ic">
@@ -210,7 +212,12 @@ export default class IndiaCovidshowComponent extends Component {
 
                                                 {completeDetailsOfRegion.info3.state === 'Total' ?
                                                     completeDetailsOfRegion.info2.delta.tested.states.samples :
-                                                    completeDetailsOfRegion.info2.delta.tested.samples}
+                                                    <>
+                                                        {typeof completeDetailsOfRegion.info2 !== undefined && typeof completeDetailsOfRegion.info2.delta !== undefined && <>
+                                                            {completeDetailsOfRegion.info2.delta.tested.samples}
+                                                        </>}
+                                                    </>
+                                                }
                                             </>
                                         }
                                     </div>
@@ -229,6 +236,10 @@ export default class IndiaCovidshowComponent extends Component {
 
                     </>
                     }</>}
+
+                <div>
+
+                </div>
 
             </div>
         )

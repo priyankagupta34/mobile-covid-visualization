@@ -78,12 +78,16 @@ export default class App extends Component {
   }
 
   findDetailsByCode(code) {
-    let infoObject = { info1: "", info2: '', info3: '' };
+    let infoObject = { info1: '', info2: '', info3: '' };
     if (this.state.codeWiseQuick4Data !== '') {
-      infoObject.info2 = this.state.completeStateInfoWithDelta[code];
+      if (typeof this.state.completeStateInfoWithDelta[code] !== 'undefined') {
+        infoObject.info2 = this.state.completeStateInfoWithDelta[code];
+      }
       let stateFound = '';
-      for (let i = 0; i < this.state.codeWiseQuick4Data.statewise.length - 1; i++) {
+      console.log('this.state.codeWiseQuick4Data ', this.state.codeWiseQuick4Data.statewise)
+      for (let i = 0; i < this.state.codeWiseQuick4Data.statewise.length; i++) {
         if (this.state.codeWiseQuick4Data.statewise[i].statecode === code) {
+
           infoObject.info3 = this.state.codeWiseQuick4Data.statewise[i];
           if (this.state.codeWiseQuick4Data.statewise[i].state !== 'Total') {
             stateFound = this.state.codeWiseQuick4Data.statewise[i].state;
@@ -95,6 +99,7 @@ export default class App extends Component {
         infoObject.info1 = this.state.stateInfoWithCode[stateFound];
       }
     }
+    console.log('infoObject ', infoObject)
     return infoObject;
   }
 
@@ -116,6 +121,9 @@ export default class App extends Component {
 
 
   convertDateToDate(date) {
+    if (typeof date !== 'undefined') {
+      date = date.split("/").slice(0, 2).reverse().join("/").concat("/" + date.split("/")[2])
+    }
     const updateTimeStamp = new Date(date).getTime();
     const currentTimeStamp = new Date().getTime();
     if (new Date(date).toDateString() === new Date().toDateString()) {
@@ -139,7 +147,7 @@ export default class App extends Component {
   render() {
 
     const {
-      loggedCountryName, tryAgainLoader, stateInfoWithCode, 
+      loggedCountryName, tryAgainLoader, stateInfoWithCode,
       completeStateInfoWithDelta, stateInfoLoader, codeWiseQuick4Data,
       stateDistrictCodeList
     } = this.state;
@@ -169,7 +177,6 @@ export default class App extends Component {
                     codeWiseQuick4Data={codeWiseQuick4Data}
                     findDetailsByCode={this.findDetailsByCode.bind(this)}
                     convertDateToDate={this.convertDateToDate}
-
                   />);
                 }} />
                 <Route path="/search" exact render={(props) => {
