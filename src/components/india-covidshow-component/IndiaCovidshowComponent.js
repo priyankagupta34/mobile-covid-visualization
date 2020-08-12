@@ -5,6 +5,7 @@ import LoaderComponent from '../loader-component/LoaderComponent';
 import TitleIconComponent from '../title-icon-component/TitleIconComponent';
 import SearchDetailedComponent from '../search-detailed-component/SearchDetailedComponent';
 import { DataStructureServices } from '../../services/DataStructureServices';
+import StateGridViewComponent from '../state-grid-view-component/StateGridViewComponent';
 
 export default class IndiaCovidshowComponent extends Component {
     constructor(props) {
@@ -76,7 +77,7 @@ export default class IndiaCovidshowComponent extends Component {
     }
 
     render() {
-        const { stateInfoLoader } = this.props;
+        const { stateInfoLoader, codeWiseQuick4Data } = this.props;
         const { completeDetailsOfRegion, searchList, freshShow } = this.state;
 
         return (
@@ -197,8 +198,8 @@ export default class IndiaCovidshowComponent extends Component {
                                     <div className="deceasedCo delta">
                                         <i className="material-icons material-icons-outlined 2 anyCo">groups</i>
                                     </div>
-                                    {typeof completeDetailsOfRegion.info2 !== undefined && 
-                                    <div className="qvdc_nm">{completeDetailsOfRegion.info2.meta.population}</div>
+                                    {typeof completeDetailsOfRegion.info2 !== undefined &&
+                                        <div className="qvdc_nm">{completeDetailsOfRegion.info2.meta.population}</div>
                                     }
                                 </div>
                             </div>
@@ -238,7 +239,7 @@ export default class IndiaCovidshowComponent extends Component {
                     }</>}
 
                 <div>
-
+                    <StateGridViewComponent codeWiseQuick4Data={codeWiseQuick4Data} title="All States Info" icon="equalizer"/>
                 </div>
 
             </div>

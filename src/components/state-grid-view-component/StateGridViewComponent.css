@@ -1,0 +1,49 @@
+.gridStyle {
+    display: grid;
+    grid-template-columns: repeat(6, auto);
+    font-size: 0.76em;
+    font-weight: 500;
+    grid-column-gap: 7px;
+    margin-bottom: 7px;
+}
+
+.gridsContainer {
+    width: 100vw;
+    overflow-x: auto;
+    margin-top: 10px;
+}
+
+.gridBox {
+    width: 24vw;
+    /* height: 6vh; */
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    background-color: ghostwhite;
+    border-radius: 3px;
+}
+
+/* .gridBox:nth-child(odd){
+    background: lavenderblush;
+}
+
+.gridBox:nth-child(odd) {
+    background-color: white;
+} */
+
+.mainGridHeader {
+    position: sticky;
+    left: 0;
+    background: lavenderblush;
+}
+
+.gridMain {
+    background-color: lavenderblush !important;
+    font-weight: 700;
+    color: #464242;
+}
+
+.titleGridContainer{
+    width: 30vw;
+}
