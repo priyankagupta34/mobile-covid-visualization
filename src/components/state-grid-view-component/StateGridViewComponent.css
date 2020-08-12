@@ -1,6 +1,6 @@
 .gridStyle {
     display: grid;
-    grid-template-columns: repeat(6, auto);
+    grid-template-columns: repeat(7, auto);
     font-size: 0.76em;
     font-weight: 500;
     grid-column-gap: 7px;
@@ -14,7 +14,7 @@
 }
 
 .gridBox {
-    width: 24vw;
+    width: 21vw;
     /* height: 6vh; */
     min-height: 38px;
     display: flex;
@@ -44,6 +44,6 @@
     color: #464242;
 }
 
-.titleGridContainer{
-    width: 30vw;
+.titleGridContainer {
+    width: 26vw;
 }

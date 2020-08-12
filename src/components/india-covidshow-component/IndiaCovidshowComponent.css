@@ -72,3 +72,18 @@
     border: 10px solid white;
     overflow: hidden;
 }
+
+.inLakhCrore{
+    display: flex;
+    justify-content: center;
+    height: 15px;
+    font-size: 0.6em;
+    background-color: lavenderblush;
+    border-radius: 1px;
+    border: 1px solid transparent;
+    /* padding: 4px; */
+    color: rgb(139, 139, 139);
+    align-items: center;
+    margin: 4px auto;
+}
+

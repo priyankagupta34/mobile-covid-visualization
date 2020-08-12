@@ -8,6 +8,7 @@
     transition: all 0.3s;
     display: flex;
     height: 34px;
+    max-width: 328px;
 }
 
 .input_search:focus {
