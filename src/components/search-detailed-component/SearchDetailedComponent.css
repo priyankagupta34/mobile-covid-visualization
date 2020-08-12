@@ -87,9 +87,12 @@
 }
 
 .times {
-    padding-top: 4px;
     font-weight: 500;
     color: #5d1212;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .dfdetails {
