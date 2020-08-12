@@ -239,7 +239,11 @@ export default class IndiaCovidshowComponent extends Component {
                     }</>}
 
                 <div>
-                    <StateGridViewComponent codeWiseQuick4Data={codeWiseQuick4Data} title="All States Info" icon="equalizer"/>
+                    <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'detsin', 'wayupanimation')}>
+                        <div id="detsin">
+                            <StateGridViewComponent codeWiseQuick4Data={codeWiseQuick4Data} title="All States Info" icon="equalizer" />
+                        </div>
+                    </Waypoint>
                 </div>
 
             </div>
