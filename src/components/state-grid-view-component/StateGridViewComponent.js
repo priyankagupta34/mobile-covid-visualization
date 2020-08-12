@@ -72,7 +72,7 @@ export default class StateGridViewComponent extends Component {
                     <div className="gridStyle">
                         <div className="gridBox mainGridHeader gridMain titleGridContainer">
                             State
-                                </div>
+                        </div>
                         <div className="gridBox gridMain ">
                             Active
                                 </div>
