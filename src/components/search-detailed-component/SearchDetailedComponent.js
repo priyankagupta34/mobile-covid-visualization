@@ -51,6 +51,13 @@ export default class SearchDetailedComponent extends Component {
         this.props.clearNCloseSearch();
     }
 
+    clearTheInputRow(){
+        this.setState({
+            ...this.state,
+            stateOrDistrictSelected: ''
+        })
+    }
+
     hideDisplayInputShow() {
 
     }
@@ -64,7 +71,9 @@ export default class SearchDetailedComponent extends Component {
                         <div className="input_search">
                             <input value={stateOrDistrictSelected}
                                 className="insideInput"
-                                onChange={this.filterStateDistrictHandler.bind(this)}></input>
+                                onChange={this.filterStateDistrictHandler.bind(this)}
+                                onClick={this.clearTheInputRow.bind(this)}
+                                ></input>
                             <div onClick={this.clearNCloseSearch.bind(this)} className="times">&times;</div>
                         </div>
 
