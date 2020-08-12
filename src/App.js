@@ -84,7 +84,6 @@ export default class App extends Component {
         infoObject.info2 = this.state.completeStateInfoWithDelta[code];
       }
       let stateFound = '';
-      // console.log('this.state.codeWiseQuick4Data ', this.state.codeWiseQuick4Data.statewise)
       for (let i = 0; i < this.state.codeWiseQuick4Data.statewise.length; i++) {
         if (this.state.codeWiseQuick4Data.statewise[i].statecode === code) {
 

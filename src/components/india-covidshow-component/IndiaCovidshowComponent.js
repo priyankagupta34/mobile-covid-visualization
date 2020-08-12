@@ -97,8 +97,9 @@ export default class IndiaCovidshowComponent extends Component {
                         />
                     </div>
                 </Waypoint>
-                {!freshShow && <>
-                    {completeDetailsOfRegion !== '' && <>
+                {!freshShow && <div className="displayjoe">
+                    {completeDetailsOfRegion !== '' && 
+                    <>
 
                         <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'cvhiu1', 'wayupanimation')}>
                             <div id="cvhiu1">
@@ -236,7 +237,7 @@ export default class IndiaCovidshowComponent extends Component {
 
 
                     </>
-                    }</>}
+                    }</div>}
 
                 <div>
                     <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'detsin', 'wayupanimation')}>

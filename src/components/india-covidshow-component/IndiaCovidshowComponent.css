@@ -66,3 +66,9 @@
 .populaiontol{
     padding: 10px 0;
 }
+
+
+#detsin{
+    border: 10px solid white;
+    overflow: hidden;
+}
