@@ -81,7 +81,7 @@ export default class SearchDetailedComponent extends Component {
                             <div>
                                 {searchList.length !== 0 && <div className="searchBox">
                                     {searchList.map((item, index) => (
-                                        <div key={index} className="eachPlaceDisplay" onClick={() => this.props.provideDataOfPlace(item)}>
+                                        <div key={index} className="eachPlaceDisplay" onClick={() => this.props.provideDataOfPlace(item.code)}>
                                             <div className="place_spc">
                                                 {item.place}
                                             </div>

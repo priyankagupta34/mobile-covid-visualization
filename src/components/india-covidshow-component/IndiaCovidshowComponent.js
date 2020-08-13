@@ -15,7 +15,8 @@ export default class IndiaCovidshowComponent extends Component {
             completeDetailsOfRegion: '',
             stateOrDistrictSelected: '',
             searchList: [],
-            freshShow: false
+            freshShow: false,
+            selectedCode: 'TT'
         }
     }
     componentDidMount() {
@@ -58,10 +59,11 @@ export default class IndiaCovidshowComponent extends Component {
         })
     }
 
-    provideDataOfPlace(place) {
+    provideDataOfPlace(placecode, event) {
         this.setState({
             ...this.state,
-            completeDetailsOfRegion: this.props.findDetailsByCode(place.code),
+            completeDetailsOfRegion: this.props.findDetailsByCode(placecode),
+            selectedCode: placecode,
             searchList: [],
             freshShow: true
         }, () => {
@@ -74,12 +76,19 @@ export default class IndiaCovidshowComponent extends Component {
         })
     }
 
+
+
+
     render() {
         const { stateInfoLoader, codeWiseQuick4Data, completeStateInfoWithDelta, stateInfoWithCode } = this.props;
-        const { completeDetailsOfRegion, searchList, freshShow } = this.state;
+        const { completeDetailsOfRegion, searchList, freshShow, selectedCode } = this.state;
 
         return (
             <div>
+
+                {selectedCode !== 'TT' && <div className="flexCenterX centered">
+                <button className="inLakhCrore" onClick={this.provideDataOfPlace.bind(this, 'TT')}>India Info</button>
+                </div>}
 
                 <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'search', 'wayupanimation')}>
                     <div id="search">
@@ -106,9 +115,7 @@ export default class IndiaCovidshowComponent extends Component {
                                     <div className="main_lastUpdt">
                                         Last updated {this.props.convertDateToDate(completeDetailsOfRegion.info3.lastupdatedtime)}
                                     </div>
-                                    {/* <div className="flexCenterX centered">
-                                <button className="inLakhCrore">In Lakhs/Crores</button>
-                                </div> */}
+                                    
                                 </div>
                             </Waypoint>
 
@@ -185,8 +192,9 @@ export default class IndiaCovidshowComponent extends Component {
                                                             <><i className="material-icons fontSize1 ">arrow_upward</i>
                                                                 {completeDetailsOfRegion.info3.deltadeaths}</>}
                                                     </div>
-
-                                                    <div className="qvdc_nm">{LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info3.deaths))}</div>
+                                                    <div className="qvdc_nm">
+                                                        {LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info3.deaths))}
+                                                    </div>
                                                 </div> :
                                                 <LoaderComponent />}
                                     </div>

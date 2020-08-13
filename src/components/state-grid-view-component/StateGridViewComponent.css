@@ -15,11 +15,12 @@
 
 .gridBox {
     width: 21vw;
-    /* height: 6vh; */
-    min-height: 38px;
+    height: 7vh;
+    min-height: 48px;
     display: flex;
-    align-items: center;
-    padding-left: 8px;
+    /* align-items: flex-end; */
+    justify-content: flex-end;
+    /* padding-left: 4px; */
     background-color: ghostwhite;
     border-radius: 3px;
 }
@@ -42,8 +43,24 @@
     background-color: lavenderblush !important;
     font-weight: 700;
     color: #464242;
+    justify-content: flex-start;
+    text-align: left;
+    /* align-items: center; */
 }
 
 .titleGridContainer {
     width: 26vw;
+}
+
+.subTitlMin{
+    justify-content: flex-end !important;
+}
+
+.miniDelta{
+    height: 18px;
+    /* margin-top: 12%; */
+}
+
+.onlyState{
+    align-items: center;
 }

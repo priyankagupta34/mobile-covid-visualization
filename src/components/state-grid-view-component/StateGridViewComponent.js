@@ -71,25 +71,40 @@ export default class StateGridViewComponent extends Component {
 
                     <div className="gridStyle">
                         <div className="gridBox mainGridHeader gridMain titleGridContainer">
+                            <div>
+                                <div className="miniDelta"></div>
                             State
                         </div>
-                        <div className="gridBox gridMain ">
+                        </div>
+                        <div className="gridBox gridMain subTitlMin"> <div>
+                            <div className="miniDelta"></div>
                             Active
                                 </div>
-                        <div className="gridBox gridMain ">
+                        </div>
+                        <div className="gridBox gridMain subTitlMin "> <div>
+                            <div className="miniDelta"></div>
                             Confirmed
                                 </div>
-                        <div className="gridBox gridMain ">
+                        </div>
+                        <div className="gridBox gridMain  subTitlMin"> <div>
+                            <div className="miniDelta"></div>
                             Deaths
                                 </div>
-                        <div className="gridBox gridMain ">
+                        </div>
+                        <div className="gridBox gridMain  subTitlMin"> <div>
+                            <div className="miniDelta"></div>
                             Recovered
                                 </div>
-                        <div className="gridBox gridMain ">
+                        </div>
+                        <div className="gridBox gridMain  subTitlMin"> <div>
+                            <div className="miniDelta"></div>
                             Others
                         </div>
-                        <div className="gridBox gridMain titleGridContainer">
+                        </div>
+                        <div className="gridBox gridMain titleGridContainer subTitlMin"> <div>
+                            <div className="miniDelta"></div>
                             Population
+                        </div>
                         </div>
                     </div>
 
@@ -99,27 +114,61 @@ export default class StateGridViewComponent extends Component {
 
                         quickCompleteData.map((item, index) => (
                             <>
-                                <div className="gridStyle" key={index}>
-                                    <div className="gridBox mainGridHeader gridMain titleGridContainer">
-                                        {item.state}
+                                <div className="gridStyle righted" key={index}>
+                                    <div className="gridBox mainGridHeader gridMain titleGridContainer onlyState">
+                                        <div>
+                                            {item.state}
+                                        </div>
                                     </div>
                                     <div className="gridBox">
-                                        {item.active}
+                                        <div>
+                                            <div className="miniDelta"></div>
+                                            {item.active}
+                                        </div>
                                     </div>
                                     <div className="gridBox">
-                                        {item.confirmed}
+                                        <div>
+
+                                            <div className="deceasedCo miniDelta confirmedCo">
+                                                {item.deltaconfirmed !== '0' &&
+                                                    <><i className="material-icons fontSize1 ">arrow_upward</i>
+                                                        {item.deltaconfirmed}</>}
+                                            </div>
+                                            {item.confirmed}
+                                        </div>
                                     </div>
                                     <div className="gridBox">
-                                        {item.deaths}
+                                        <div>
+                                            <div className="deceasedCo miniDelta">
+                                                {item.deltadeaths !== '0' &&
+                                                    <><i className="material-icons fontSize1 deceasedCo">arrow_upward</i>
+                                                        {item.deltadeaths}</>}
+                                            </div>
+                                            {item.deaths}
+                                        </div>
                                     </div>
                                     <div className="gridBox">
-                                        {item.recovered}
+                                        <div>
+                                            <div className="recoveredCo miniDelta">
+                                                {item.deltarecovered !== '0' &&
+                                                    <><i className="material-icons fontSize1 recoveredCo">arrow_upward</i>
+                                                        {item.deltarecovered}</>}
+                                            </div>
+                                            {item.recovered}
+                                        </div>
                                     </div>
                                     <div className="gridBox">
-                                        {item.migratedother}
+                                        <div>
+                                            <div className=" miniDelta"></div>
+                                            {item.migratedother}
+                                        </div>
                                     </div>
+
                                     <div className="gridBox titleGridContainer">
-                                        {LimitServices.inLakhsOrCrores(item.population)}
+                                        <div>
+                                            <div className=" miniDelta"></div>
+                                            {LimitServices.inLakhsOrCrores(item.population)}
+                                        </div>
                                     </div>
                                 </div>
                             </>
