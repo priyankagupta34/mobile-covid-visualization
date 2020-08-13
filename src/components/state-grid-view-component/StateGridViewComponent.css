@@ -50,7 +50,8 @@
 }
 
 .titleGridContainer {
-    width: 26vw;
+    width: 25vw;
+    padding-right: 22px;
 }
 
 .subTitlMin{
