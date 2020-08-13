@@ -2,12 +2,17 @@ import React, { Component } from 'react';
 import TitleIconComponent from '../title-icon-component/TitleIconComponent';
 import './StateGridViewComponent.css';
 import { LimitServices } from '../../services/LimitServices';
+import { DataStructureServices } from '../../services/DataStructureServices';
 
 export default class StateGridViewComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            quickCompleteData: []
+            quickCompleteData: [],
+            sortType: {
+                event: 'active',
+                sorting: true
+            }
         }
     }
     componentDidMount() {
@@ -41,6 +46,10 @@ export default class StateGridViewComponent extends Component {
                     if (typeof this.props.completeStateInfoWithDelta[quickCompleteData[i].statecode] !== 'undefined') {
                         quickCompleteData[i]['population'] = this.props.completeStateInfoWithDelta[quickCompleteData[i].statecode].meta.population;
                         quickCompleteData[i]['district'] = this.props.completeStateInfoWithDelta[quickCompleteData[i].statecode].districts;
+                        quickCompleteData[i]['active'] = Number(quickCompleteData[i]['active']);
+                        quickCompleteData[i]['deaths'] = Number(quickCompleteData[i]['deaths']);
+                        quickCompleteData[i]['confirmed'] = Number(quickCompleteData[i]['confirmed']);
+                        quickCompleteData[i]['recovered'] = Number(quickCompleteData[i]['recovered']);
                     }
 
                 }
@@ -57,10 +66,38 @@ export default class StateGridViewComponent extends Component {
         }
     }
 
+
+    sortData(type, event) {
+        const types = type;
+        /* If  state.sortType.sort is true its ascends or descend*/
+        this.setState((state, props) => {
+            state.sortType.event = types;
+            const sorted = DataStructureServices.mergeSort(state.quickCompleteData, types);
+            const sortedReverse = DataStructureServices.mergeSort(state.quickCompleteData, types).reverse();
+            if (state.sortType.sorting) {
+                state.quickCompleteData = sorted;
+            }
+            else {
+                state.quickCompleteData = sortedReverse;
+            }
+            return state;
+
+
+        }, () => {
+            this.setState({
+                ...this.state,
+                sortType: {
+                    ...this.state.sortType,
+                    sorting: !this.state.sortType.sorting
+                }
+            })
+        })
+    }
+
     render() {
-        console.log('v', this.props)
+        // console.log('neutral', this.state)
         const { title, icon } = this.props;
-        const { quickCompleteData } = this.state;
+        const { quickCompleteData, sortType } = this.state;
         return (
             <>
                 <TitleIconComponent icon={icon} title={title} />
@@ -70,29 +107,74 @@ export default class StateGridViewComponent extends Component {
                 <div className="gridsContainer">
 
                     <div className="gridStyle">
-                        <div className="gridBox mainGridHeader gridMain titleGridContainer">
+                        <div className="gridBox mainGridHeader gridMain titleGridContainer" onClick={this.sortData.bind(this, 'state')}>
                             <div>
-                                <div className="miniDelta"></div>
+                                <div className="miniDelta">
+                                    {sortType.event === 'state' &&
+                                        <>
+                                            {sortType.sorting ?
+                                                <i className="material-icons fontSize1 subCo">filter_list</i> :
+                                                <i className="material-icons fontSize1 rotated180 subCo">filter_list</i>
+                                            }
+                                        </>
+                                    }
+                                </div>
                             State
                         </div>
                         </div>
-                        <div className="gridBox gridMain subTitlMin"> <div>
-                            <div className="miniDelta"></div>
+                        <div className="gridBox gridMain subTitlMin" onClick={this.sortData.bind(this, 'active')}> <div>
+                            <div className="miniDelta righted">
+                                {sortType.event === 'active' &&
+                                    <>
+                                        {sortType.sorting ?
+                                            <i className="material-icons fontSize1 activeCo">filter_list</i> :
+                                            <i className="material-icons fontSize1 rotated180 activeCo">filter_list</i>
+                                        }
+                                    </>
+                                }
+                            </div>
                             Active
                                 </div>
                         </div>
-                        <div className="gridBox gridMain subTitlMin "> <div>
-                            <div className="miniDelta"></div>
+                        <div className="gridBox gridMain subTitlMin " onClick={this.sortData.bind(this, 'confirmed')}> <div>
+                            <div className="miniDelta righted">
+                                {sortType.event === 'confirmed' &&
+                                    <>
+                                        {sortType.sorting ?
+                                            <i className="material-icons fontSize1 confirmedCo">filter_list</i> :
+                                            <i className="material-icons fontSize1 rotated180 confirmedCo">filter_list</i>
+                                        }
+                                    </>
+                                }
+                            </div>
                             Confirmed
                                 </div>
                         </div>
-                        <div className="gridBox gridMain  subTitlMin"> <div>
-                            <div className="miniDelta"></div>
+                        <div className="gridBox gridMain  subTitlMin" onClick={this.sortData.bind(this, 'deaths')}> <div>
+                            <div className="miniDelta righted">
+                                {sortType.event === 'deaths' &&
+                                    <>
+                                        {sortType.sorting ?
+                                            <i className="material-icons fontSize1 deceasedCo">filter_list</i> :
+                                            <i className="material-icons fontSize1 rotated180 deceasedCo">filter_list</i>
+                                        }
+                                    </>
+                                }
+                            </div>
                             Deaths
                                 </div>
                         </div>
-                        <div className="gridBox gridMain  subTitlMin"> <div>
-                            <div className="miniDelta"></div>
+                        <div className="gridBox gridMain  subTitlMin" onClick={this.sortData.bind(this, 'recovered')}> <div>
+                            <div className="miniDelta righted">
+                                {sortType.event === 'recovered' &&
+                                    <>
+                                        {sortType.sorting ?
+                                            <i className="material-icons fontSize1 recoveredCo">filter_list</i> :
+                                            <i className="material-icons fontSize1 rotated180 recoveredCo">filter_list</i>
+                                        }
+                                    </>
+                                }
+                            </div>
                             Recovered
                                 </div>
                         </div>
@@ -101,16 +183,23 @@ export default class StateGridViewComponent extends Component {
                             Others
                         </div>
                         </div>
-                        <div className="gridBox gridMain titleGridContainer subTitlMin"> <div>
-                            <div className="miniDelta"></div>
+                        <div className="gridBox gridMain titleGridContainer subTitlMin" onClick={this.sortData.bind(this, 'population')}> <div>
+                            <div className="miniDelta righted">
+                                {sortType.event === 'population' &&
+                                    <>
+                                        {sortType.sorting ?
+                                            <i className="material-icons fontSize1 populationCo">filter_list</i> :
+                                            <i className="material-icons fontSize1 rotated180 populationCo">filter_list</i>
+                                        }
+                                    </>
+                                }
+                            </div>
                             Population
                         </div>
                         </div>
                     </div>
 
                     {quickCompleteData.length !== 0 &&
-
-
 
                         quickCompleteData.map((item, index) => (
                             <>

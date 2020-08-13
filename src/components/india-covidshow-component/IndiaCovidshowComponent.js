@@ -87,7 +87,7 @@ export default class IndiaCovidshowComponent extends Component {
             <div>
 
                 {selectedCode !== 'TT' && <div className="flexCenterX centered">
-                <button className="inLakhCrore" onClick={this.provideDataOfPlace.bind(this, 'TT')}>India Info</button>
+                    <button className="inLakhCrore" onClick={this.provideDataOfPlace.bind(this, 'TT')}>India Info</button>
                 </div>}
 
                 <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'search', 'wayupanimation')}>
@@ -115,7 +115,7 @@ export default class IndiaCovidshowComponent extends Component {
                                     <div className="main_lastUpdt">
                                         Last updated {this.props.convertDateToDate(completeDetailsOfRegion.info3.lastupdatedtime)}
                                     </div>
-                                    
+
                                 </div>
                             </Waypoint>
 

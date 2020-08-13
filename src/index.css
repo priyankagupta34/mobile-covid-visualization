@@ -334,6 +334,10 @@ a {
   color: #8a2be2a8;
 }
 
+.populationCo {
+  color: #892be2;
+}
+
 .subCo{
   color: darkblue;
 }
@@ -362,3 +366,11 @@ a {
   font-weight: 500;
 }
 
+.rotated180{
+  position: relative;
+  transform: rotate(180deg);
+}
+
+*{
+  transition: all 0.5s;
+}

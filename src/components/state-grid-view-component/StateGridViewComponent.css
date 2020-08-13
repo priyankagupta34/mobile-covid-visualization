@@ -11,6 +11,7 @@
     width: 100vw;
     overflow-x: auto;
     margin-top: 10px;
+    transition: all 0.5s;
 }
 
 .gridBox {
