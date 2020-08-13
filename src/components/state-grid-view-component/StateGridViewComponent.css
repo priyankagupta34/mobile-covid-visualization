@@ -15,7 +15,7 @@
 
 .gridBox {
     width: 21vw;
-    height: 7vh;
+    /* height: 7vh; */
     min-height: 48px;
     display: flex;
     /* align-items: flex-end; */
@@ -23,6 +23,7 @@
     /* padding-left: 4px; */
     background-color: ghostwhite;
     border-radius: 3px;
+    padding: 4px;
 }
 
 /* .gridBox:nth-child(odd){
