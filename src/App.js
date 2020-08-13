@@ -41,7 +41,7 @@ export default class App extends Component {
         let stateDistrictCodeList = [];
         const mainObject = result[0].data;
         const objectKeyOfMainObject = Object.keys(mainObject);
-        for (let i = 0; i < objectKeyOfMainObject.length - 1; i++) {
+        for (let i = 0; i < objectKeyOfMainObject.length; i++) {
           let stateDistrictCodeObject = {};
           const code = mainObject[objectKeyOfMainObject[i]]['statecode'];
           stateDistrictCodeObject.place = objectKeyOfMainObject[i];
@@ -51,7 +51,7 @@ export default class App extends Component {
           stateDistrictCodeObject.state = objectKeyOfMainObject[i];
           stateDistrictCodeList.push(stateDistrictCodeObject);
           const districtCode = Object.keys(mainObject[objectKeyOfMainObject[i]]['districtData']);
-          for (let j = 0; j < districtCode.length - 1; j++) {
+          for (let j = 0; j < districtCode.length; j++) {
             let districtCodeObject = {};
             districtCodeObject.place = `${districtCode[j]}, ${objectKeyOfMainObject[i]}`;
             districtCodeObject.search = districtCode[j];

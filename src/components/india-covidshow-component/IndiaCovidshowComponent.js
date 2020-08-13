@@ -87,7 +87,9 @@ export default class IndiaCovidshowComponent extends Component {
             <div>
 
                 {selectedCode !== 'TT' && <div className="flexCenterX centered">
-                    <button className="inLakhCrore" onClick={this.provideDataOfPlace.bind(this, 'TT')}>India Info</button>
+                    <button className="inLakhCrore" onClick={this.provideDataOfPlace.bind(this, 'TT')}>
+                        <i className="material-icons  pointInd material-icons-outlined">replay</i>
+                    India's Collective Info</button>
                 </div>}
 
                 <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'search', 'wayupanimation')}>
@@ -208,7 +210,7 @@ export default class IndiaCovidshowComponent extends Component {
                                         <div className="deceasedCo delta">
                                             <i className="material-icons material-icons-outlined 2 anyCo">groups</i>
                                         </div>
-                                        {typeof completeDetailsOfRegion.info2 !== undefined &&
+                                        {typeof completeDetailsOfRegion.info2 !== 'undefined' &&
                                             <div className="qvdc_nm">{LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info2.meta.population))}</div>
                                         }
                                     </div>
@@ -218,13 +220,16 @@ export default class IndiaCovidshowComponent extends Component {
                                         <div className="quickTitle subCo">Total Tests</div>
                                         <div className="deceasedCo delta">
                                             {completeDetailsOfRegion.info3.deltadeaths !== '0' &&
-                                                <><i className="material-icons fontSize1 ">arrow_upward</i>
 
-
-                                                    {completeDetailsOfRegion.info3.state === 'Total' ?
-                                                        completeDetailsOfRegion.info2.delta.tested.states.samples :
+                                                <>
+                                                    {completeDetailsOfRegion.info3.state === 'Total' ?<>
+                                                    <i className="material-icons fontSize1 ">arrow_upward</i>
+                                                        {LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info2.delta.tested.states.samples))}</> :
                                                         <>
-                                                            {typeof completeDetailsOfRegion.info2 !== undefined && typeof completeDetailsOfRegion.info2.delta !== undefined && <>
+                                                            {(typeof completeDetailsOfRegion.info2 !== 'undefined' &&
+                                                             typeof completeDetailsOfRegion.info2.delta !== 'undefined' &&
+                                                             typeof completeDetailsOfRegion.info2.delta.tested !== 'undefined' )&& <>
+                                                                <i className="material-icons fontSize1 ">arrow_upward</i>
                                                                 {LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info2.delta.tested.samples))}
                                                             </>}
                                                         </>
