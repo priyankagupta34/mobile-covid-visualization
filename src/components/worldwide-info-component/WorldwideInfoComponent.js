@@ -5,6 +5,7 @@ import TopChartComponent from '../top-chart-component/TopChartComponent'
 import WorldMapCoverComponent from '../world-map-cover-component/WorldMapCoverComponent'
 import './WorldwideInfoComponent.css'
 import { Waypoint } from 'react-waypoint';
+import CovidWorldComparision from '../covid-world-comparision/CovidWorldComparision'
 
 export default class WorldwideInfoComponent extends Component {
     constructor(props) {
@@ -20,7 +21,7 @@ export default class WorldwideInfoComponent extends Component {
         }
     }
 
-    addAnimationToWayUp(id) {
+    addAnimationToWayUp(id, event) {
         const component = window.document.getElementById(id);
         component.classList.add('wayupanimation');
     }
@@ -57,8 +58,8 @@ export default class WorldwideInfoComponent extends Component {
             //  loggedCountryCode, 
             totals,
             totalLoader,
-            tryAgainLoader
-            // countryList
+            tryAgainLoader,
+            countryList
         } = this.state;
 
         return (
@@ -80,6 +81,13 @@ export default class WorldwideInfoComponent extends Component {
                         <WorldMapCoverComponent summaryDataCountries={summaryDataCountries} />
                     </div>
                 </Waypoint>
+
+                <CovidWorldComparision
+                    summaryDataCountries={summaryDataCountries}
+                    loggedCountryName={loggedCountryName}
+                    countryList={countryList}
+                    loggedCountryCode={'India'}
+                />
 
                 {tryAgainLoader &&
                     <div className="tryagainloader">

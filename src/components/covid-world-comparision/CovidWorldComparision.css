@@ -1,0 +1,85 @@
+.line_pb {
+    fill: none;
+    stroke: black;
+    stroke-width: 3;
+}
+
+.smll_hdr {
+    color: gray;
+    font-weight: 100;
+    display: flex;
+    justify-content: center;
+    margin-top: -20px;
+}
+
+.qs_txt {
+    position: absolute;
+}
+
+.search_con {
+    height: 100px;
+    background-color: rgb(183, 190, 197);
+    overflow-y: auto;
+    border-radius: 3px;
+}
+
+
+.secCoun_1 {
+    color: aliceblue;
+    font-weight: 100;
+}
+
+.input_ser {
+    outline: none;
+    padding: 8px;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    background-color: #b7bec5;
+    transition: 0.3s;
+    margin: 4px;
+    min-width: 60px;
+    box-shadow: inset 0 0 20px grey;
+    width: 27vw;
+    font-size: 0.7em;
+    background: white;
+    box-shadow: 0 0 4px #5d121240;
+}
+
+/* .input_ser:focus,
+.input_ser:hover {
+    box-shadow: inset 0 0 6px white;
+    transition: 0.3s;
+} */
+
+option {
+    background: white;
+    color: #802e2efd;
+    border: 1px solid white;
+}
+
+#cov_6 {
+    /* margin-top: 40px; */
+    background: #fff9fb;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 46vh;
+    margin-top: 10px;
+}
+
+.trackerTitle {
+    margin-bottom: 21px;
+    color: white;
+    /* font-size: ; */
+}
+
+svg {
+    overflow: visible;
+}
+
+.legend1 {
+    font-size: 0.7em;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}

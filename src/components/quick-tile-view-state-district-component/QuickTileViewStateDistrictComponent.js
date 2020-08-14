@@ -34,7 +34,7 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                                         <div className="quickTitle confirmedCo">Confirmed</div>
 
                                         <div className="confirmedCo delta">
-                                            {deltaconfirmed !== '0' &&
+                                            {(deltaconfirmed !== '0' || 0) &&
                                                 <><i className="material-icons  fontSize1 ">arrow_upward</i>
                                                     {typeof deltaconfirmed !== 'undefined' && LimitServices.inLakhsOrCrores(Number(deltaconfirmed))}</>}
                                         </div>
@@ -70,7 +70,7 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                                         <div className="quickTitle recoveredCo">Recovered</div>
 
                                         <div className="recoveredCo delta">
-                                            {deltarecovered !== '0' &&
+                                            {(deltarecovered !== '0' || 0) &&
                                                 <><i className="material-icons fontSize1">arrow_upward</i>
                                                     {typeof deltarecovered !== 'undefined' && deltarecovered}</>}
                                         </div>
@@ -91,7 +91,7 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                                         <div className="quickTitle deceasedCo">Deceased</div>
 
                                         <div className="deceasedCo delta">
-                                            {deltadeaths !== '0' &&
+                                            {(deltadeaths !== '0' || 0) &&
                                                 <><i className="material-icons fontSize1 ">arrow_upward</i>
                                                     {deltadeaths}</>}
                                         </div>
@@ -135,7 +135,7 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                             <div>
                                 <div className="quickTitle subCo">Total Tests</div>
                                 <div className="deceasedCo delta">
-                                    {deltadeaths !== '0' &&
+                                    {(deltadeaths !== '0' || 0) &&
 
                                         <>
                                             {state === 'Total' ? <>

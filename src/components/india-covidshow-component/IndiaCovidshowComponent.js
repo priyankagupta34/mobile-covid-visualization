@@ -27,55 +27,49 @@ export default class IndiaCovidshowComponent extends Component {
         }
     }
     componentDidMount() {
-        this.setState({
-            ...this.state,
-            completeDetailsOfRegion: this.props.findDetailsByCode('TT')
-        })
+        this.creatingInfoListForQuickCompleteStateData();
     }
 
     componentDidUpdate(prev) {
         if (prev !== this.props) {
-            if (typeof this.props.codeWiseQuick4Data.statewise !== 'undefined') {
-                let quickCompleteData = Object.assign([], this.props.codeWiseQuick4Data.statewise);
-                for (let i = 0; i < quickCompleteData.length; i++) {
+            this.creatingInfoListForQuickCompleteStateData();
+        }
+    }
 
-                    if (quickCompleteData[i].statecode === 'UN') {
-                        quickCompleteData.splice(i, 1);
-                    }
-                    if (quickCompleteData[i].statecode === 'TT') {
-                        quickCompleteData.splice(i, 1);
-                    }
-                    if (quickCompleteData[i].statecode === 'LD') {
-                        quickCompleteData.splice(i, 1);
-                    }
+    creatingInfoListForQuickCompleteStateData() {
+        if (typeof this.props.codeWiseQuick4Data.statewise !== 'undefined') {
+            let quickCompleteData = Object.assign([], this.props.codeWiseQuick4Data.statewise);
+            for (let i = 0; i < quickCompleteData.length; i++) {
+
+                if (quickCompleteData[i].statecode === 'UN') {
+                    quickCompleteData.splice(i, 1);
                 }
-
-                for (let i = 0; i < quickCompleteData.length; i++) {
-                    if (typeof this.props.completeStateInfoWithDelta[quickCompleteData[i].statecode] !== 'undefined') {
-                        quickCompleteData[i]['population'] = this.props.completeStateInfoWithDelta[quickCompleteData[i].statecode].meta.population;
-                        quickCompleteData[i]['district'] = this.props.completeStateInfoWithDelta[quickCompleteData[i].statecode].districts;
-                        quickCompleteData[i]['active'] = Number(quickCompleteData[i]['active']);
-                        quickCompleteData[i]['deaths'] = Number(quickCompleteData[i]['deaths']);
-                        quickCompleteData[i]['confirmed'] = Number(quickCompleteData[i]['confirmed']);
-                        quickCompleteData[i]['recovered'] = Number(quickCompleteData[i]['recovered']);
-                    }
-
+                if (quickCompleteData[i].statecode === 'TT') {
+                    quickCompleteData.splice(i, 1);
                 }
-                // console.log('quickCompleteData ', quickCompleteData)
+                if (quickCompleteData[i].statecode === 'LD') {
+                    quickCompleteData.splice(i, 1);
+                }
+            }
 
-
-
-                this.setState({
-                    ...this.state,
-                    quickCompleteData,
-                    completeDetailsOfRegion: this.props.findDetailsByCode('TT')
-                })
+            for (let i = 0; i < quickCompleteData.length; i++) {
+                if (typeof this.props.completeStateInfoWithDelta[quickCompleteData[i].statecode] !== 'undefined') {
+                    quickCompleteData[i]['population'] = this.props.completeStateInfoWithDelta[quickCompleteData[i].statecode].meta.population;
+                    quickCompleteData[i]['district'] = this.props.completeStateInfoWithDelta[quickCompleteData[i].statecode].districts;
+                    quickCompleteData[i]['active'] = Number(quickCompleteData[i]['active']);
+                    quickCompleteData[i]['deaths'] = Number(quickCompleteData[i]['deaths']);
+                    quickCompleteData[i]['confirmed'] = Number(quickCompleteData[i]['confirmed']);
+                    quickCompleteData[i]['recovered'] = Number(quickCompleteData[i]['recovered']);
+                }
 
             }
-            // this.setState({
-            //     ...this.state,
-            //     completeDetailsOfRegion: this.props.findDetailsByCode('TT')
-            // })
+
+            this.setState({
+                ...this.state,
+                quickCompleteData,
+                completeDetailsOfRegion: this.props.findDetailsByCode('TT')
+            })
+
         }
     }
 
@@ -258,8 +252,8 @@ export default class IndiaCovidshowComponent extends Component {
                 </Waypoint>
 
                 {placeType === 'district' && <div>
-                    <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'detsin', 'wayupanimation')}>
-                        <div id="detsin">
+                    <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'detsin2', 'wayupanimation')}>
+                        <div id="detsin2">
                             <DistrictGridViewComponent />
                         </div>
                     </Waypoint>

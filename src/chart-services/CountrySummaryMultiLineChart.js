@@ -5,61 +5,15 @@ export const CountrySummaryMultiLineChart = {
 }
 
 function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type, id) {
-    // if(country1Data.data.length !== 0 && country1Data.data.length <= 80){
-    //     countrya = country1Data.data.slice(country1Data.data.length - 80);
-    // }else{
-    //     countrya = country1Data
-    // }
-    // if(result[1].data.length !== 0 && result[1].data.length <= 80){
-    //     countryb = result[1].data.slice(country1Data.data.length - 80);
-    // }else{
-    //     countryb = result[1]
-    // }
-    // if(result[2].data.length !== 0 && result[2].data.length <= 80){
-    //     countryc = result[2].data.slice(country1Data.data.length - 80);
-    // }else{
-    //     countryc = result[2]
-    // }
-    // let newCountry1Data = [];
-    // let newCountry2Data = [];
-    // let newCountry3Data = [];
-
-    // let strokeData = 10;
-
-    // for (let i = 0; i < country1Data.length - 1; i++) {
-    //     if (i % strokeData === 0) {
-    //         newCountry1Data.push(country1Data[i])
-    //     }
-    // }
-    // for (let i = 0; i < country2Data.length - 1; i++) {
-    //     if (i % strokeData === 0) {
-    //         newCountry2Data.push(country2Data[i])
-    //     }
-    // }
-    // for (let i = 0; i < country3Data.length - 1; i++) {
-    //     if (i % strokeData === 0) {
-    //         newCountry3Data.push(country3Data[i])
-    //     }
-    // }
 
     d3.selectAll(`#${id} > *`).remove();
 
-
-
-    const height = 300;
-    const width = 1300;
+    const height = document.documentElement.clientHeight * 0.3;
+    const width = document.documentElement.clientWidth * 0.7;
     const svg = d3.select(`#${id}`)
         .append('svg')
         .attr('width', width)
         .attr('height', height);
-
-    const tooltip = d3.select(`#${id}`)
-        .append('div')
-        .attr('class', 'tooltip_1')
-        .style('position', 'absolute')
-        .style('z-index', '10')
-        .style('visibility', 'hidden');
-
 
     let xData = '';
     if (newCountry1Data.length !== 0) {
@@ -76,20 +30,9 @@ function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type,
     const xScale = d3.scaleLinear()
         .range([0, width])
         .domain([0, (dataDisplayLengthForX - 1)]);
-    const xAxis = d3.axisBottom(xScale).ticks(dataDisplayLengthForX - 1);
 
     /* Providing label aat y axis scale */
     if (xData !== '') {
-        svg.append('g')
-            .style('transform', `translateY(${height}px)`)
-            .call(xAxis)
-            .attr('fill', '#2a5171')
-            .selectAll('text')
-            .data(xData)
-            .text(d => new Date(d['Date']).toLocaleDateString())
-            .style('transform', 'rotate(54deg)')
-            .style('text-anchor', 'start')
-            .attr('fill', 'wheat')
 
         /* Defining min val for y axis */
         const minVal = d3.min([d3.min(newCountry1Data, d => d[type]),
@@ -109,6 +52,7 @@ function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type,
 
         /* Defining ranges and format for y scale */
         const yAxis = d3.axisLeft(yScale).tickFormat(d3.format(''));
+        console.log('yAxis ', yAxis)
 
         /* Providing label aat y axis scale */
         svg.append('g')
@@ -116,7 +60,7 @@ function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type,
             .call(yAxis)
             .attr('fill', '#2a5171')
             .selectAll('text')
-            .attr('fill', 'wheat')
+            .attr('fill', '#a50404')
 
         /* Generating lines */
         const line = d3.line()
@@ -129,10 +73,8 @@ function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type,
         if (newCountry1Data.length !== 0) {
             path1 = svg.append('path')
                 .datum(newCountry1Data)
-                // .transition(transition)
-                // .delay(function (d, i) { return 50 * i; })
                 .attr('fill', 'none')
-                .attr('stroke', 'antiquewhite')
+                .attr('stroke', 'royalblue')
                 .attr('stroke-width', 3)
                 .attr('d', line)
 
@@ -144,7 +86,7 @@ function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type,
             path2 = svg.append('path')
                 .datum(newCountry2Data)
                 .attr('fill', 'none')
-                .attr('stroke', 'yellow')
+                .attr('stroke', 'brown')
                 .attr('stroke-width', 3)
                 .attr('d', line)
         }
@@ -159,34 +101,6 @@ function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type,
                 .attr('stroke-width', 3)
                 .attr('d', line)
         }
-
-        const circles1 = svg.selectAll('circle.data1')
-            .data(newCountry1Data)
-            .enter()
-            .append('circle')
-            .attr('cx', (d, i) => xScale(i))
-            .attr('cy', d => yScale(d[type]))
-            .attr('r', 4)
-            .style('fill', 'antiquewhite');
-
-        const circles2 = svg.selectAll('circle.data2')
-            .data(newCountry2Data)
-            .enter()
-            .append('circle')
-            .attr('cx', (d, i) => xScale(i))
-            .attr('cy', d => yScale(d[type]))
-            .attr('r', 4)
-            .style('fill', 'yellow');
-
-        const circles3 = svg.selectAll('circle.data3')
-            .data(newCountry3Data)
-            .enter()
-            .append('circle')
-            .attr('cx', (d, i) => xScale(i))
-            .attr('cy', d => yScale(d[type]))
-            .attr('r', 4)
-            .style('fill', 'orchid');
-
 
 
         /* x Label */
@@ -212,7 +126,7 @@ function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type,
                 .attr('cx', 10)
                 .attr('cy', -55)
                 .attr('r', 5)
-                .style('fill', 'antiquewhite')
+                .style('fill', 'royalblue')
                 .style('cursor', 'pointer');
 
             svg.append('text')
@@ -220,12 +134,12 @@ function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type,
                 .attr('class', 'legend1')
                 .attr('x', 20)
                 .attr('y', -50)
-                .attr('fill', 'antiquewhite')
+                .attr('fill', 'royalblue')
                 .on('mouseover', () => (
                     path1.attr('stroke', 'crimson')
                 ))
                 .on('mouseout', () => (
-                    path1.attr('stroke', 'antiquewhite')
+                    path1.attr('stroke', 'royalblue')
                 ))
         }
 
@@ -235,7 +149,7 @@ function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type,
                 .attr('cx', 10)
                 .attr('cy', -35)
                 .attr('r', 5)
-                .style('fill', 'yellow')
+                .style('fill', 'brown')
                 .style('cursor', 'pointer');
 
             svg.append('text')
@@ -243,12 +157,12 @@ function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type,
                 .text(newCountry2Data[0].Country)
                 .attr('x', 20)
                 .attr('y', -30)
-                .attr('fill', 'yellow')
+                .attr('fill', 'brown')
                 .on('mouseover', () => (
                     path2.attr('stroke', 'crimson')
                 ))
                 .on('mouseout', () => (
-                    path2.attr('stroke', 'yellow')
+                    path2.attr('stroke', 'brown')
                 ))
         }
 
@@ -307,40 +221,40 @@ function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type,
             )
 
 
-        circles1.on('mouseover', function (d) { return mouseover(d) })
-        circles1.on('mousemove', function (d) { return mousemove() })
-        circles1.on('mouseout', function (d) { return mouseout() });
+        // circles1.on('mouseover', function (d) { return mouseover(d) })
+        // circles1.on('mousemove', function (d) { return mousemove() })
+        // circles1.on('mouseout', function (d) { return mouseout() });
 
-        circles2.on('mouseover', function (d) { return mouseover(d) })
-        circles2.on('mousemove', function (d) { return mousemove() })
-        circles2.on('mouseout', function (d) { return mouseout() });
+        // circles2.on('mouseover', function (d) { return mouseover(d) })
+        // circles2.on('mousemove', function (d) { return mousemove() })
+        // circles2.on('mouseout', function (d) { return mouseout() });
 
-        circles3.on('mouseover', function (d) { return mouseover(d) })
-        circles3.on('mousemove', function (d) { return mousemove() })
-        circles3.on('mouseout', function (d) { return mouseout() });
+        // circles3.on('mouseover', function (d) { return mouseover(d) })
+        // circles3.on('mousemove', function (d) { return mousemove() })
+        // circles3.on('mouseout', function (d) { return mouseout() });
 
-        function mouseover(d) {
+        // function mouseover(d) {
 
-            return tooltip.style('visibility', 'visible').style('top', (d3.event.pageY) + 'px')
-                .style('left', d3.event.pageX + 'px').html(
-                    `
-                                <div>
-                                    <b>${d.Country}</b>
-                                    <div><small>${type}: ${d[type]}</small></div>
-                                </div>
-                            `
-                );
+        //     return tooltip.style('visibility', 'visible').style('top', (d3.event.pageY) + 'px')
+        //         .style('left', d3.event.pageX + 'px').html(
+        //             `
+        //                         <div>
+        //                             <b>${d.Country}</b>
+        //                             <div><small>${type}: ${d[type]}</small></div>
+        //                         </div>
+        //                     `
+        //         );
 
-        }
+        // }
 
 
-        function mousemove() {
-            return tooltip.style('top', (d3.event.pageY) + 'px')
-                .style('left', d3.event.pageX + 'px').style('visibility', 'visible');
-        }
+        // function mousemove() {
+        //     return tooltip.style('top', (d3.event.pageY) + 'px')
+        //         .style('left', d3.event.pageX + 'px').style('visibility', 'visible');
+        // }
 
-        function mouseout() {
-            return tooltip.style('visibility', 'hidden');
-        }
+        // function mouseout() {
+        //     return tooltip.style('visibility', 'hidden');
+        // }
     }
 }

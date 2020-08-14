@@ -190,10 +190,6 @@ export default class TopChartComponent extends Component {
                 </div>
 
                 <div id="cov_1"></div>
-                {/* <svg id="cov_1"
-                    viewBox="0 0 960 500"
-                    preserveAspectRatio="xMidYMid meet">
-                </svg> */}
             </div>
         )
     }
