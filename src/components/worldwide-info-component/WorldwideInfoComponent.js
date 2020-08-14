@@ -69,6 +69,7 @@ export default class WorldwideInfoComponent extends Component {
                         <QuickDataViewComponent totals={totals} totalLoader={totalLoader} />
                     </div>
                 </Waypoint>
+
                 <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'TopChartComponent')}>
                     <div id="TopChartComponent">
                         <TopChartComponent summaryDataCountries={summaryDataCountries}
@@ -76,18 +77,22 @@ export default class WorldwideInfoComponent extends Component {
                     </div>
                 </Waypoint>
 
-                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'worldMapCoverComponent')}>
-                    <div id="worldMapCoverComponent">
+                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'twigh')}>
+                    <div id="twigh">
                         <WorldMapCoverComponent summaryDataCountries={summaryDataCountries} />
                     </div>
                 </Waypoint>
 
-                <CovidWorldComparision
-                    summaryDataCountries={summaryDataCountries}
-                    loggedCountryName={loggedCountryName}
-                    countryList={countryList}
-                    loggedCountryCode={'India'}
-                />
+                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'compar')}>
+                    <div id="compar">
+                        <CovidWorldComparision
+                            summaryDataCountries={summaryDataCountries}
+                            loggedCountryName={loggedCountryName}
+                            countryList={countryList}
+                            loggedCountryCode={'India'}
+                        />
+                    </div>
+                </Waypoint>
 
                 {tryAgainLoader &&
                     <div className="tryagainloader">
@@ -99,6 +104,7 @@ export default class WorldwideInfoComponent extends Component {
                             </div>
                         </div>
                     </div>}
+
             </div>
         )
     }

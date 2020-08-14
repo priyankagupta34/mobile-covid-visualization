@@ -3,6 +3,7 @@ import { CountrySummaryMultiLineChart } from '../../chart-services/CountrySummar
 import { CovidServices } from '../../services/CovidServices';
 import TitleIconComponent from '../title-icon-component/TitleIconComponent';
 import './CovidWorldComparision.css';
+import { DataStructureServices } from '../../services/DataStructureServices';
 
 export default class CovidWorldComparision extends Component {
 
@@ -14,21 +15,20 @@ export default class CovidWorldComparision extends Component {
             countryc: '',
             countryList: [],
             eventType: 'Active',
-            showLoader: ''
+            showLoader: false
         }
     }
 
     componentDidUpdate(prev) {
-        // this.countryWiseCompleteSummary(this.props.loggedCountryName);
         if (prev.countryList.length !== this.props.countryList.length) {
-            this.setState({
-                ...this.state,
-                countryList: this.props.countryList,
-                countrya: this.props.countryList[0].Slug,
-                countryb: this.props.countryList[1].Slug,
-                countryc: this.props.countryList[2].Slug
-            }, () => {
+            this.setState((state, props) => {
+                const countryList = DataStructureServices.mergeSort(props.countryList, 'Country');
+                state.countryList = countryList;
+                state.countrya = countryList[0].Slug;
+                state.countryb = countryList[1].Slug;
+                state.countryc = countryList[2].Slug;
                 this.creatingMultiChartWithDataCapturing();
+                return state;
             })
         }
     }
@@ -62,7 +62,7 @@ export default class CovidWorldComparision extends Component {
             }).catch((err) => {
                 this.setState({
                     ...this.state,
-                    showLoader: true
+                    showLoader: false
                 })
             });
 
@@ -79,8 +79,7 @@ export default class CovidWorldComparision extends Component {
     }
 
     render() {
-        const { countrya, countryb, countryc, eventType } = this.state;
-        const { countryList } = this.props;
+        const { countrya, countryb, countryc, eventType, showLoader, countryList } = this.state;
         return (
             <div className="backgroundDistInfo">
                 <TitleIconComponent icon="map" title="Let's Compare Covid Across Countries"></TitleIconComponent>
@@ -91,19 +90,19 @@ export default class CovidWorldComparision extends Component {
                 <div className="nd_sm centered">
                     <div>
                         <select className="input_ser" value={countrya} onChange={this.changingCountryHandler.bind(this, 'countrya')}>
-                            {countryList.map(item =>
-                                <option key={item.country} value={item.Slug}>{item.Country}</option>
+                            {countryList.map((item, index) =>
+                                <option key={index} value={item.Slug}>{item.Country}</option>
                             )}
                         </select>
                         <select className="input_ser" value={countryb} onChange={this.changingCountryHandler.bind(this, 'countryb')}>
-                            {countryList.map(item => (
-                                <option key={item.country} value={item.Slug}>{item.Country}</option>
+                            {countryList.map((item, index) => (
+                                <option key={index} value={item.Slug}>{item.Country}</option>
                             )
                             )}
                         </select>
                         <select className="input_ser" value={countryc} onChange={this.changingCountryHandler.bind(this, 'countryc')}>
-                            {countryList.map(item => (
-                                <option key={item.Country} value={item.Slug}>{item.Country}</option>
+                            {countryList.map((item, index) => (
+                                <option key={index} value={item.Slug}>{item.Country}</option>
                             )
                             )}
                         </select>
@@ -114,12 +113,8 @@ export default class CovidWorldComparision extends Component {
                             <option key={'Recovered'} value={'Recovered'}>Recovered</option>
                         </select>
                     </div>
-
-                    {/* <div style={{ height: 50 }}>
-                        {showLoader &&
-                            <img src="imgs/loader.gif" alt="loader"></img>}
-                    </div> */}
-
+                    {showLoader ? <i className="material-icons fontSize1 animateAnchor">anchor</i> :
+                        <i className="material-icons fontSize1">anchor</i>}
                     <div id="cov_6"></div>
                 </div>
 

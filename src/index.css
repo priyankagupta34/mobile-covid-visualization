@@ -338,7 +338,7 @@ a {
   color: #892be2;
 }
 
-.subCo{
+.subCo {
   color: darkblue;
 }
 
@@ -348,29 +348,52 @@ a {
   font-weight: 500;
 }
 
-.fontSize1{
+.fontSize1 {
   font-size: 1em;
 }
 
 
-.fontSize2{
+.fontSize2 {
   font-size: 2em;
 }
 
 
-.fontSize3{
+.fontSize3 {
   font-size: 3em;
 }
 
-.quickTitle{
+.quickTitle {
   font-weight: 500;
 }
 
-.rotated180{
+.rotated180 {
   position: relative;
   transform: rotate(180deg);
 }
 
-*{
+* {
   transition: all 0.5s;
+}
+
+.animateAnchor {
+  position: relative;
+  animation: animateAnchor 0.4s linear infinite;
+}
+
+@keyframes animateAnchor {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(30deg);
+  }
+
+  75% {
+    transform: rotate(-30deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
 }
