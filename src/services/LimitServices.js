@@ -64,14 +64,19 @@ function abbreviateIntToReadableString(value) {
 }
 
 function inLakhsOrCrores(dataVal) {
-    if (dataVal.toString().length < 6) {
+    if (typeof dataVal !== 'undefined') {
+        if (dataVal.toString().length < 6) {
+            return dataVal;
+        }
+        if (dataVal.toString().length >= 6 && dataVal.toString().length <= 7) {
+            return `${(dataVal / 100000).toFixed(1)}L`;
+        }
+        if (dataVal.toString().length > 7) {
+            return `${(dataVal / 10000000).toFixed(1)}Cr`;
+        }
+    }
+    else {
         return dataVal;
-    }
-    if (dataVal.toString().length >= 6 && dataVal.toString().length <= 7) {
-        return `${(dataVal / 100000).toFixed(1)}L`;
-    }
-    if (dataVal.toString().length > 7) {
-        return `${(dataVal / 10000000).toFixed(1)}Cr`;
     }
 
 

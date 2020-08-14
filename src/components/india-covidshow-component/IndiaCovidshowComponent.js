@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
-import './IndiaCovidshowComponent.css'
-import { Waypoint } from 'react-waypoint'
-import LoaderComponent from '../loader-component/LoaderComponent';
-import TitleIconComponent from '../title-icon-component/TitleIconComponent';
-import SearchDetailedComponent from '../search-detailed-component/SearchDetailedComponent';
+import React, { Component } from 'react';
+import { Waypoint } from 'react-waypoint';
 import { DataStructureServices } from '../../services/DataStructureServices';
+import DistrictGridViewComponent from '../district-grid-view-component/DistrictGridViewComponent';
+import QuickTileViewStateDistrictComponent from '../quick-tile-view-state-district-component/QuickTileViewStateDistrictComponent';
+import SearchDetailedComponent from '../search-detailed-component/SearchDetailedComponent';
 import StateGridViewComponent from '../state-grid-view-component/StateGridViewComponent';
-import { LimitServices } from '../../services/LimitServices';
+import TitleIconComponent from '../title-icon-component/TitleIconComponent';
+import './IndiaCovidshowComponent.css';
 
 export default class IndiaCovidshowComponent extends Component {
     constructor(props) {
@@ -14,9 +14,16 @@ export default class IndiaCovidshowComponent extends Component {
         this.state = {
             completeDetailsOfRegion: '',
             stateOrDistrictSelected: '',
+            quickCompleteData: [],
             searchList: [],
             freshShow: false,
-            selectedCode: 'TT'
+            selectedCode: 'TT',
+            completeDetailsOfDistrict: { info1: '', info2: '' },
+            placeType: '',
+            sortType: {
+                event: 'active',
+                sorting: true
+            }
         }
     }
     componentDidMount() {
@@ -28,16 +35,55 @@ export default class IndiaCovidshowComponent extends Component {
 
     componentDidUpdate(prev) {
         if (prev !== this.props) {
-            this.setState({
-                ...this.state,
-                completeDetailsOfRegion: this.props.findDetailsByCode('TT')
-            })
+            if (typeof this.props.codeWiseQuick4Data.statewise !== 'undefined') {
+                let quickCompleteData = Object.assign([], this.props.codeWiseQuick4Data.statewise);
+                for (let i = 0; i < quickCompleteData.length; i++) {
+
+                    if (quickCompleteData[i].statecode === 'UN') {
+                        quickCompleteData.splice(i, 1);
+                    }
+                    if (quickCompleteData[i].statecode === 'TT') {
+                        quickCompleteData.splice(i, 1);
+                    }
+                    if (quickCompleteData[i].statecode === 'LD') {
+                        quickCompleteData.splice(i, 1);
+                    }
+                }
+
+                for (let i = 0; i < quickCompleteData.length; i++) {
+                    if (typeof this.props.completeStateInfoWithDelta[quickCompleteData[i].statecode] !== 'undefined') {
+                        quickCompleteData[i]['population'] = this.props.completeStateInfoWithDelta[quickCompleteData[i].statecode].meta.population;
+                        quickCompleteData[i]['district'] = this.props.completeStateInfoWithDelta[quickCompleteData[i].statecode].districts;
+                        quickCompleteData[i]['active'] = Number(quickCompleteData[i]['active']);
+                        quickCompleteData[i]['deaths'] = Number(quickCompleteData[i]['deaths']);
+                        quickCompleteData[i]['confirmed'] = Number(quickCompleteData[i]['confirmed']);
+                        quickCompleteData[i]['recovered'] = Number(quickCompleteData[i]['recovered']);
+                    }
+
+                }
+                // console.log('quickCompleteData ', quickCompleteData)
+
+
+
+                this.setState({
+                    ...this.state,
+                    quickCompleteData,
+                    completeDetailsOfRegion: this.props.findDetailsByCode('TT')
+                })
+
+            }
+            // this.setState({
+            //     ...this.state,
+            //     completeDetailsOfRegion: this.props.findDetailsByCode('TT')
+            // })
         }
     }
 
-    addAnimationToWayUp(id, anim) {
-        const component = window.document.getElementById(id);
-        component.classList.add(anim);
+    addAnimationToWayUp(id, anim, event) {
+        setTimeout(() => {
+            const component = window.document.getElementById(id);
+            component.classList.add(anim);
+        }, 100);
     }
 
     filterStateDistrictHandler(words) {
@@ -59,12 +105,23 @@ export default class IndiaCovidshowComponent extends Component {
         })
     }
 
-    provideDataOfPlace(placecode, event) {
+    provideDataOfPlace(place, event) {
+        const completeDetailsOfRegion = this.props.findDetailsByCode(place.code);
+        let completeDetailsOfDistrict = { info1: '', info2: '', info3: '' };
+        if (place.type === 'district') {
+            completeDetailsOfDistrict.info1 = completeDetailsOfRegion.info1.districtData[place.search];
+            completeDetailsOfDistrict.info2 = completeDetailsOfRegion.info2.districts[place.search];
+            completeDetailsOfDistrict.info3 = place;
+            completeDetailsOfDistrict.info3.lastupdatedtime = completeDetailsOfRegion.info3.lastupdatedtime;
+        }
+        console.log('completeDetailsOfDistrict ', completeDetailsOfDistrict);
         this.setState({
             ...this.state,
-            completeDetailsOfRegion: this.props.findDetailsByCode(placecode),
-            selectedCode: placecode,
+            completeDetailsOfRegion,
+            completeDetailsOfDistrict,
+            selectedCode: place.code,
             searchList: [],
+            placeType: place.type,
             freshShow: true
         }, () => {
             setTimeout(() => {
@@ -77,17 +134,44 @@ export default class IndiaCovidshowComponent extends Component {
     }
 
 
+    sortData(type, event) {
+        console.log('type ', type)
+        const types = type;
+        this.setState((state, props) => {
+            state.sortType.event = types;
+            const sorted = DataStructureServices.mergeSort(state.quickCompleteData, types);
+            const sortedReverse = DataStructureServices.mergeSort(state.quickCompleteData, types).reverse();
+            if (state.sortType.sorting) {
+                state.quickCompleteData = sorted;
+            }
+            else {
+                state.quickCompleteData = sortedReverse;
+            }
+            return state;
+        }, () => {
+            this.setState({
+                ...this.state,
+                sortType: {
+                    ...this.state.sortType,
+                    sorting: !this.state.sortType.sorting
+                }
+            })
+        })
+    }
+
+
 
 
     render() {
-        const { stateInfoLoader, codeWiseQuick4Data, completeStateInfoWithDelta, stateInfoWithCode } = this.props;
-        const { completeDetailsOfRegion, searchList, freshShow, selectedCode } = this.state;
+        const { stateInfoLoader } = this.props;
+        const { completeDetailsOfRegion, searchList, freshShow, selectedCode, placeType, quickCompleteData, sortType,
+            completeDetailsOfDistrict } = this.state;
 
         return (
             <div>
 
                 {selectedCode !== 'TT' && <div className="flexCenterX centered">
-                    <button className="inLakhCrore" onClick={this.provideDataOfPlace.bind(this, 'TT')}>
+                    <button className="inLakhCrore" onClick={this.provideDataOfPlace.bind(this, { code: 'TT', type: '' })}>
                         <i className="material-icons  pointInd material-icons-outlined">replay</i>
                     India's Collective Info</button>
                 </div>}
@@ -106,164 +190,80 @@ export default class IndiaCovidshowComponent extends Component {
                         />
                     </div>
                 </Waypoint>
-                {!freshShow && <div className="displayjoe">
-                    {completeDetailsOfRegion !== '' &&
+
+
+
+                {!freshShow && placeType === 'district' && <div className="displayjoe">
+                    {(completeDetailsOfDistrict.info1 !== '' && completeDetailsOfDistrict.info2 !== '') &&
                         <>
-
-                            <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'cvhiu1', 'wayupanimation')}>
-                                <div id="cvhiu1">
-                                    <TitleIconComponent icon="flare" title={completeDetailsOfRegion.info3.state === 'Total' ?
-                                        'India' : completeDetailsOfRegion.info3.state} />
-                                    <div className="main_lastUpdt">
-                                        Last updated {this.props.convertDateToDate(completeDetailsOfRegion.info3.lastupdatedtime)}
-                                    </div>
-
-                                </div>
-                            </Waypoint>
-
-
-                            <div className="icsc_qdvc">
-                                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'con2', 'wayupanimation1')}>
-                                    <div className="qdvc_ic clickConfirmedAnim" id="con2">
-                                        {
-                                            stateInfoLoader && completeDetailsOfRegion !== '' ?
-                                                <div>
-                                                    <div className="quickTitle confirmedCo">Confirmed</div>
-
-                                                    <div className="confirmedCo delta">
-                                                        {completeDetailsOfRegion.info3.deltaconfirmed !== '0' &&
-                                                            <><i className="material-icons  fontSize1 ">arrow_upward</i>
-                                                                {LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info3.deltaconfirmed))}</>}
-                                                    </div>
-
-                                                    <div className="qvdc_nm">{LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info3.confirmed))}</div>
-                                                </div> :
-                                                <LoaderComponent />}
-
-                                    </div>
-                                </Waypoint>
-                                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'act2', 'wayupanimation2')}>
-                                    <div className="qdvc_ic" id="act2">
-
-                                        {
-                                            stateInfoLoader && completeDetailsOfRegion !== '' ?
-                                                <div>
-                                                    <div className="quickTitle activeCo">Active</div>
-
-                                                    <div className="activeCo delta">
-                                                        {/* {completeDetailsOfRegion.info3.deltaactive !== 0 &&<>
-                                                <i className="material-icons fontSize1">arrow_upward</i> {completeDetailsOfRegion.info3.deltaactive}</>} */}
-                                                    </div>
-
-                                                    <div className="qvdc_nm">{LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info3.active))}</div>
-                                                </div> :
-                                                <LoaderComponent />}
-
-
-                                    </div>
-                                </Waypoint>
-                                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'rec2', 'wayupanimation3')}>
-                                    <div className="qdvc_ic" id="rec2">
-                                        {
-                                            stateInfoLoader && completeDetailsOfRegion !== '' ?
-                                                <div>
-                                                    <div className="quickTitle recoveredCo">Recovered</div>
-
-                                                    <div className="recoveredCo delta">
-                                                        {completeDetailsOfRegion.info3.deltarecovered !== '0' &&
-                                                            <><i className="material-icons fontSize1">arrow_upward</i>
-                                                                {completeDetailsOfRegion.info3.deltarecovered}</>}
-                                                    </div>
-
-                                                    <div className="qvdc_nm">{LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info3.recovered))}</div>
-                                                </div> :
-                                                <LoaderComponent />}
-
-
-                                    </div>
-                                </Waypoint>
-                                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'dea2', 'wayupanimation4')}>
-                                    <div className="qdvc_ic" id="dea2">
-                                        {
-                                            stateInfoLoader && completeDetailsOfRegion !== '' ?
-                                                <div>
-                                                    <div className="quickTitle deceasedCo">Deceased</div>
-
-                                                    <div className="deceasedCo delta">
-                                                        {completeDetailsOfRegion.info3.deltadeaths !== '0' &&
-                                                            <><i className="material-icons fontSize1 ">arrow_upward</i>
-                                                                {completeDetailsOfRegion.info3.deltadeaths}</>}
-                                                    </div>
-                                                    <div className="qvdc_nm">
-                                                        {LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info3.deaths))}
-                                                    </div>
-                                                </div> :
-                                                <LoaderComponent />}
-                                    </div>
-                                </Waypoint>
-                            </div>
-
-                            {completeDetailsOfRegion.info2 !== '' && <div className="metaPop">
-                                <div className="qdvc_ic">
-                                    <div>
-                                        <div className="quickTitle subCo">Population</div>
-                                        <div className="deceasedCo delta">
-                                            <i className="material-icons material-icons-outlined 2 anyCo">groups</i>
-                                        </div>
-                                        {typeof completeDetailsOfRegion.info2 !== 'undefined' &&
-                                            <div className="qvdc_nm">{LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info2.meta.population))}</div>
-                                        }
-                                    </div>
-                                </div>
-                                <div className="qdvc_ic">
-                                    <div>
-                                        <div className="quickTitle subCo">Total Tests</div>
-                                        <div className="deceasedCo delta">
-                                            {completeDetailsOfRegion.info3.deltadeaths !== '0' &&
-
-                                                <>
-                                                    {completeDetailsOfRegion.info3.state === 'Total' ?<>
-                                                    <i className="material-icons fontSize1 ">arrow_upward</i>
-                                                        {LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info2.delta.tested.states.samples))}</> :
-                                                        <>
-                                                            {(typeof completeDetailsOfRegion.info2 !== 'undefined' &&
-                                                             typeof completeDetailsOfRegion.info2.delta !== 'undefined' &&
-                                                             typeof completeDetailsOfRegion.info2.delta.tested !== 'undefined' )&& <>
-                                                                <i className="material-icons fontSize1 ">arrow_upward</i>
-                                                                {LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info2.delta.tested.samples))}
-                                                            </>}
-                                                        </>
-                                                    }
-                                                </>
-                                            }
-                                        </div>
-                                        {typeof completeDetailsOfRegion.info2.total.tested !== undefined && <>{completeDetailsOfRegion.info3.state === 'Total' ? <div className="qvdc_nm">
-                                            {LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info2.total.tested.states.samples))}</div> :
-
-                                            <div className="qvdc_nm">
-                                                {LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info2.total.tested.samples))}
-                                            </div>}
-                                        </>}
-                                    </div>
-                                </div>
-                            </div>}
-
-
+                            <QuickTileViewStateDistrictComponent
+                                title={"games"}
+                                stateInfoLoader={stateInfoLoader}
+                                completeDetailsOfRegion={completeDetailsOfDistrict}
+                                state={completeDetailsOfDistrict.info3.place}
+                                deltaconfirmed={completeDetailsOfDistrict.info1.delta.confirmed}
+                                active={completeDetailsOfDistrict.info1.active}
+                                deltarecovered={completeDetailsOfDistrict.info1.delta.recovered}
+                                recovered={completeDetailsOfDistrict.info1.recovered}
+                                confirmed={completeDetailsOfDistrict.info1.confirmed}
+                                deltadeaths={completeDetailsOfDistrict.info1.delta.deceased}
+                                deaths={completeDetailsOfDistrict.info1.deceased}
+                                lastupdatedtime={completeDetailsOfDistrict.info3.lastupdatedtime}
+                                convertDateToDate={this.props.convertDateToDate}
+                                addAnimationToWayUp={this.addAnimationToWayUp.bind(this)}
+                                transitionIdList={['difter1','difter2','difter3','difter4','difter5']}
+                            />
 
                         </>
                     }</div>}
 
-                <div>
+
+
+
+                {!freshShow && <div className="displayjoe">
+                    {completeDetailsOfRegion !== '' &&
+                        <>
+                            <QuickTileViewStateDistrictComponent
+                                title={"flare"}
+                                stateInfoLoader={stateInfoLoader}
+                                completeDetailsOfRegion={completeDetailsOfRegion}
+                                state={completeDetailsOfRegion.info3.state}
+                                deltaconfirmed={completeDetailsOfRegion.info3.deltaconfirmed}
+                                active={completeDetailsOfRegion.info3.active}
+                                deltarecovered={completeDetailsOfRegion.info3.deltarecovered}
+                                recovered={completeDetailsOfRegion.info3.recovered}
+                                confirmed={completeDetailsOfRegion.info3.confirmed}
+                                deltadeaths={completeDetailsOfRegion.info3.deltadeaths}
+                                deaths={completeDetailsOfRegion.info3.deaths}
+                                lastupdatedtime={completeDetailsOfRegion.info3.lastupdatedtime}
+                                convertDateToDate={this.props.convertDateToDate}
+                                addAnimationToWayUp={this.addAnimationToWayUp.bind(this)}
+                                transitionIdList={['difter6','difter7','difter8','difter9','difter10']}
+                            />
+
+                        </>
+                    }</div>}
+
+
+
+
+                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'detsin', 'wayupanimation')}>
+                    <div id="detsin">
+                        <StateGridViewComponent
+                            quickCompleteData={quickCompleteData}
+                            sortType={sortType}
+                            sortData={this.sortData.bind(this)}
+                            title="All States Info" icon="equalizer" />
+                    </div>
+                </Waypoint>
+
+                {placeType === 'district' && <div>
                     <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'detsin', 'wayupanimation')}>
                         <div id="detsin">
-                            <StateGridViewComponent
-                                codeWiseQuick4Data={codeWiseQuick4Data}
-                                completeStateInfoWithDelta={completeStateInfoWithDelta}
-                                stateInfoWithCode={stateInfoWithCode}
-                                title="All States Info" icon="equalizer" />
+                            <DistrictGridViewComponent />
                         </div>
                     </Waypoint>
-                </div>
+                </div>}
 
             </div>
         )

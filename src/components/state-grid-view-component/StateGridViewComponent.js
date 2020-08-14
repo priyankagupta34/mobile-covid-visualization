@@ -15,61 +15,9 @@ export default class StateGridViewComponent extends Component {
             }
         }
     }
-    componentDidMount() {
-        if (typeof this.props.codeWiseQuick4Data.statewise !== 'undefined') {
-            let quickCompleteData = this.props.codeWiseQuick4Data.statewise;
-
-            this.setState({
-                ...this.state,
-                quickCompleteData
-            })
-        }
-    }
-    componentDidUpdate(prev) {
-        if (prev !== this.props) {
-            if (typeof this.props.codeWiseQuick4Data.statewise !== 'undefined') {
-                let quickCompleteData = Object.assign([], this.props.codeWiseQuick4Data.statewise);
-                for (let i = 0; i < quickCompleteData.length; i++) {
-
-                    if (quickCompleteData[i].statecode === 'UN') {
-                        quickCompleteData.splice(i, 1);
-                    }
-                    if (quickCompleteData[i].statecode === 'TT') {
-                        quickCompleteData.splice(i, 1);
-                    }
-                    if (quickCompleteData[i].statecode === 'LD') {
-                        quickCompleteData.splice(i, 1);
-                    }
-                }
-
-                for (let i = 0; i < quickCompleteData.length; i++) {
-                    if (typeof this.props.completeStateInfoWithDelta[quickCompleteData[i].statecode] !== 'undefined') {
-                        quickCompleteData[i]['population'] = this.props.completeStateInfoWithDelta[quickCompleteData[i].statecode].meta.population;
-                        quickCompleteData[i]['district'] = this.props.completeStateInfoWithDelta[quickCompleteData[i].statecode].districts;
-                        quickCompleteData[i]['active'] = Number(quickCompleteData[i]['active']);
-                        quickCompleteData[i]['deaths'] = Number(quickCompleteData[i]['deaths']);
-                        quickCompleteData[i]['confirmed'] = Number(quickCompleteData[i]['confirmed']);
-                        quickCompleteData[i]['recovered'] = Number(quickCompleteData[i]['recovered']);
-                    }
-
-                }
-                console.log('quickCompleteData ', quickCompleteData)
-
-
-
-                this.setState({
-                    ...this.state,
-                    quickCompleteData
-                })
-
-            }
-        }
-    }
-
 
     sortData(type, event) {
         const types = type;
-        /* If  state.sortType.sort is true its ascends or descend*/
         this.setState((state, props) => {
             state.sortType.event = types;
             const sorted = DataStructureServices.mergeSort(state.quickCompleteData, types);
@@ -81,8 +29,6 @@ export default class StateGridViewComponent extends Component {
                 state.quickCompleteData = sortedReverse;
             }
             return state;
-
-
         }, () => {
             this.setState({
                 ...this.state,
@@ -95,9 +41,7 @@ export default class StateGridViewComponent extends Component {
     }
 
     render() {
-        // console.log('neutral', this.state)
-        const { title, icon } = this.props;
-        const { quickCompleteData, sortType } = this.state;
+        const { title, icon, quickCompleteData, sortType } = this.props;
         return (
             <>
                 <TitleIconComponent icon={icon} title={title} />
@@ -107,7 +51,8 @@ export default class StateGridViewComponent extends Component {
                 <div className="gridsContainer">
 
                     <div className="gridStyle">
-                        <div className="gridBox mainGridHeader gridMain titleGridContainer" onClick={this.sortData.bind(this, 'state')}>
+                        <div className="gridBox mainGridHeader gridMain titleGridContainer"
+                            onClick={() => this.props.sortData('state')}>
                             <div>
                                 <div className="miniDelta">
                                     {sortType.event === 'state' &&
@@ -122,7 +67,7 @@ export default class StateGridViewComponent extends Component {
                             State
                         </div>
                         </div>
-                        <div className="gridBox gridMain subTitlMin" onClick={this.sortData.bind(this, 'active')}> <div>
+                        <div className="gridBox gridMain subTitlMin" onClick={() => this.props.sortData('active')}> <div>
                             <div className="miniDelta righted">
                                 {sortType.event === 'active' &&
                                     <>
@@ -136,7 +81,7 @@ export default class StateGridViewComponent extends Component {
                             Active
                                 </div>
                         </div>
-                        <div className="gridBox gridMain subTitlMin " onClick={this.sortData.bind(this, 'confirmed')}> <div>
+                        <div className="gridBox gridMain subTitlMin " onClick={() => this.props.sortData('confirmed')}> <div>
                             <div className="miniDelta righted">
                                 {sortType.event === 'confirmed' &&
                                     <>
@@ -150,7 +95,7 @@ export default class StateGridViewComponent extends Component {
                             Confirmed
                                 </div>
                         </div>
-                        <div className="gridBox gridMain  subTitlMin" onClick={this.sortData.bind(this, 'deaths')}> <div>
+                        <div className="gridBox gridMain  subTitlMin" onClick={() => this.props.sortData('deaths')}> <div>
                             <div className="miniDelta righted">
                                 {sortType.event === 'deaths' &&
                                     <>
@@ -164,7 +109,7 @@ export default class StateGridViewComponent extends Component {
                             Deaths
                                 </div>
                         </div>
-                        <div className="gridBox gridMain  subTitlMin" onClick={this.sortData.bind(this, 'recovered')}> <div>
+                        <div className="gridBox gridMain  subTitlMin" onClick={() => this.props.sortData('recovered')}> <div>
                             <div className="miniDelta righted">
                                 {sortType.event === 'recovered' &&
                                     <>
@@ -183,7 +128,7 @@ export default class StateGridViewComponent extends Component {
                             Others
                         </div>
                         </div>
-                        <div className="gridBox gridMain titleGridContainer subTitlMin" onClick={this.sortData.bind(this, 'population')}> <div>
+                        <div className="gridBox gridMain titleGridContainer subTitlMin" onClick={() => this.props.sortData('population')}> <div>
                             <div className="miniDelta righted">
                                 {sortType.event === 'population' &&
                                     <>
@@ -202,65 +147,65 @@ export default class StateGridViewComponent extends Component {
                     {quickCompleteData.length !== 0 &&
 
                         quickCompleteData.map((item, index) => (
-                            <>
-                                <div className="gridStyle righted" key={index}>
-                                    <div className="gridBox mainGridHeader gridMain titleGridContainer onlyState">
-                                        <div>
-                                            {item.state}
-                                        </div>
-                                    </div>
-                                    <div className="gridBox">
-                                        <div>
-                                            <div className="miniDelta"></div>
-                                            {item.active}
-                                        </div>
-                                    </div>
-                                    <div className="gridBox">
-                                        <div>
 
-                                            <div className="deceasedCo miniDelta confirmedCo">
-                                                {item.deltaconfirmed !== '0' &&
-                                                    <><i className="material-icons fontSize1 ">arrow_upward</i>
-                                                        {item.deltaconfirmed}</>}
-                                            </div>
-                                            {item.confirmed}
-                                        </div>
-                                    </div>
-                                    <div className="gridBox">
-                                        <div>
-                                            <div className="deceasedCo miniDelta">
-                                                {item.deltadeaths !== '0' &&
-                                                    <><i className="material-icons fontSize1 deceasedCo">arrow_upward</i>
-                                                        {item.deltadeaths}</>}
-                                            </div>
-                                            {item.deaths}
-                                        </div>
-                                    </div>
-                                    <div className="gridBox">
-                                        <div>
-                                            <div className="recoveredCo miniDelta">
-                                                {item.deltarecovered !== '0' &&
-                                                    <><i className="material-icons fontSize1 recoveredCo">arrow_upward</i>
-                                                        {item.deltarecovered}</>}
-                                            </div>
-                                            {item.recovered}
-                                        </div>
-                                    </div>
-                                    <div className="gridBox">
-                                        <div>
-                                            <div className=" miniDelta"></div>
-                                            {item.migratedother}
-                                        </div>
-                                    </div>
-
-                                    <div className="gridBox titleGridContainer">
-                                        <div>
-                                            <div className=" miniDelta"></div>
-                                            {LimitServices.inLakhsOrCrores(item.population)}
-                                        </div>
+                            <div className="gridStyle righted" key={index}>
+                                <div className="gridBox mainGridHeader gridMain titleGridContainer onlyState">
+                                    <div>
+                                        {item.state}
                                     </div>
                                 </div>
-                            </>
+                                <div className="gridBox">
+                                    <div>
+                                        <div className="miniDelta"></div>
+                                        {item.active}
+                                    </div>
+                                </div>
+                                <div className="gridBox">
+                                    <div>
+
+                                        <div className="deceasedCo miniDelta confirmedCo">
+                                            {item.deltaconfirmed !== '0' &&
+                                                <><i className="material-icons fontSize1 ">arrow_upward</i>
+                                                    {item.deltaconfirmed}</>}
+                                        </div>
+                                        {item.confirmed}
+                                    </div>
+                                </div>
+                                <div className="gridBox">
+                                    <div>
+                                        <div className="deceasedCo miniDelta">
+                                            {item.deltadeaths !== '0' &&
+                                                <><i className="material-icons fontSize1 deceasedCo">arrow_upward</i>
+                                                    {item.deltadeaths}</>}
+                                        </div>
+                                        {item.deaths}
+                                    </div>
+                                </div>
+                                <div className="gridBox">
+                                    <div>
+                                        <div className="recoveredCo miniDelta">
+                                            {item.deltarecovered !== '0' &&
+                                                <><i className="material-icons fontSize1 recoveredCo">arrow_upward</i>
+                                                    {item.deltarecovered}</>}
+                                        </div>
+                                        {item.recovered}
+                                    </div>
+                                </div>
+                                <div className="gridBox">
+                                    <div>
+                                        <div className=" miniDelta"></div>
+                                        {item.migratedother}
+                                    </div>
+                                </div>
+
+                                <div className="gridBox titleGridContainer">
+                                    <div>
+                                        <div className=" miniDelta"></div>
+                                        {LimitServices.inLakhsOrCrores(item.population)}
+                                    </div>
+                                </div>
+                            </div>
+
                         ))
 
 

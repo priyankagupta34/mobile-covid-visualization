@@ -3,7 +3,7 @@
 .tic_ti {
     font-size: small;
     letter-spacing: 0.4px;
-    color: #5d1212;
+    color: #b80c0c;
     text-transform: capitalize;
     font-weight: 700;
 
@@ -13,10 +13,10 @@
     content: '';
     display: block;
     height: 0.5px;
-    background-color: #5d1212a4;
+    background-color: #ec555583;
     width: 10vw;
     margin: 4px auto;
-    width: 100%;
+    width: 60%;
     /* text-align: center; */
 }
 
