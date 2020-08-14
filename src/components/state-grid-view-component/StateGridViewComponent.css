@@ -7,6 +7,10 @@
     margin-bottom: 7px;
 }
 
+.districtGridStyle{
+    grid-template-columns: repeat(6, auto) !important;
+}
+
 .gridsContainer {
     width: 100vw;
     overflow-x: auto;

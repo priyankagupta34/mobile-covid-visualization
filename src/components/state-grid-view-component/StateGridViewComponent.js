@@ -41,7 +41,8 @@ export default class StateGridViewComponent extends Component {
     }
 
     render() {
-        const { title, icon, quickCompleteData, sortType } = this.props;
+        const { title, icon, quickCompleteData, sortType, placeType } = this.props;
+        console.log(this.props)
         return (
             <>
                 <TitleIconComponent icon={icon} title={title} />
@@ -50,7 +51,9 @@ export default class StateGridViewComponent extends Component {
                 </div>
                 <div className="gridsContainer">
 
-                    <div className="gridStyle">
+                    <div
+                        className={placeType === 'district' ? 'gridStyle districtGridStyle' : 'gridStyle'}
+                    >
                         <div className="gridBox mainGridHeader gridMain titleGridContainer"
                             onClick={() => this.props.sortData('state')}>
                             <div>
@@ -123,11 +126,13 @@ export default class StateGridViewComponent extends Component {
                             Recovered
                                 </div>
                         </div>
-                        <div className="gridBox gridMain  subTitlMin"> <div>
-                            <div className="miniDelta"></div>
+                        {placeType !== 'district' &&
+                            <div className="gridBox gridMain  subTitlMin"> <div>
+                                <div className="miniDelta"></div>
                             Others
                         </div>
-                        </div>
+                            </div>
+                        }
                         <div className="gridBox gridMain titleGridContainer subTitlMin" onClick={() => this.props.sortData('population')}> <div>
                             <div className="miniDelta righted">
                                 {sortType.event === 'population' &&
@@ -164,7 +169,8 @@ export default class StateGridViewComponent extends Component {
                                     <div>
 
                                         <div className="deceasedCo miniDelta confirmedCo">
-                                            {item.deltaconfirmed !== '0' &&
+                                            {!(item.deltaconfirmed === '0' || item.deltaconfirmed === 0)
+                                                && typeof item.deltaconfirmed !== 'undefined' &&
                                                 <><i className="material-icons fontSize1 ">arrow_upward</i>
                                                     {item.deltaconfirmed}</>}
                                         </div>
@@ -174,7 +180,8 @@ export default class StateGridViewComponent extends Component {
                                 <div className="gridBox">
                                     <div>
                                         <div className="deceasedCo miniDelta">
-                                            {item.deltadeaths !== '0' &&
+                                            {!(item.deltadeaths === '0' || item.deltadeaths === 0)
+                                                && typeof item.deltadeaths !== 'undefined' &&
                                                 <><i className="material-icons fontSize1 deceasedCo">arrow_upward</i>
                                                     {item.deltadeaths}</>}
                                         </div>
@@ -184,19 +191,20 @@ export default class StateGridViewComponent extends Component {
                                 <div className="gridBox">
                                     <div>
                                         <div className="recoveredCo miniDelta">
-                                            {item.deltarecovered !== '0' &&
+                                            {!(item.deltarecovered === '0' || item.deltarecovered === 0)
+                                                && typeof item.deltarecovered !== 'undefined' &&
                                                 <><i className="material-icons fontSize1 recoveredCo">arrow_upward</i>
                                                     {item.deltarecovered}</>}
                                         </div>
                                         {item.recovered}
                                     </div>
                                 </div>
-                                <div className="gridBox">
+                                {placeType !== 'district' && <div className="gridBox">
                                     <div>
                                         <div className=" miniDelta"></div>
                                         {item.migratedother}
                                     </div>
-                                </div>
+                                </div>}
 
                                 <div className="gridBox titleGridContainer">
                                     <div>
