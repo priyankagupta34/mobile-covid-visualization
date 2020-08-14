@@ -46,7 +46,7 @@ export default class StateGridViewComponent extends Component {
             <>
                 <TitleIconComponent icon={icon} title={title} />
                 <div className="main_lastUpdt">
-                    Drag table columns to see all details
+                    Drag table columns. Also click headings to sort the table.
                 </div>
                 <div className="gridsContainer">
 
@@ -58,8 +58,8 @@ export default class StateGridViewComponent extends Component {
                                     {sortType.event === 'state' &&
                                         <>
                                             {sortType.sorting ?
-                                                <i className="material-icons fontSize1 subCo">filter_list</i> :
-                                                <i className="material-icons fontSize1 rotated180 subCo">filter_list</i>
+                                                <i className="material-icons fontSize1 fontwt600  subCo">filter_list</i> :
+                                                <i className="material-icons fontSize1 fontwt600  rotated180 subCo">filter_list</i>
                                             }
                                         </>
                                     }
@@ -72,8 +72,8 @@ export default class StateGridViewComponent extends Component {
                                 {sortType.event === 'active' &&
                                     <>
                                         {sortType.sorting ?
-                                            <i className="material-icons fontSize1 activeCo">filter_list</i> :
-                                            <i className="material-icons fontSize1 rotated180 activeCo">filter_list</i>
+                                            <i className="material-icons fontSize1 fontwt600  activeCo">filter_list</i> :
+                                            <i className="material-icons fontSize1 fontwt600  rotated180 activeCo">filter_list</i>
                                         }
                                     </>
                                 }
@@ -86,8 +86,8 @@ export default class StateGridViewComponent extends Component {
                                 {sortType.event === 'confirmed' &&
                                     <>
                                         {sortType.sorting ?
-                                            <i className="material-icons fontSize1 confirmedCo">filter_list</i> :
-                                            <i className="material-icons fontSize1 rotated180 confirmedCo">filter_list</i>
+                                            <i className="material-icons fontSize1 fontwt600  confirmedCo">filter_list</i> :
+                                            <i className="material-icons fontSize1 fontwt600  rotated180 confirmedCo">filter_list</i>
                                         }
                                     </>
                                 }
@@ -100,8 +100,8 @@ export default class StateGridViewComponent extends Component {
                                 {sortType.event === 'deaths' &&
                                     <>
                                         {sortType.sorting ?
-                                            <i className="material-icons fontSize1 deceasedCo">filter_list</i> :
-                                            <i className="material-icons fontSize1 rotated180 deceasedCo">filter_list</i>
+                                            <i className="material-icons fontSize1 fontwt600  deceasedCo">filter_list</i> :
+                                            <i className="material-icons fontSize1 fontwt600  rotated180 deceasedCo">filter_list</i>
                                         }
                                     </>
                                 }
@@ -114,8 +114,8 @@ export default class StateGridViewComponent extends Component {
                                 {sortType.event === 'recovered' &&
                                     <>
                                         {sortType.sorting ?
-                                            <i className="material-icons fontSize1 recoveredCo">filter_list</i> :
-                                            <i className="material-icons fontSize1 rotated180 recoveredCo">filter_list</i>
+                                            <i className="material-icons fontSize1 fontwt600  recoveredCo">filter_list</i> :
+                                            <i className="material-icons fontSize1 fontwt600  rotated180 recoveredCo">filter_list</i>
                                         }
                                     </>
                                 }
@@ -133,8 +133,8 @@ export default class StateGridViewComponent extends Component {
                                 {sortType.event === 'population' &&
                                     <>
                                         {sortType.sorting ?
-                                            <i className="material-icons fontSize1 populationCo">filter_list</i> :
-                                            <i className="material-icons fontSize1 rotated180 populationCo">filter_list</i>
+                                            <i className="material-icons fontSize1 fontwt600 populationCo">filter_list</i> :
+                                            <i className="material-icons fontSize1 fontwt600  rotated180 populationCo">filter_list</i>
                                         }
                                     </>
                                 }

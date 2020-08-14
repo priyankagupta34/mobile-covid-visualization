@@ -135,8 +135,8 @@ export default class HeaderComponent extends Component {
                             {!notificationLoader ?
                                 <>
                                     {notificationCompleteset.map((item, index) => (
-                                        <Waypoint onEnter={this.addAnimationToWayUp.bind(this, item.timestamp)}>
-                                            <div key={item.timestamp} className="notice" id={item.timestamp}>
+                                        <Waypoint onEnter={this.addAnimationToWayUp.bind(this, item.timestamp)} key={item.timestamp} >
+                                            <div className="notice" id={item.timestamp}>
                                                 <div><font color="#e6acad">{this.props.convertTimestampToEpochToDate(item.timestamp)}</font></div>
                                                 <div className="noticeUpdate">{item.update}</div>
                                             </div>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Waypoint } from 'react-waypoint';
 import { DataStructureServices } from '../../services/DataStructureServices';
-import DistrictGridViewComponent from '../district-grid-view-component/DistrictGridViewComponent';
 import QuickTileViewStateDistrictComponent from '../quick-tile-view-state-district-component/QuickTileViewStateDistrictComponent';
 import SearchDetailedComponent from '../search-detailed-component/SearchDetailedComponent';
 import StateGridViewComponent from '../state-grid-view-component/StateGridViewComponent';
@@ -23,7 +22,8 @@ export default class IndiaCovidshowComponent extends Component {
             sortType: {
                 event: 'active',
                 sorting: true
-            }
+            },
+            tableTitle: 'All States Info'
         }
     }
     componentDidMount() {
@@ -67,7 +67,17 @@ export default class IndiaCovidshowComponent extends Component {
             this.setState({
                 ...this.state,
                 quickCompleteData,
-                completeDetailsOfRegion: this.props.findDetailsByCode('TT')
+                placeType: '',
+                completeDetailsOfRegion: this.props.findDetailsByCode('TT'),
+                tableTitle: 'All States Info',
+                freshShow: true
+            }, () => {
+                setTimeout(() => {
+                    this.setState({
+                        ...this.state,
+                        freshShow: false
+                    })
+                }, 10);
             })
 
         }
@@ -79,6 +89,7 @@ export default class IndiaCovidshowComponent extends Component {
             component.classList.add(anim);
         }, 100);
     }
+
 
     filterStateDistrictHandler(words) {
         setTimeout(() => {
@@ -99,7 +110,8 @@ export default class IndiaCovidshowComponent extends Component {
         })
     }
 
-    provideDataOfPlace(place, event) {
+    provideDataOfPlace(placek, event) {
+        const place = placek;
         const completeDetailsOfRegion = this.props.findDetailsByCode(place.code);
         let completeDetailsOfDistrict = { info1: '', info2: '', info3: '' };
         if (place.type === 'district') {
@@ -108,15 +120,39 @@ export default class IndiaCovidshowComponent extends Component {
             completeDetailsOfDistrict.info3 = place;
             completeDetailsOfDistrict.info3.lastupdatedtime = completeDetailsOfRegion.info3.lastupdatedtime;
         }
-        console.log('completeDetailsOfDistrict ', completeDetailsOfDistrict);
-        this.setState({
-            ...this.state,
-            completeDetailsOfRegion,
-            completeDetailsOfDistrict,
-            selectedCode: place.code,
-            searchList: [],
-            placeType: place.type,
-            freshShow: true
+        let quickCompleteDataDistrict = [];
+        const districtData = completeDetailsOfRegion.info1.districtData;
+        const districtDataKeys = Object.keys(districtData);
+        for (let i = 0; i < districtDataKeys.length; i++) {
+            let detail = {};
+            detail.active = districtData[districtDataKeys[i]].active;
+            detail.confirmed = districtData[districtDataKeys[i]].confirmed;
+            detail.deaths = districtData[districtDataKeys[i]].deceased;
+            detail.recovered = districtData[districtDataKeys[i]].recovered;
+            detail.deltaconfirmed = districtData[districtDataKeys[i]].delta.confirmed;
+            detail.deltadeaths = districtData[districtDataKeys[i]].delta.deaths;
+            detail.deltarecovered = districtData[districtDataKeys[i]].delta.recovered;
+            detail.state = districtDataKeys[i];
+            detail.migratedother = "N/A";
+            if (typeof completeDetailsOfRegion.info2.districts[districtDataKeys[i]] !== 'undefined' && typeof completeDetailsOfRegion.info2.districts[districtDataKeys[i]].meta !== 'undefined') {
+                detail.population = completeDetailsOfRegion.info2.districts[districtDataKeys[i]].meta.population;
+            } else {
+                detail.population = 'N/A'
+            }
+            quickCompleteDataDistrict.push(detail)
+        }
+
+        this.setState(state => {
+            const sorting = DataStructureServices.mergeSort(quickCompleteDataDistrict, state.sortType.event).reverse();
+            state.completeDetailsOfRegion = completeDetailsOfRegion;
+            state.completeDetailsOfDistrict = completeDetailsOfDistrict;
+            state.quickCompleteData = sorting;
+            state.selectedCode = place.code;
+            state.searchList = [];
+            state.placeType = place.type;
+            state.freshShow = true;
+            state.tableTitle = `Districts of ${place.state}`;
+            return state;
         }, () => {
             setTimeout(() => {
                 this.setState({
@@ -125,11 +161,12 @@ export default class IndiaCovidshowComponent extends Component {
                 })
             }, 10);
         })
+
+
     }
 
 
     sortData(type, event) {
-        console.log('type ', type)
         const types = type;
         this.setState((state, props) => {
             state.sortType.event = types;
@@ -153,19 +190,27 @@ export default class IndiaCovidshowComponent extends Component {
         })
     }
 
+    backToIndiaInfo() {
+        this.setState(state => {
+            this.provideDataOfPlace.bind(this, { code: 'TT', type: '', });
+        }, () => {
+            this.creatingInfoListForQuickCompleteStateData();
+        })
+    }
+
 
 
 
     render() {
         const { stateInfoLoader } = this.props;
         const { completeDetailsOfRegion, searchList, freshShow, selectedCode, placeType, quickCompleteData, sortType,
-            completeDetailsOfDistrict } = this.state;
+            completeDetailsOfDistrict, tableTitle } = this.state;
 
         return (
             <div>
 
                 {selectedCode !== 'TT' && <div className="flexCenterX centered">
-                    <button className="inLakhCrore" onClick={this.provideDataOfPlace.bind(this, { code: 'TT', type: '' })}>
+                    <button className="inLakhCrore" onClick={this.backToIndiaInfo.bind(this)}>
                         <i className="material-icons  pointInd material-icons-outlined">replay</i>
                     India's Collective Info</button>
                 </div>}
@@ -189,7 +234,7 @@ export default class IndiaCovidshowComponent extends Component {
 
                 {!freshShow && placeType === 'district' && <div className="displayjoe backgroundDistInfo">
                     {(completeDetailsOfDistrict.info1 !== '' && completeDetailsOfDistrict.info2 !== '') &&
-                        <>
+                        <div id="swooshTile">
                             <QuickTileViewStateDistrictComponent
                                 title={"games"}
                                 stateInfoLoader={stateInfoLoader}
@@ -208,7 +253,7 @@ export default class IndiaCovidshowComponent extends Component {
                                 transitionIdList={['difter1', 'difter2', 'difter3', 'difter4', 'difter5']}
                             />
 
-                        </>
+                        </div>
                     }</div>}
 
 
@@ -241,23 +286,16 @@ export default class IndiaCovidshowComponent extends Component {
 
 
 
-                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'detsin', 'wayupanimation')}>
+                {!freshShow && <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'detsin', 'wayupanimation')}>
                     <div id="detsin" className="backgroundDistInfo">
                         <StateGridViewComponent
                             quickCompleteData={quickCompleteData}
                             sortType={sortType}
+                            placeType={placeType}
                             sortData={this.sortData.bind(this)}
-                            title="All States Info" icon="equalizer" />
+                            title={tableTitle} icon="equalizer" />
                     </div>
-                </Waypoint>
-
-                {placeType === 'district' && <div>
-                    <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'detsin2', 'wayupanimation')}>
-                        <div id="detsin2">
-                            <DistrictGridViewComponent />
-                        </div>
-                    </Waypoint>
-                </div>}
+                </Waypoint>}
 
             </div>
         )

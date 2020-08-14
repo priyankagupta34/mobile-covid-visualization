@@ -52,7 +52,6 @@ function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type,
 
         /* Defining ranges and format for y scale */
         const yAxis = d3.axisLeft(yScale).tickFormat(d3.formatPrefix(".01", 1e5));
-        console.log('yAxis ', yAxis)
 
         /* Providing label aat y axis scale */
         svg.append('g')

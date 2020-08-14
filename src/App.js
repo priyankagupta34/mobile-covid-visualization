@@ -93,12 +93,10 @@ export default class App extends Component {
           }
         }
       }
-
       if (stateFound !== '') {
         infoObject.info1 = this.state.stateInfoWithCode[stateFound];
       }
     }
-    console.log('infoObject ', infoObject)
     return infoObject;
   }
 

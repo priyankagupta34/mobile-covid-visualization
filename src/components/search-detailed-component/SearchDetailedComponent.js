@@ -51,7 +51,7 @@ export default class SearchDetailedComponent extends Component {
         this.props.clearNCloseSearch();
     }
 
-    clearTheInputRow(){
+    clearTheInputRow() {
         this.setState({
             ...this.state,
             stateOrDistrictSelected: ''
@@ -73,7 +73,7 @@ export default class SearchDetailedComponent extends Component {
                                 className="insideInput"
                                 onChange={this.filterStateDistrictHandler.bind(this)}
                                 onClick={this.clearTheInputRow.bind(this)}
-                                ></input>
+                            ></input>
                             <div onClick={this.clearNCloseSearch.bind(this)} className="times">&times;</div>
                         </div>
 
