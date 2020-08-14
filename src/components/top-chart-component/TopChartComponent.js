@@ -172,14 +172,14 @@ export default class TopChartComponent extends Component {
         return (
             <div className="top_content_viw">
                 <TitleIconComponent icon={'stairs'} title="World's Most" />
-
+                <div className="main_lastUpdt">Select a combination from below</div>
                 <div className="vhpadtopbot1 flexCenterX">
-                    <select className='selectedTab' onChange={this.changeTopDataHandler.bind(this)} value={topData}>
+                    <select className='input_ser' onChange={this.changeTopDataHandler.bind(this)} value={topData}>
                         <option value="top10">Top 10</option>
                         <option value="top15">Top 15</option>
                         <option value="top20">Top 20</option>
                     </select>
-                    <select className='selectedTab' onChange={this.changeEventDataHandler.bind(this)} value={eventData} >
+                    <select className='input_ser' onChange={this.changeEventDataHandler.bind(this)} value={eventData} >
                         <option value="NewConfirmed">New Confirmed</option>
                         <option value="NewDeaths">New Deaths</option>
                         <option value="NewRecovered">New Recovered</option>

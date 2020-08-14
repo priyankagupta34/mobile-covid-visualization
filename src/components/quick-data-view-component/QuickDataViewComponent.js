@@ -43,6 +43,7 @@ export default class QuickDataViewComponent extends Component {
             <>
 
                 <TitleIconComponent icon="menu_book" title={chosenTab ? 'new cases' : 'total cases'} />
+                <div className="main_lastUpdt">Select a combination from below</div>
                 <div className="content1" id="quickDataContent">
 
                     <div className="tab_content">
@@ -57,39 +58,46 @@ export default class QuickDataViewComponent extends Component {
                         <div className="qdvc1">
                             <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'rec', 'wayupanimation1')}>
                                 <div className="qdvc_ic" id="rec">
-                                    {
-                                        totalLoader ?
-                                            <div>
-                                                <div className="quickTitle recoveredCo">Recovered</div>
-                                                <div className="qvdc_nm ">{totals.NewRecovered}</div>
-                                            </div> :
-                                            <LoaderComponent />}
+
+                                    <div>
+                                        <div className="quickTitle recoveredCo">Recovered</div>
+                                        <div className="recoveredCo delta">
+                                            <i className="material-icons fontSize1 ">apps</i>
+                                        </div>
+                                        <div className="qvdc_nm ">
+                                            {totalLoader ? totals.NewRecovered : <LoaderComponent />}
+                                        </div>
+                                    </div>
 
                                 </div>
                             </Waypoint>
                             <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'dea', 'wayupanimation2')}>
                                 <div className="qdvc_ic" id="dea">
 
-                                    {
-                                        totalLoader ?
-                                            <div>
-                                                <div className="quickTitle deceasedCo">Deaths</div>
-                                                <div className="qvdc_nm ">{totals.NewDeaths}</div>
-                                            </div> :
-                                            <LoaderComponent />}
+
+                                    <div>
+                                        <div className="quickTitle deceasedCo">Deaths</div>
+                                        <div className="deceasedCo delta">
+                                            <i className="material-icons fontSize1 ">apps</i>
+                                        </div>
+                                        <div className="qvdc_nm ">
+                                            {totalLoader ? totals.NewDeaths : <LoaderComponent />}</div>
+                                    </div>
 
 
                                 </div>
                             </Waypoint>
                             <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'con', 'wayupanimation3')}>
                                 <div className="qdvc_ic" id="con">
-                                    {
-                                        totalLoader ?
-                                            <div>
-                                                <div className="quickTitle confirmedCo">Confirmed</div>
-                                                <div className="qvdc_nm ">{totals.NewConfirmed}</div>
-                                            </div> :
-                                            <LoaderComponent />}
+                                    <div>
+                                        <div className="quickTitle confirmedCo">Confirmed</div>
+                                        <div className="confirmedCo delta">
+                                            <i className="material-icons fontSize1 ">apps</i>
+                                        </div>
+                                        <div className="qvdc_nm ">
+                                            {totalLoader ? totals.NewConfirmed : <LoaderComponent />}</div>
+                                    </div>
+
 
 
                                 </div>
@@ -101,37 +109,46 @@ export default class QuickDataViewComponent extends Component {
                             <div className="qdvc1">
                                 <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'rec1', 'wayupanimation1')}>
                                     <div className="qdvc_ic" id="rec1">
-                                        {
-                                            totalLoader ?
-                                                <div>
-                                                    <div className="quickTitle recoveredCo">Recovered</div>
-                                                    <div className="qvdc_nm ">{totals.TotalRecovered}</div>
-                                                </div> :
-                                                <LoaderComponent />}
+
+                                        <div>
+                                            <div className="quickTitle recoveredCo">Recovered</div>
+                                            <div className="recoveredCo delta">
+                                                <i className="material-icons fontSize1 ">apps</i>
+                                            </div>
+                                            <div className="qvdc_nm ">
+                                                {totalLoader ? totals.TotalRecovered : <LoaderComponent />}
+                                            </div>
+                                        </div>
 
 
                                     </div>
                                 </Waypoint>
                                 <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'dea1', 'wayupanimation2')}>
                                     <div className="qdvc_ic" id="dea1">
-                                        {
-                                            totalLoader ?
-                                                <div>
-                                                    <div className="quickTitle deceasedCo">Deaths</div>
-                                                    <div className="qvdc_nm">{totals.TotalDeaths}</div>
-                                                </div> :
-                                                <LoaderComponent />}
+                                        <div>
+                                            <div className="quickTitle deceasedCo">Deaths</div>
+                                            <div className="deceasedCo delta">
+                                                <i className="material-icons fontSize1 ">apps</i>
+                                            </div>
+                                            <div className="qvdc_nm">
+                                                {totalLoader ? totals.TotalDeaths : <LoaderComponent />}
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </Waypoint>
                                 <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'con1', 'wayupanimation3')}>
-                                    <div className="qdvc_ic" id="con1">   {
-                                        totalLoader ?
-                                            <div>
-                                                <div className="quickTitle confirmedCo">Confirmed</div>
-                                                <div className="qvdc_nm ">{totals.TotalConfirmed}</div>
-                                            </div> :
-                                            <LoaderComponent />}
+                                    <div className="qdvc_ic" id="con1">
+                                        <div>
+                                            <div className="quickTitle confirmedCo">Confirmed</div>
+                                            <div className="confirmedCo delta">
+                                                <i className="material-icons fontSize1 ">apps</i>
+                                            </div>
+                                            <div className="qvdc_nm ">
+                                                {totalLoader ? totals.TotalConfirmed : <LoaderComponent />}
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </Waypoint>
                             </div>

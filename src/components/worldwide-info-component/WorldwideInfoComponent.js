@@ -55,7 +55,6 @@ export default class WorldwideInfoComponent extends Component {
         const {
             summaryDataCountries,
             loggedCountryName,
-            //  loggedCountryCode, 
             totals,
             totalLoader,
             tryAgainLoader,

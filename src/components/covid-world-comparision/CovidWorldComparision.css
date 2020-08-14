@@ -31,7 +31,7 @@
 
 .input_ser {
     outline: none;
-    padding: 8px;
+    padding: 4px 6px;
     border-radius: 3px;
     border: 1px solid transparent;
     background-color: #b7bec5;
@@ -42,7 +42,7 @@
     width: 27vw;
     font-size: 0.7em;
     background: white;
-    box-shadow: 0 0 4px #5d121240;
+    box-shadow: 0 0 2px #5d12122b;
 }
 
 /* .input_ser:focus,
@@ -84,7 +84,6 @@ svg {
     letter-spacing: 0.3px;
 }
 
-.nd_sm{
+.nd_sm {
     margin-top: 5%;
 }
-
