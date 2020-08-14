@@ -193,7 +193,7 @@ export default class IndiaCovidshowComponent extends Component {
 
 
 
-                {!freshShow && placeType === 'district' && <div className="displayjoe">
+                {!freshShow && placeType === 'district' && <div className="displayjoe backgroundDistInfo">
                     {(completeDetailsOfDistrict.info1 !== '' && completeDetailsOfDistrict.info2 !== '') &&
                         <>
                             <QuickTileViewStateDistrictComponent
@@ -211,7 +211,7 @@ export default class IndiaCovidshowComponent extends Component {
                                 lastupdatedtime={completeDetailsOfDistrict.info3.lastupdatedtime}
                                 convertDateToDate={this.props.convertDateToDate}
                                 addAnimationToWayUp={this.addAnimationToWayUp.bind(this)}
-                                transitionIdList={['difter1','difter2','difter3','difter4','difter5']}
+                                transitionIdList={['difter1', 'difter2', 'difter3', 'difter4', 'difter5']}
                             />
 
                         </>
@@ -238,7 +238,7 @@ export default class IndiaCovidshowComponent extends Component {
                                 lastupdatedtime={completeDetailsOfRegion.info3.lastupdatedtime}
                                 convertDateToDate={this.props.convertDateToDate}
                                 addAnimationToWayUp={this.addAnimationToWayUp.bind(this)}
-                                transitionIdList={['difter6','difter7','difter8','difter9','difter10']}
+                                transitionIdList={['difter6', 'difter7', 'difter8', 'difter9', 'difter10']}
                             />
 
                         </>
@@ -248,7 +248,7 @@ export default class IndiaCovidshowComponent extends Component {
 
 
                 <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'detsin', 'wayupanimation')}>
-                    <div id="detsin">
+                    <div id="detsin" className="backgroundDistInfo">
                         <StateGridViewComponent
                             quickCompleteData={quickCompleteData}
                             sortType={sortType}

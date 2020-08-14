@@ -25,6 +25,7 @@
     background-color: ghostwhite;
     border-radius: 3px;
     padding: 4px;
+    box-shadow: 0 0 3px #ffd0dfe0;
 }
 
 /* .gridBox:nth-child(odd){
@@ -55,15 +56,15 @@
     padding-right: 22px;
 }
 
-.subTitlMin{
+.subTitlMin {
     justify-content: flex-end !important;
 }
 
-.miniDelta{
+.miniDelta {
     height: 18px;
     /* margin-top: 12%; */
 }
 
-.onlyState{
+.onlyState {
     align-items: center;
 }

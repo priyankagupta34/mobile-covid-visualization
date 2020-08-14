@@ -69,7 +69,7 @@
 
 
 #detsin {
-    border: 10px solid white;
+    border: 10px solid #fff7f9;
     overflow: hidden;
 }
 
@@ -104,7 +104,12 @@
     }
 }
 
-.pointInd{
+.pointInd {
     font-size: 1.3em;
     margin-right: 2px;
+}
+
+.backgroundDistInfo {
+    background-color: rgba(255, 240, 245, 0.425);
+    padding-bottom: 20px;
 }
