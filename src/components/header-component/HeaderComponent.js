@@ -152,7 +152,8 @@ export default class HeaderComponent extends Component {
                     </div>
                 </div>
                 {openMenu && <div className="hc2 slideInFromLeft" id="hc1">
-                    <div className="hc3 righted">
+                    <div className="hc3">
+                        <div className="mcovid_title">mCovid</div>
                         <i className="material-icons my_ic1" onClick={this.closeMenuForSm.bind(this)}>menu_open</i>
                     </div>
                     <div className="hc4">

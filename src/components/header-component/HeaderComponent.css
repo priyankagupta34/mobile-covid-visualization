@@ -35,6 +35,26 @@
 
 .hc3 {
     height: 10vh;
+    display: flex;
+    justify-content: space-between;
+}
+
+.mcovid_title{
+    color: ghostwhite;
+    font-size: 1.5em;
+    letter-spacing: 0.7px;
+    font-weight: 100;
+    text-align: center;
+}
+
+.mcovid_title::after{
+    display: block;
+    height: 0.5px;
+    margin: 3px auto;
+    width: 70%;
+    background-color: ghostwhite;
+    content: '';
+    margin-bottom: 0;
 }
 
 .hc4 {
