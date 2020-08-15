@@ -20,7 +20,29 @@ export default class HeaderComponent extends Component {
 
     componentDidMount() {
         this.getNotificationLogs();
+        window.addEventListener('scroll', this.handleScroll.bind(this), { passive: true });
     }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll.bind(this))
+    }
+
+
+    handleScroll(event) {
+        // console.log('scrolling ', event);
+        const id = window.document.getElementById('hc1');
+        if (id !== null) {
+            id.classList.add('slideOutFromLeft')
+            setTimeout(() => {
+                id.classList.remove('slideOutFromLeft');
+                this.setState({
+                    ...this.state,
+                    openMenu: false
+                })
+            }, 490);
+        }
+    }
+
 
     getNotificationLogs() {
         this.setState({
