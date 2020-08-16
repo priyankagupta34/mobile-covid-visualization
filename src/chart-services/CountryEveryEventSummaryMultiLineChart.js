@@ -4,20 +4,36 @@ export const CountryEveryEventSummaryMultiLineChart = {
     vividMultiLineChart
 }
 
-function vividMultiLineChart(id, data) {
-    let newData = [],  strokeData = 10;
-    //  activeData = [], confimedData = [], deathData = []
-    
-    const colorRecov = '#62b80d', colorActive = 'yellow', colorConfirmed = 'lightblue', colorDeath = 'crimson';
-    for (let i = 0; i < data.length - 1; i++) {
-        if (i % strokeData === 0) {
-            newData.push(data[i]);
+function vividMultiLineChart(id, data, type) {
+    let cloneData = Object.assign([], data);
+    cloneData = cloneData.reverse();
+    let newData = [];
+    let days = 1;
+    if (type === 'weekly') {
+        days = 7;
+        for (let i = 0; i < cloneData.length; i++) {
+            if (i % days === 0) {
+                newData.push(cloneData[i]);
+            }
         }
-    }
-    if ((data.length - 1) % strokeData !== 0) {
-        newData.push(data[data.length - 1]);
+        newData = newData.reverse();
+
+    } else if (type === 'monthly') {
+        days = 30;
+        for (let i = 0; i < cloneData.length; i++) {
+            if (i % days === 0) {
+                newData.push(cloneData[i]);
+            }
+        }
+        newData = newData.reverse();
+    } else if (type === 'cumulative') {
+        newData = data;
+    } else if (type === 'lastweek') {
+        newData = cloneData.slice(0, 7);
+        newData = newData.reverse();
     }
 
+    const colorRecov = 'darkgreen', colorActive = 'darkred', colorConfirmed = 'darkblue', colorDeath = 'darkorange';
     const minVal = d3.min([
         d3.min(newData, d => d['Recovered']),
         d3.min(newData, d => d['Active']),
@@ -33,9 +49,9 @@ function vividMultiLineChart(id, data) {
     ]);
 
     d3.selectAll(`#${id} > *`).remove();
-    const height = 300;
-    const width = 1250;
-    // const width = 500;
+    const height = document.documentElement.clientHeight * 0.3;
+    const width = document.documentElement.clientWidth * 0.7;
+
     const svg = d3.select(`#${id}`)
         .append('svg')
         .attr('width', width)
@@ -47,27 +63,30 @@ function vividMultiLineChart(id, data) {
         .domain([minVal, maxVal]);
 
     /* Defining ranges and format for x scale */
-    const yAxis = d3.axisLeft(yScale).tickFormat(d3.format(''));
+    const yAxis = d3.axisLeft(yScale).tickFormat(d3.format(".2s"));
 
     /* Defining ranges for x scale */
     const xScale = d3.scaleLinear()
         .range([0, width])
-        .domain([0, newData.length-1]);
+        .domain([0, (newData.length - 1)]);
 
     /* Defining ranges and format for x scale */
-    const xAxis = d3.axisBottom(xScale);
+    const xAxis = d3.axisBottom(xScale).ticks(newData.length - 1);
 
     /* Now attaching x-scale in svg */
-    svg.append('g')
-        .style('transform', `translateY(${height}px)`)
-        .call(xAxis)
-        .attr('fill', '#2a5171')
-        .selectAll('text')
-        .data(newData)
-        .text(d => new Date(d['Date']).toLocaleDateString())
-        .style('transform', 'rotate(54deg)')
-        .style('text-anchor', 'start')
-        .attr('fill', 'wheat');
+    if(type !== 'cumulative'){ 
+        svg.append('g')
+            .style('transform', `translateY(${height}px)`)
+            .call(xAxis)
+            .attr('fill', '#2a5171')
+            .selectAll('text')
+            .data(newData)
+            .text(d => new Date(d['Date']).toDateString().split(" ").slice(1,3).join(" "))
+            .style('transform', 'rotate(54deg)')
+            .style('text-anchor', 'start')
+            .attr('class', 'smallDateInfo')
+            .attr('fill', '#a50404');
+        }
 
     /* Now attaching y-scale in svg */
     svg.append('g')
@@ -75,7 +94,7 @@ function vividMultiLineChart(id, data) {
         .call(yAxis)
         .attr('fill', '#2a5171')
         .selectAll('text')
-        .attr('fill', 'wheat');
+        .attr('fill', '#a50404');
 
     /* Generating line for Recovered */
     const lineRecovered = d3.line()
@@ -91,7 +110,7 @@ function vividMultiLineChart(id, data) {
 
     /* Generating line for Confirmed */
     const lineConfirmed = d3.line()
-        .x((d, i) => xScale(i))
+        .x((d, i) => { console.log("dh"); return xScale(i); })
         .y((d, i) => yScale(d['Confirmed']))
         .curve(d3.curveMonotoneX);
 
@@ -101,7 +120,7 @@ function vividMultiLineChart(id, data) {
         .y((d, i) => yScale(d['Deaths']))
         .curve(d3.curveMonotoneX);
 
-    const path1 = svg.append('path')
+    svg.append('path')
         .datum(newData)
         .attr("class", "line")
         .attr('fill', 'none')
@@ -109,7 +128,7 @@ function vividMultiLineChart(id, data) {
         .attr('stroke-width', 3)
         .attr('d', lineRecovered);
 
-    const path2 = svg.append('path')
+    svg.append('path')
         .datum(newData)
         .attr("class", "line")
         .attr('fill', 'none')
@@ -117,7 +136,7 @@ function vividMultiLineChart(id, data) {
         .attr('stroke-width', 3)
         .attr('d', lineActive);
 
-    const path3 = svg.append('path')
+    svg.append('path')
         .datum(newData)
         .attr("class", "line")
         .attr('fill', 'none')
@@ -125,7 +144,7 @@ function vividMultiLineChart(id, data) {
         .attr('stroke-width', 3)
         .attr('d', lineConfirmed);
 
-    const path4 = svg.append('path')
+    svg.append('path')
         .datum(newData)
         .attr("class", "line")
         .attr('fill', 'none')
@@ -135,27 +154,10 @@ function vividMultiLineChart(id, data) {
 
 
 
-
-    /* x Label */
-    svg.append('text')
-        .text('All Events')
-        .attr('x', (width / 2) - 40)
-        .attr('y', height + 100)
-        .attr('fill', 'aliceblue')
-
-    /* y Label */
-    svg.append('text')
-        .text('Total Lives')
-        .attr('x', -height + 80)
-        .attr('y', -50)
-        .style('transform', 'rotate(-90deg)')
-        .style('textAnchor', 'middle')
-        .attr('fill', 'aliceblue')
-
     /* Legend for recovered */
     svg.append('circle')
-        .attr('cx', width + 20)
-        .attr('cy', 0)
+        .attr('cx', 10)
+        .attr('cy', -55)
         .attr('r', 5)
         .style('fill', colorRecov)
         .style('cursor', 'pointer');
@@ -163,20 +165,14 @@ function vividMultiLineChart(id, data) {
     svg.append('text')
         .text('Recovered')
         .attr('class', 'legend1')
-        .attr('x', width + 35)
-        .attr('y', 5)
+        .attr('x', 20)
+        .attr('y', -50)
         .attr('fill', colorRecov)
-        .on('mouseover', () => (
-            path1.attr('stroke', 'blue')
-        ))
-        .on('mouseout', () => (
-            path1.attr('stroke', colorRecov)
-        ))
 
     /* Legend for active */
     svg.append('circle')
-        .attr('cx', width + 20)
-        .attr('cy', 20)
+        .attr('cx', 10)
+        .attr('cy', -40)
         .attr('r', 5)
         .style('fill', colorActive)
         .style('cursor', 'pointer');
@@ -184,20 +180,14 @@ function vividMultiLineChart(id, data) {
     svg.append('text')
         .text('Active')
         .attr('class', 'legend1')
-        .attr('x', width + 35)
-        .attr('y', 25)
-        .attr('fill', colorActive)
-        .on('mouseover', () => (
-            path2.attr('stroke', 'blue')
-        ))
-        .on('mouseout', () => (
-            path2.attr('stroke', colorActive)
-        ))
+        .attr('x', 20)
+        .attr('y', -35)
+        .attr('fill', colorActive);
 
     /* Legend for Confirmed */
     svg.append('circle')
-        .attr('cx', width + 20)
-        .attr('cy', 40)
+        .attr('cx', 10)
+        .attr('cy', -25)
         .attr('r', 5)
         .style('fill', colorConfirmed)
         .style('cursor', 'pointer');
@@ -205,20 +195,14 @@ function vividMultiLineChart(id, data) {
     svg.append('text')
         .text('Confirmed')
         .attr('class', 'legend1')
-        .attr('x', width + 35)
-        .attr('y', 45)
-        .attr('fill', colorConfirmed)
-        .on('mouseover', () => (
-            path3.attr('stroke', 'blue')
-        ))
-        .on('mouseout', () => (
-            path3.attr('stroke', colorConfirmed)
-        ))
+        .attr('x', 20)
+        .attr('y', -20)
+        .attr('fill', colorConfirmed);
 
     /* Legend for Deaths */
     svg.append('circle')
-        .attr('cx', width + 20)
-        .attr('cy', 60)
+        .attr('cx', 10)
+        .attr('cy', -70)
         .attr('r', 5)
         .style('fill', colorDeath)
         .style('cursor', 'pointer');
@@ -226,15 +210,9 @@ function vividMultiLineChart(id, data) {
     svg.append('text')
         .text('Deaths')
         .attr('class', 'legend1')
-        .attr('x', width + 35)
-        .attr('y', 65)
-        .attr('fill', colorDeath)
-        .on('mouseover', () => (
-            path4.attr('stroke', 'blue')
-        ))
-        .on('mouseout', () => (
-            path4.attr('stroke', colorDeath)
-        ))
+        .attr('x', 20)
+        .attr('y', -65)
+        .attr('fill', colorDeath);
 
 
 

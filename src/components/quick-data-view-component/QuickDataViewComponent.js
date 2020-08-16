@@ -47,10 +47,10 @@ export default class QuickDataViewComponent extends Component {
                 <div className="content1" id="quickDataContent">
 
                     <div className="tab_content">
-                        <div className={chosenTab ? 'tab' : 'tab selectedTab'} onClick={this.choseTabHandler.bind(this, 'new')}>
+                        <div className={chosenTab ? 'tab animateTab' : 'tab selectedTab'} onClick={this.choseTabHandler.bind(this, 'new')}>
                             New
                         </div>
-                        <div className={!chosenTab ? 'tab' : 'tab selectedTab'} onClick={this.choseTabHandler.bind(this, 'total')}>
+                        <div className={!chosenTab ? 'tab animateTab' : 'tab selectedTab'} onClick={this.choseTabHandler.bind(this, 'total')}>
                             Total
                         </div>
                     </div>

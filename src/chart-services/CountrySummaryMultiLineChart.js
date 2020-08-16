@@ -26,7 +26,7 @@ function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type,
 
     const dataDisplayLengthForX = d3.max([newCountry1Data.length, newCountry2Data.length, newCountry3Data.length]);
 
-
+    console.log('dataDisplayLengthForX from mul', dataDisplayLengthForX)
     const xScale = d3.scaleLinear()
         .range([0, width])
         .domain([0, (dataDisplayLengthForX - 1)]);
@@ -51,7 +51,7 @@ function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type,
 
 
         /* Defining ranges and format for y scale */
-        const yAxis = d3.axisLeft(yScale).tickFormat(d3.formatPrefix(".01", 1e5));
+        const yAxis = d3.axisLeft(yScale).tickFormat(d3.format(".2s"));
 
         /* Providing label aat y axis scale */
         svg.append('g')
@@ -68,9 +68,8 @@ function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type,
             .curve(d3.curveMonotoneX);
 
         /* Curve of country 1 */
-        let path1 = '';
         if (newCountry1Data.length !== 0) {
-            path1 = svg.append('path')
+            svg.append('path')
                 .datum(newCountry1Data)
                 .attr('fill', 'none')
                 .attr('stroke', 'darkgreen')
@@ -80,9 +79,8 @@ function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type,
         }
 
         /* Curve of country 2 */
-        let path2 = '';
         if (newCountry2Data.length !== 0) {
-            path2 = svg.append('path')
+            svg.append('path')
                 .datum(newCountry2Data)
                 .attr('fill', 'none')
                 .attr('stroke', 'brown')
@@ -91,9 +89,8 @@ function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type,
         }
 
         /* Curve of country 3 */
-        let path3 = '';
         if (newCountry3Data.length !== 0) {
-            path3 = svg.append('path')
+            svg.append('path')
                 .datum(newCountry3Data)
                 .attr('fill', 'none')
                 .attr('stroke', 'darkblue')
@@ -134,12 +131,6 @@ function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type,
                 .attr('x', 20)
                 .attr('y', -50)
                 .attr('fill', 'darkgreen')
-                .on('mouseover', () => (
-                    path1.attr('stroke', 'crimson')
-                ))
-                .on('mouseout', () => (
-                    path1.attr('stroke', 'darkgreen')
-                ))
         }
 
         /* Legend for country2 */
@@ -156,13 +147,7 @@ function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type,
                 .text(newCountry2Data[0].Country)
                 .attr('x', 20)
                 .attr('y', -30)
-                .attr('fill', 'brown')
-                .on('mouseover', () => (
-                    path2.attr('stroke', 'crimson')
-                ))
-                .on('mouseout', () => (
-                    path2.attr('stroke', 'brown')
-                ))
+                .attr('fill', 'brown');
         }
 
         /* Legend for country3 */
@@ -179,13 +164,7 @@ function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type,
                 .text(newCountry3Data[0].Country)
                 .attr('x', 20)
                 .attr('y', -10)
-                .attr('fill', 'darkblue')
-                .on('mouseover', () => (
-                    path3.attr('stroke', 'crimson')
-                ))
-                .on('mouseout', () => (
-                    path3.attr('stroke', 'darkblue')
-                ))
+                .attr('fill', 'darkblue');
         }
 
 

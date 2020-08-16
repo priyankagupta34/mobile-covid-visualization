@@ -28,13 +28,14 @@
 
 .qvdc_title {}
 
-.tab_content{
+.tab_content {
     display: flex;
     justify-content: center;
-   
+
 }
 
-.tab, .selectedTab{
+.tab,
+.selectedTab {
     margin-right: 6px;
     width: 23vw;
     font-size: 0.7em;
@@ -58,7 +59,35 @@
     outline: none;
 }
 
-.selectedTab{
+.selectedTab {
     background-color: #e26565;
     color: white;
+
+}
+
+.animateTab {
+    animation: quickTabSelection 0.5s;
+    position: relative;
+}
+
+@keyframes quickTabSelection {
+    0% {
+        left: -8px;
+    }
+
+    25% {
+        left: 6px;
+    }
+
+    50% {
+        left: -4px;
+    }
+
+    75% {
+        left: 2px;
+    }
+
+    100% {
+        left: -0px;
+    }
 }

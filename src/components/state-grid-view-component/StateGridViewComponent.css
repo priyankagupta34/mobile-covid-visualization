@@ -91,11 +91,8 @@
 
     50% {
         transform: rotateX(180deg);
-    }
+    }*/
 
-    75% {
-        transform: rotateX(-90deg);
-    } */
 
     100% {
         transform: rotateX(360deg);

@@ -1,0 +1,22 @@
+#cov_2{
+    height: 60vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.minorLegends{
+    font-size: 0.7em;
+    font-weight: 500;
+}
+
+.content5{
+    margin: 20px auto;
+    margin-bottom: 0;
+}
+
+.smallDateInfo{
+    font-size: 0.8em;
+    font-weight: 700;
+}

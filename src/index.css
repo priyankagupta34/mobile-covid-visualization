@@ -369,6 +369,7 @@ a {
 .rotated180 {
   position: relative;
   transform: rotate(180deg);
+  transition: all 0.5s;
 }
 
 * {
@@ -400,6 +401,7 @@ a {
 
 .fontwt600{
   font-weight: 600;
+  /* transition: all 0.5s; */
 }
 
 .removeAnimation{
@@ -414,4 +416,8 @@ a {
   100%{
     left: 100vw;
   }
+}
+
+.transition5{
+  transition: all 0.5s;
 }

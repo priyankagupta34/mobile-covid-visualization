@@ -60,7 +60,7 @@ export default class StateGridViewComponent extends Component {
                                     {sortType.event === 'state' &&
                                         <>
                                             {sortType.sorting ?
-                                                <i className="material-icons fontSize1 fontwt600  subCo">filter_list</i> :
+                                                <i className="material-icons fontSize1 fontwt600  subCo ">filter_list</i> :
                                                 <i className="material-icons fontSize1 fontwt600  rotated180 subCo">filter_list</i>
                                             }
                                         </>

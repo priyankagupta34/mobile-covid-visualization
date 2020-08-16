@@ -6,6 +6,7 @@ import SearchDetailedComponent from '../search-detailed-component/SearchDetailed
 import StateGridViewComponent from '../state-grid-view-component/StateGridViewComponent';
 import TitleIconComponent from '../title-icon-component/TitleIconComponent';
 import './IndiaCovidshowComponent.css';
+import IndiaQuickGraphsComponent from '../india-quick-graphs-component/IndiaQuickGraphsComponent';
 
 export default class IndiaCovidshowComponent extends Component {
     constructor(props) {
@@ -318,6 +319,8 @@ export default class IndiaCovidshowComponent extends Component {
                             title={tableTitle} icon="equalizer" />
                     </div>
                 </Waypoint>}
+
+                <IndiaQuickGraphsComponent />
 
             </div>
         )
