@@ -9,6 +9,8 @@ export default class QuickTileViewStateDistrictComponent extends Component {
     render() {
         const { title, state, lastupdatedtime, stateInfoLoader, completeDetailsOfRegion, deltaconfirmed,
             confirmed, active, deltarecovered, recovered, deltadeaths, deaths, transitionIdList } = this.props;
+        console.log('QuickTileViewStateDistrictComponent', completeDetailsOfRegion)
+        // console.log('completeDetailsOfRegion.info2.meta.population', completeDetailsOfRegion.info2.meta.population)
         return (
             <div>
 
@@ -35,13 +37,14 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                                         <div className="confirmedCo delta">
                                             {!(deltaconfirmed === '0' || deltaconfirmed === 0) &&
                                                 <><i className="material-icons  fontSize1 ">arrow_upward</i>
-                                                    {typeof deltaconfirmed !== 'undefined' && LimitServices.inLakhsOrCrores(Number(deltaconfirmed))}</>}
+                                                    {typeof deltaconfirmed !== 'undefined' &&
+                                                        LimitServices.inLakhsOrCrores(Number(deltaconfirmed))}</>}
                                         </div>
 
-                                        <div className="qvdc_nm">{typeof confirmed !== 'undefined' && LimitServices.inLakhsOrCrores(Number(confirmed))}</div>
+                                        <div className="qvdc_nm">{typeof confirmed !== 'undefined' &&
+                                            LimitServices.inLakhsOrCrores(Number(confirmed))}</div>
                                     </div> :
                                     <LoaderComponent />}
-
                         </div>
                     </Waypoint>
                     <Waypoint onEnter={this.props.addAnimationToWayUp(transitionIdList[2], 'wayupanimation2')}>
@@ -103,7 +106,7 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                     </Waypoint>
                 </div>
 
-                {(typeof completeDetailsOfRegion.info2 !== 'undefined' && completeDetailsOfRegion.info2 !== '') &&
+                {(typeof completeDetailsOfRegion.info2 !== 'undefined' && completeDetailsOfRegion.info2 !== '') ?
                     <div className="metaPop">
                         <div className="qdvc_ic">
                             <div>
@@ -111,10 +114,11 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                                 <div className="deceasedCo delta">
                                     <i className="material-icons material-icons-outlined 2 anyCo">groups</i>
                                 </div>
-                                {typeof completeDetailsOfRegion.info2 !== 'undefined' && typeof completeDetailsOfRegion.info2.meta !== 'undefined' ?
+                                {typeof completeDetailsOfRegion.info2 !== 'undefined' &&
+                                    typeof completeDetailsOfRegion.info2.meta !== 'undefined' &&
+                                    typeof completeDetailsOfRegion.info2.meta.population !== 'undefined' ?
                                     <div className="qvdc_nm">
-                                        {typeof completeDetailsOfRegion.info2.meta.population !== 'undefined' &&
-                                            LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info2.meta.population))}
+                                        {LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info2.meta.population))}
                                     </div>
                                     :
 
@@ -140,7 +144,8 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                                             {state === 'Total' ? <>
                                                 <i className="material-icons fontSize1 ">arrow_upward</i>
                                                 {LimitServices.inLakhsOrCrores(typeof completeDetailsOfRegion.info2.delta.tested.states.samples !== 'undefined'
-                                                    && Number(completeDetailsOfRegion.info2.delta.tested.states.samples))}</> :
+                                                    && Number(completeDetailsOfRegion.info2.delta.tested.states.samples))}</>
+                                                :
                                                 <>
                                                     {(completeDetailsOfRegion.info2 !== '' &&
                                                         typeof completeDetailsOfRegion.info2.delta !== 'undefined' &&
@@ -155,14 +160,17 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                                     }
                                 </div>
                                 {typeof completeDetailsOfRegion.info2.total.tested !== 'undefined' ?
-                                    <>{state === 'Total' ? <div className="qvdc_nm">
-                                        {typeof completeDetailsOfRegion.info2.total.tested.states.samples !== 'undefined'
-                                            && LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info2.total.tested.states.samples))}</div> :
+                                    <>
+                                        {state === 'Total' ?
+                                            <div className="qvdc_nm">
+                                                {typeof completeDetailsOfRegion.info2.total.tested.states.samples !== 'undefined'
+                                                    && LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info2.total.tested.states.samples))}</div>
+                                            :
 
-                                        <div className="qvdc_nm">
-                                            {(typeof completeDetailsOfRegion.info2.total.tested.samples !== 'undefined')
-                                                && LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info2.total.tested.samples))}
-                                        </div>}
+                                            <div className="qvdc_nm">
+                                                {(typeof completeDetailsOfRegion.info2.total.tested.samples !== 'undefined')
+                                                    && LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info2.total.tested.samples))}
+                                            </div>}
                                     </>
                                     :
                                     <>
@@ -174,6 +182,34 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                                     </>}
                             </div>
                         </div>
+                    </div>
+
+                    :
+                    <div className="metaPop">
+                        <div className="qdvc_ic">
+                            <div>
+                                <div className="quickTitle subCo">Population</div>
+                                <div className="deceasedCo delta">
+                                    <i className="material-icons material-icons-outlined 2 anyCo">groups</i>
+
+                                </div>
+                                <small><b>
+                                    N/A
+                                </b></small>
+                            </div>
+                        </div>
+
+                        <div className="qdvc_ic">
+                            <div>
+                                <div className="quickTitle subCo">Total Tests</div>
+                                <div className="deceasedCo delta">
+                                </div>
+                                <small><b>
+                                    N/A
+                                </b></small>
+                            </div>
+                        </div>
+
                     </div>
                 }
             </div>

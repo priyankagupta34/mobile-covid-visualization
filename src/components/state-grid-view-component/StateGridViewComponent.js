@@ -42,7 +42,6 @@ export default class StateGridViewComponent extends Component {
 
     render() {
         const { title, icon, quickCompleteData, sortType, placeType } = this.props;
-        console.log(this.props)
         return (
             <>
                 <TitleIconComponent icon={icon} title={title} />
@@ -155,7 +154,7 @@ export default class StateGridViewComponent extends Component {
 
                             <div className="gridStyle righted" key={index}>
                                 <div className="gridBox mainGridHeader gridMain titleGridContainer onlyState">
-                                    <div>
+                                    <div id={item.state}>
                                         {item.state}
                                     </div>
                                 </div>

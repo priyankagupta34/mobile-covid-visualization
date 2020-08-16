@@ -143,11 +143,22 @@ export default class TopChartComponent extends Component {
 
     }
     componentDidMount() {
+        window.addEventListener('resize', this.resizingWindowHandler.bind(this), false);
+    }
+
+    componentDidUpdate(prev) {
+        if (prev !== this.props) {
+            this.drawNewDeathChartForCurrent(this.props.summaryDataCountries, this.state.topData, this.state.eventData);
+        }
+    }
+
+    resizingWindowHandler(event) {
+        console.log('tops')
         this.drawNewDeathChartForCurrent(this.props.summaryDataCountries, this.state.topData, this.state.eventData);
     }
 
-    componentDidUpdate() {
-        this.drawNewDeathChartForCurrent(this.props.summaryDataCountries, this.state.topData, this.state.eventData);
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.resizingWindowHandler.bind(this), false);
     }
 
     changeEventDataHandler(e) {

@@ -19,6 +19,18 @@ export default class CovidWorldComparision extends Component {
         }
     }
 
+    componentDidMount(){
+        window.addEventListener('resize', this.resizingWindowHandler(), false);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.resizingWindowHandler(), false);
+    }
+
+    resizingWindowHandler(event){
+        this.creatingMultiChartWithDataCapturing();
+    }
+
     componentDidUpdate(prev) {
         if (prev.countryList.length !== this.props.countryList.length) {
             this.setState((state, props) => {

@@ -64,6 +64,7 @@ function abbreviateIntToReadableString(value) {
 }
 
 function inLakhsOrCrores(dataVal) {
+    console.log('dataVal ', dataVal)
     if (typeof dataVal !== 'undefined') {
         if (dataVal.toString().length < 6) {
             return dataVal;

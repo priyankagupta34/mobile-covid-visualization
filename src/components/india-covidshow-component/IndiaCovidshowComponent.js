@@ -86,7 +86,9 @@ export default class IndiaCovidshowComponent extends Component {
     addAnimationToWayUp(id, anim, event) {
         setTimeout(() => {
             const component = window.document.getElementById(id);
-            component.classList.add(anim);
+            if (component !== null) {
+                component.classList.add(anim);
+            }
         }, 100);
     }
 
@@ -168,26 +170,46 @@ export default class IndiaCovidshowComponent extends Component {
 
     sortData(type, event) {
         const types = type;
-        this.setState((state, props) => {
-            state.sortType.event = types;
-            const sorted = DataStructureServices.mergeSort(state.quickCompleteData, types);
-            const sortedReverse = DataStructureServices.mergeSort(state.quickCompleteData, types).reverse();
-            if (state.sortType.sorting) {
-                state.quickCompleteData = sorted;
+        for (let i = 0; i < this.state.quickCompleteData.length; i++) {
+            const id = document.getElementById(this.state.quickCompleteData[i].state);
+            if (id !== null) {
+                id.classList.add('flipItOver');
             }
-            else {
-                state.quickCompleteData = sortedReverse;
-            }
-            return state;
-        }, () => {
-            this.setState({
-                ...this.state,
-                sortType: {
-                    ...this.state.sortType,
-                    sorting: !this.state.sortType.sorting
+        }
+        setTimeout(() => {
+
+            this.setState((state, props) => {
+                state.sortType.event = types;
+                const sorted = DataStructureServices.mergeSort(state.quickCompleteData, types);
+                const sortedReverse = DataStructureServices.mergeSort(state.quickCompleteData, types).reverse();
+                if (state.sortType.sorting) {
+                    state.quickCompleteData = sorted;
                 }
+                else {
+                    state.quickCompleteData = sortedReverse;
+                }
+                return state;
+            }, () => {
+                this.setState({
+                    ...this.state,
+                    sortType: {
+                        ...this.state.sortType,
+                        sorting: !this.state.sortType.sorting
+                    }
+                })
             })
-        })
+            setTimeout(() => {
+                for (let i = 0; i < this.state.quickCompleteData.length; i++) {
+                    const id = document.getElementById(this.state.quickCompleteData[i].state);
+                    if (id !== null) {
+                        id.classList.remove('flipItOver');
+                    }
+                }
+
+            }, 780);
+
+
+        }, 10);
     }
 
     backToIndiaInfo() {
