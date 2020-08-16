@@ -13,22 +13,26 @@ export default class CovidWorldComparision extends Component {
             countrya: '',
             countryb: '',
             countryc: '',
+            countryaList: [],
+            countrybList: [],
+            countrycList: [],
             countryList: [],
             eventType: 'Active',
             showLoader: false
         }
+        this.resizingWindowHandler = this.resizingWindowHandler.bind(this);
     }
 
-    componentDidMount(){
-        window.addEventListener('resize', this.resizingWindowHandler(), false);
+    componentDidMount() {
+        window.addEventListener('resize', this.resizingWindowHandler, false);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('resize', this.resizingWindowHandler(), false);
+        window.removeEventListener('resize', this.resizingWindowHandler, false);
     }
 
-    resizingWindowHandler(event){
-        this.creatingMultiChartWithDataCapturing();
+    resizingWindowHandler(event) {
+        this.drawingComparisionGraph();
     }
 
     componentDidUpdate(prev) {
@@ -51,26 +55,28 @@ export default class CovidWorldComparision extends Component {
         CovidServices.countryWiseData(this.state.countryb),
         CovidServices.countryWiseData(this.state.countryc)])
             .then((result) => {
-                let countrya = [];
-                let countryb = [];
-                let countryc = [];
+                let countryaList = [];
+                let countrybList = [];
+                let countrycList = [];
                 if (result[0].data.length !== 0 && result[0].data.length >= 50) {
-                    countrya = result[0].data.slice(result[0].data.length - 50);
+                    countryaList = result[0].data.slice(result[0].data.length - 50);
                 }
                 if (result[1].data.length !== 0 && result[1].data.length >= 50) {
-                    countryb = result[1].data.slice(result[1].data.length - 50);
+                    countrybList = result[1].data.slice(result[1].data.length - 50);
                 }
                 if (result[2].data.length !== 0 && result[2].data.length >= 50) {
-                    countryc = result[2].data.slice(result[2].data.length - 50);
+                    countrycList = result[2].data.slice(result[2].data.length - 50);
                 }
-                CountrySummaryMultiLineChart.multiLineChart(
-                    countrya,
-                    countryb,
-                    countryc, this.state.eventType, 'cov_6');
-                this.setState({
-                    ...this.state,
-                    showLoader: false
+                this.setState(state => {
+                    state.countryaList = countryaList;
+                    state.countrybList = countrybList;
+                    state.countrycList = countrycList;
+                    state.showLoader = false;
+                    return state;
+                }, () => {
+                    this.drawingComparisionGraph();
                 })
+
             }).catch((err) => {
                 this.setState({
                     ...this.state,
@@ -78,6 +84,13 @@ export default class CovidWorldComparision extends Component {
                 })
             });
 
+    }
+
+    drawingComparisionGraph() {
+        CountrySummaryMultiLineChart.multiLineChart(
+            this.state.countryaList,
+            this.state.countrybList,
+            this.state.countrycList, this.state.eventType, 'cov_6');
     }
 
     changingCountryHandler(country, event) {

@@ -16,20 +16,20 @@ export default class HeaderComponent extends Component {
             notificationCompleteset: [],
             notificationLoader: false
         }
+        this.handleScroll = this.handleScroll.bind(this);
     }
 
     componentDidMount() {
         this.getNotificationLogs();
-        window.addEventListener('scroll', this.handleScroll.bind(this), { passive: true });
+        window.addEventListener('scroll', this.handleScroll, false);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll.bind(this))
+        window.removeEventListener('scroll', this.handleScroll, false)
     }
 
 
     handleScroll(event) {
-        // console.log('scrolling ', event);
         const id = window.document.getElementById('hc1');
         if (id !== null) {
             id.classList.add('slideOutFromLeft')

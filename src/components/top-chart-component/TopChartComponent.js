@@ -12,6 +12,7 @@ export default class TopChartComponent extends Component {
             topData: 'top10',
             eventData: 'NewConfirmed'
         }
+        this.resizingWindowHandler = this.resizingWindowHandler.bind(this);
     }
 
 
@@ -143,7 +144,7 @@ export default class TopChartComponent extends Component {
 
     }
     componentDidMount() {
-        window.addEventListener('resize', this.resizingWindowHandler.bind(this), false);
+        window.addEventListener('resize', this.resizingWindowHandler, false);
     }
 
     componentDidUpdate(prev) {
@@ -153,12 +154,11 @@ export default class TopChartComponent extends Component {
     }
 
     resizingWindowHandler(event) {
-        console.log('tops')
         this.drawNewDeathChartForCurrent(this.props.summaryDataCountries, this.state.topData, this.state.eventData);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('resize', this.resizingWindowHandler.bind(this), false);
+        window.removeEventListener('resize', this.resizingWindowHandler, false);
     }
 
     changeEventDataHandler(e) {

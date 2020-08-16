@@ -9,8 +9,6 @@ export default class QuickTileViewStateDistrictComponent extends Component {
     render() {
         const { title, state, lastupdatedtime, stateInfoLoader, completeDetailsOfRegion, deltaconfirmed,
             confirmed, active, deltarecovered, recovered, deltadeaths, deaths, transitionIdList } = this.props;
-        console.log('QuickTileViewStateDistrictComponent', completeDetailsOfRegion)
-        // console.log('completeDetailsOfRegion.info2.meta.population', completeDetailsOfRegion.info2.meta.population)
         return (
             <div>
 

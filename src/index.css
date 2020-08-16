@@ -135,8 +135,8 @@ header {
 .content1 {
   padding: 2vh;
   background: white;
-  height: 16vh;
-  min-height: 103px;
+  /* height: 16vh; */
+  min-height: 130px;
 
 }
 
