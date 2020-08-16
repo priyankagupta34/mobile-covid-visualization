@@ -78,7 +78,7 @@ function vividMultiLineChart(id, data, type) {
         svg.append('g')
             .style('transform', `translateY(${height}px)`)
             .call(xAxis)
-            .attr('fill', '#2a5171')
+            .attr('fill', 'none')
             .selectAll('text')
             .data(newData)
             .text(d => new Date(d['Date']).toDateString().split(" ").slice(1,3).join(" "))
@@ -92,7 +92,7 @@ function vividMultiLineChart(id, data, type) {
     svg.append('g')
         .style('transform', `translateX(0)`)
         .call(yAxis)
-        .attr('fill', '#2a5171')
+        .attr('fill', 'none')
         .selectAll('text')
         .attr('fill', '#a50404');
 
@@ -110,7 +110,7 @@ function vividMultiLineChart(id, data, type) {
 
     /* Generating line for Confirmed */
     const lineConfirmed = d3.line()
-        .x((d, i) => { console.log("dh"); return xScale(i); })
+        .x((d, i) => xScale(i))
         .y((d, i) => yScale(d['Confirmed']))
         .curve(d3.curveMonotoneX);
 
@@ -151,6 +151,9 @@ function vividMultiLineChart(id, data, type) {
         .attr('stroke', colorDeath)
         .attr('stroke-width', 3)
         .attr('d', lineDeaths);
+
+    /* Adding Transitions */
+    // lineActive.transition(transition);
 
 
 

@@ -67,7 +67,7 @@ function singleLineChart(data, type, id, loggedCountryName) {
     svg.append('g')
         .style('transform', `translateX(0)`)
         .call(yAxis)
-        .attr('fill', '#2a5171')
+        .attr('fill', 'none')
         .selectAll('text')
         .attr('fill', 'wheat')
 

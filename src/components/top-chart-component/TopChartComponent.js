@@ -122,7 +122,7 @@ export default class TopChartComponent extends Component {
             .append('g')
             .style("transform", `translateX(${0}px)`)
             .call(yAxis)
-            // .attr('fill', '#a50404')
+            .attr('fill', 'none')
             .selectAll('text')
             .style('fill', '#a50404')
 
@@ -131,7 +131,7 @@ export default class TopChartComponent extends Component {
         svg.append('g')
             .style("transform", `translate(0,${height}px)`)
             .call(xAxis)
-            .attr('fill', '#a50404')
+            .attr('fill', 'none')
             .selectAll('text')
             .data(newDataSet)
             .text(d => d.Country)
