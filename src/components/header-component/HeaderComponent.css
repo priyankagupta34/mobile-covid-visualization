@@ -17,7 +17,7 @@
 }
 
 .hc1_scroll_heading {
-    height: 10vh;
+    height: 9vh;
     background-color: #500a0a;
     background-image: url('/imgs/1.jpg');
     background-size: cover;
@@ -25,11 +25,11 @@
     background-blend-mode: color;
     position: fixed;
     width: 100%;
-    padding: 1.5vh;
+    padding: 5px;
     top: 0;
     display: flex;
     justify-content: space-between;
-    min-height: 50px;
+    min-height: 56px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     box-shadow: 0 0 4px #5d1212;
@@ -325,4 +325,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.marginTp10{
+    margin-top: 6px;
 }

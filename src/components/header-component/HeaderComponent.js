@@ -150,7 +150,7 @@ export default class HeaderComponent extends Component {
         return (
             <div>
                 <div className={showScrollHeading ? 'hc1_scroll_heading' : 'hc1'} id={showScrollHeading ? 'hc1_scroll' : 'hc1_withoutscroll'}>
-                    <i className="material-icons my_ic1" onClick={this.openMenuForSm.bind(this)} >menu</i>
+                    <i className={showScrollHeading? "material-icons my_ic1 marginTp10": 'material-icons my_ic1'} onClick={this.openMenuForSm.bind(this)} >menu</i>
                     <div>
                         <div className="notificationPoint">
                             <div className="hc8">
@@ -175,7 +175,6 @@ export default class HeaderComponent extends Component {
                     </div>
 
                 </div>
-                {/* } */}
                 <HeaderNotificationDataPanelComponent
                     openNotificationPanel={openNotificationPanel}
                     notificationLoader={notificationLoader}
