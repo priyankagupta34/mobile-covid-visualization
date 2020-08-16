@@ -1,7 +1,7 @@
 {
   "short_name": "mCovid",
   "name": "Track Covid All Over",
-  "description": "This application is designed to track covid all over India and glimpse world covid situation. Even covid comparision is incorporated in this.",
+  "description": "Track covid all over states in India and get a glimpse of world covid situation.",
   "icons": [
     {
       "src": "favicon.ico",
