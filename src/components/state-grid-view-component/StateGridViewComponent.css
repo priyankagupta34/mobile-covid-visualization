@@ -18,6 +18,10 @@
     transition: all 0.5s;
 }
 
+.filterDeo{
+    transition: all 0.5s;
+}
+
 .gridBox {
     width: 21vw;
     /* height: 7vh; */
