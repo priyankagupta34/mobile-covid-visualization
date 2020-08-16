@@ -25,7 +25,6 @@
     background-blend-mode: color;
     position: fixed;
     width: 100%;
-    padding: 5px;
     top: 0;
     display: flex;
     justify-content: space-between;
@@ -35,6 +34,8 @@
     box-shadow: 0 0 4px #5d1212;
     animation: scrollHeadingAnim 0.5s;
     z-index: 9;
+    align-items: center;
+    padding: 0 10px;
 }
 
 
