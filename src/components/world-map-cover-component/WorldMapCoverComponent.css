@@ -6,6 +6,7 @@
     margin: 2vh auto;
     cursor: unset;
     width: 80vw;
+    z-index: 1;
 }
 
 .wmcc1 {

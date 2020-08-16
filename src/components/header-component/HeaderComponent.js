@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import PackageJson from './../../../package.json';
-import './HeaderComponent.css';
 import { Link } from 'react-router-dom';
 import { CovidServices } from '../../services/CovidServices';
-import { Waypoint } from 'react-waypoint';
-import LoaderComponent from '../loader-component/LoaderComponent';
+import HeaderNotificationDataPanelComponent from '../header-notification-data-panel-component/HeaderNotificationDataPanelComponent';
+import PackageJson from './../../../package.json';
+import './HeaderComponent.css';
 
 export default class HeaderComponent extends Component {
 
@@ -14,34 +13,55 @@ export default class HeaderComponent extends Component {
             openMenu: false,
             openNotificationPanel: false,
             notificationCompleteset: [],
-            notificationLoader: false
+            notificationLoader: false,
+            showScrollHeading: false,
         }
         this.handleScroll = this.handleScroll.bind(this);
     }
 
     componentDidMount() {
         this.getNotificationLogs();
-        window.addEventListener('scroll', this.handleScroll, false);
+        window.addEventListener('scroll', this.handleScroll.bind(this), false);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll, false)
+        window.removeEventListener('scroll', this.handleScroll.bind(this), false)
     }
 
 
     handleScroll(event) {
+
         const id = window.document.getElementById('hc1');
+        const id1 = window.document.getElementById('hc1_scroll');
         if (id !== null) {
-            id.classList.add('slideOutFromLeft')
-            setTimeout(() => {
-                id.classList.remove('slideOutFromLeft');
-                this.setState({
-                    ...this.state,
-                    openMenu: false
-                })
-            }, 490);
+            id.classList.add('slideOutFromLeft');
         }
+        if (id1 !== null) {
+            if (window.scrollY <= 40) {
+                id1.classList.add('reverseScrollHeadingAnim');
+            }
+        }
+
+        setTimeout(() => {
+            this.setState((state) => {
+                state.showScrollHeading = false;
+                if (window.scrollY > 40) {
+                    state.showScrollHeading = true;
+                } else {
+                    state.showScrollHeading = false;
+                }
+                state.openMenu = false;
+                if (id !== null) {
+                    id.classList.remove('slideOutFromLeft');
+                }
+                if(id1 !== null){
+                    id1.classList.remove('reverseScrollHeadingAnim');
+                }
+                return state;
+            });
+        }, 480);
     }
+
 
 
     getNotificationLogs() {
@@ -94,17 +114,18 @@ export default class HeaderComponent extends Component {
         id.classList.add('slideOutFromLeft')
         setTimeout(() => {
             id.classList.remove('slideOutFromLeft');
-            this.setState({
-                ...this.state,
-                openMenu: false
+            this.setState((state) => {
+                state.openMenu = false;
+                return state;
             })
         }, 490);
-
     }
 
     addAnimationToWayUp(id) {
         const component = window.document.getElementById(id);
-        component.classList.add('wayupanimation');
+        if (component !== null) {
+            component.classList.add('wayupanimation');
+        }
     }
 
     convertTimestampToEpochToDate(utcSeconds) {
@@ -124,11 +145,11 @@ export default class HeaderComponent extends Component {
 
 
     render() {
-        const { openMenu, openNotificationPanel, notificationCompleteset, notificationLoader } = this.state;
+        const { openMenu, openNotificationPanel, notificationCompleteset, notificationLoader, showScrollHeading } = this.state;
         const { loggedCountryName } = this.props;
         return (
             <div>
-                <div className="hc1">
+                <div className={showScrollHeading ? 'hc1_scroll_heading' : 'hc1'} id={showScrollHeading ? 'hc1_scroll' : 'hc1_withoutscroll'}>
                     <i className="material-icons my_ic1" onClick={this.openMenuForSm.bind(this)} >menu</i>
                     <div>
                         <div className="notificationPoint">
@@ -146,33 +167,24 @@ export default class HeaderComponent extends Component {
                                     }
                                 </div>
                             </div>
-                            <div className="righted">
+                            {!showScrollHeading && <div className="righted">
                                 <i className="material-icons spin_corona" >coronavirus</i>
-                            </div>
+                            </div>}
                         </div>
-                        {openNotificationPanel && <div className="notificationPanel" id="notificationPanel">
-                            <div className="heading">
-                                <b>Latest Information of Covid in India</b>
-                            </div>
-                            {!notificationLoader ?
-                                <>
-                                    {notificationCompleteset.map((item, index) => (
-                                        <Waypoint onEnter={this.addAnimationToWayUp.bind(this, item.timestamp)} key={item.timestamp} >
-                                            <div className="notice" id={item.timestamp}>
-                                                <div><font color="#e6acad">{this.props.convertTimestampToEpochToDate(item.timestamp)}</font></div>
-                                                <div className="noticeUpdate">{item.update}</div>
-                                            </div>
-                                        </Waypoint>
-                                    ))}
-                                </>
-                                :
-                                <div className="loadinging">
-                                    <LoaderComponent></LoaderComponent>
-                                </div>
-                            }
-                        </div>}
+
                     </div>
+
                 </div>
+                {/* } */}
+                <HeaderNotificationDataPanelComponent
+                    openNotificationPanel={openNotificationPanel}
+                    notificationLoader={notificationLoader}
+                    notificationCompleteset={notificationCompleteset}
+                    openNotificationPanelHandler={this.openNotificationPanelHandler.bind(this)}
+                    addAnimationToWayUp={this.addAnimationToWayUp.bind(this)}
+                    convertTimestampToEpochToDate={this.props.convertTimestampToEpochToDate}
+                />
+
                 {openMenu && <div className="hc2 slideInFromLeft" id="hc1">
                     <div className="hc3">
                         <div className="mcovid_title">mCovid</div>
