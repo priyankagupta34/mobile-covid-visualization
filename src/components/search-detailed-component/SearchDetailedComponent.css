@@ -134,3 +134,7 @@
 .playDisplyer:active{
     display: none;
 }
+
+.zIndex6{
+    z-index: 6;
+}

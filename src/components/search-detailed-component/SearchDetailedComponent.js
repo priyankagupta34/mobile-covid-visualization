@@ -78,7 +78,7 @@ export default class SearchDetailedComponent extends Component {
                         </div>
 
                         <div className="searchDisplayer">
-                            <div>
+                            <div className="zIndex6">
                                 {searchList.length !== 0 && <div className="searchBox">
                                     {searchList.map((item, index) => (
                                         <div key={index} className="eachPlaceDisplay" onClick={() => this.props.provideDataOfPlace(item)}>
