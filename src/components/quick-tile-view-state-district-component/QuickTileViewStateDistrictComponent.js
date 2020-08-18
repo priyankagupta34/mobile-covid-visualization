@@ -253,7 +253,7 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                     typeof completeDetailsOfRegion.info2.meta.tested.source !== 'undefined' &&
                     <div className="main_lastUpdt checkSorcInfo">
                         Covid19 Tests information Source available <b><a href={completeDetailsOfRegion.info2.meta.tested.source}
-                            target="_blank" rel="noopener noreferrer">
+                            target="_noblank">
                             here</a></b>
                     </div>}
             </div>
