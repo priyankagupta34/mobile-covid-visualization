@@ -12,7 +12,7 @@ export default class QuickTileViewStateDistrictComponent extends Component {
             tile: ''
         }
     }
-    componentDidMount(){
+    componentDidMount() {
         setTimeout(() => {
             this.setState({
                 ...this.state,
@@ -247,6 +247,15 @@ export default class QuickTileViewStateDistrictComponent extends Component {
 
                     </div>
                 }
+                {typeof completeDetailsOfRegion.info2 !== 'undefined' &&
+                    typeof completeDetailsOfRegion.info2.meta !== 'undefined' &&
+                    typeof completeDetailsOfRegion.info2.meta.tested !== 'undefined' &&
+                    typeof completeDetailsOfRegion.info2.meta.tested.source !== 'undefined' &&
+                    <div className="main_lastUpdt checkSorcInfo">
+                        Covid19 Tests information Source available <b><a href={completeDetailsOfRegion.info2.meta.tested.source}
+                            target="_blank" rel="noopener noreferrer">
+                            here</a></b>
+                    </div>}
             </div>
         )
     }

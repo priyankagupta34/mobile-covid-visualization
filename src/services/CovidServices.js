@@ -9,7 +9,8 @@ export const CovidServices = {
     getNotifications,
     stateWiseForIndiaMinComplete,
     stateWiseForIndia,
-    stateWiseForIndiaForActiveCase
+    stateWiseForIndiaForActiveCase,
+    timeWiseDataOfDistrict
 }
 
 const axios = require('axios');
@@ -68,4 +69,9 @@ function stateWiseForIndia() {
 
 function stateWiseForIndiaForActiveCase() {
     return axios.get('https://api.covid19india.org/data.json');
+}
+
+
+function timeWiseDataOfDistrict(placecode){
+    return axios.get(`https://api.covid19india.org/v4/min/timeseries-${placecode}.min.json`);
 }

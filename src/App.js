@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import HeaderComponent from './components/header-component/HeaderComponent';
 import IndiaCovidshowComponent from './components/india-covidshow-component/IndiaCovidshowComponent';
-import SearchDetailedComponent from './components/search-detailed-component/SearchDetailedComponent';
 import WorldwideInfoComponent from './components/worldwide-info-component/WorldwideInfoComponent';
 import { CovidServices } from './services/CovidServices';
 
@@ -97,6 +96,7 @@ export default class App extends Component {
         infoObject.info1 = this.state.stateInfoWithCode[stateFound];
       }
     }
+    console.log('infoObject ', infoObject)
     return infoObject;
   }
 
@@ -175,15 +175,6 @@ export default class App extends Component {
                     findDetailsByCode={this.findDetailsByCode.bind(this)}
                     convertDateToDate={this.convertDateToDate}
                   />);
-                }} />
-                <Route path="/search" exact render={(props) => {
-                  return (<SearchDetailedComponent {...props}
-                    stateInfoLoader={stateInfoLoader}
-                    stateInfoWithCode={stateInfoWithCode}
-                    completeStateInfoWithDelta={completeStateInfoWithDelta}
-                    findDetailsByCode={this.findDetailsByCode.bind(this)}
-                    convertTimestampToEpochToDate={this.convertTimestampToEpochToDate}
-                    codeWiseQuick4Data={codeWiseQuick4Data} />);
                 }} />
                 <Redirect path="/" exact to='/india' />
                 <Redirect path="*" to='/india' />

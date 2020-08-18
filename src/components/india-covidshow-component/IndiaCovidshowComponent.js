@@ -7,6 +7,7 @@ import StateGridViewComponent from '../state-grid-view-component/StateGridViewCo
 import TitleIconComponent from '../title-icon-component/TitleIconComponent';
 import './IndiaCovidshowComponent.css';
 import IndiaQuickGraphsComponent from '../india-quick-graphs-component/IndiaQuickGraphsComponent';
+import { CovidServices } from '../../services/CovidServices';
 
 export default class IndiaCovidshowComponent extends Component {
     constructor(props) {
@@ -18,6 +19,7 @@ export default class IndiaCovidshowComponent extends Component {
             searchList: [],
             freshShow: false,
             selectedCode: 'TT',
+            timeWiseDataOfDistrict: [],
             completeDetailsOfDistrict: { info1: '', info2: '' },
             placeType: '',
             sortType: {
@@ -28,7 +30,95 @@ export default class IndiaCovidshowComponent extends Component {
         }
     }
     componentDidMount() {
-        this.creatingInfoListForQuickCompleteStateData();
+        this.setState(state => {
+            this.creatingInfoListForQuickCompleteStateData();
+        }, state1 => {
+            CovidServices.timeWiseDataOfDistrict(this.state.selectedCode)
+                .then((result) => {
+                    this.separateStateDistrictTimewiseInfo(result.data);
+                    this.setState({
+                        ...this.state,
+                        timeWiseDataOfDistrict: result.data
+                    })
+                }).catch((err) => {
+
+                });
+        })
+    }
+
+    separateStateDistrictTimewiseInfo(data) {
+        let stateInfoList = [];
+        if (this.state.selectedCode !== 'LD') {
+            if (typeof data[this.state.selectedCode].dates !== 'undefined') {
+                const allDatesForStateKey = Object.keys(data[this.state.selectedCode].dates);
+                console.log('allDatesForStateKey ', allDatesForStateKey)
+                const allDates = data[this.state.selectedCode].dates;
+                for (let i = 0; i < allDatesForStateKey.length; i++) {
+                    let stateInfo = {};
+                    stateInfo.date = allDatesForStateKey[i];
+                    if (typeof allDates[allDatesForStateKey[i]].total !== 'undefined') {
+                        if (typeof allDates[allDatesForStateKey[i]].total.confirmed !== 'undefined') {
+                            stateInfo.confirmed = allDates[allDatesForStateKey[i]].total.confirmed;
+                        } else {
+                            stateInfo.confirmed = 0;
+                        }
+                        if (typeof allDates[allDatesForStateKey[i]].total.deceased !== 'undefined') {
+                            stateInfo.deceased = allDates[allDatesForStateKey[i]].total.deceased;
+                        } else {
+                            stateInfo.deceased = 0;
+                        }
+                        if (typeof allDates[allDatesForStateKey[i]].total.other !== 'undefined') {
+                            stateInfo.other = allDates[allDatesForStateKey[i]].total.other;
+                        } else {
+                            stateInfo.other = 0;
+                        }
+                        if (typeof allDates[allDatesForStateKey[i]].total.recovered !== 'undefined') {
+                            stateInfo.recovered = allDates[allDatesForStateKey[i]].total.recovered;
+                        } else {
+                            stateInfo.recovered = 0;
+                        }
+                        if (typeof allDates[allDatesForStateKey[i]].total.tested !== 'undefined') {
+                            stateInfo.tested = allDates[allDatesForStateKey[i]].total.tested;
+                        } else {
+                            stateInfo.tested = 0;
+                        }
+                    }
+                    if (typeof allDates[allDatesForStateKey[i]].delta !== 'undefined') {
+                        if (typeof allDates[allDatesForStateKey[i]].delta.confirmed !== 'undefined') {
+                            stateInfo.deltaConfirmed = allDates[allDatesForStateKey[i]].delta.confirmed;
+                        } else {
+                            stateInfo.deltaConfirmed = 0;
+                        }
+                        if (typeof allDates[allDatesForStateKey[i]].delta.deceased !== 'undefined') {
+                            stateInfo.deltaDeceased = allDates[allDatesForStateKey[i]].delta.deceased;
+                        } else {
+                            stateInfo.deltaDeceased = 0;
+                        }
+                        if (typeof allDates[allDatesForStateKey[i]].delta.other !== 'undefined') {
+                            stateInfo.deltaOther = allDates[allDatesForStateKey[i]].delta.other;
+                        } else {
+                            stateInfo.deltaOther = 0;
+                        }
+                        if (typeof allDates[allDatesForStateKey[i]].delta.recovered !== 'undefined') {
+                            stateInfo.deltaRecovered = allDates[allDatesForStateKey[i]].delta.recovered;
+                        } else {
+                            stateInfo.deltaRecovered = 0;
+                        }
+                        if (typeof allDates[allDatesForStateKey[i]].delta.tested !== 'undefined') {
+                            stateInfo.deltaTested = allDates[allDatesForStateKey[i]].delta.tested;
+                        } else {
+                            stateInfo.deltaTested = 0;
+                        }
+                    }
+
+                    stateInfoList.push(stateInfo);
+                }
+            }
+
+            if (this.state.selectedCode !== 'TT' && this.state.selectedCode !== 'UN') {
+            }
+        }
+        console.log('stateInfoList', stateInfoList);
     }
 
     componentDidUpdate(prev) {
@@ -154,15 +244,25 @@ export default class IndiaCovidshowComponent extends Component {
             state.searchList = [];
             state.placeType = place.type;
             state.freshShow = true;
+            if (place.type === 'district') {
+
+            }
             state.tableTitle = `Districts of ${place.state}`;
             return state;
         }, () => {
-            setTimeout(() => {
-                this.setState({
-                    ...this.state,
-                    freshShow: false
-                })
-            }, 10);
+            CovidServices.timeWiseDataOfDistrict(this.state.selectedCode)
+                .then((result) => {
+                    setTimeout(() => {
+                        this.setState({
+                            ...this.state,
+                            freshShow: false,
+                            timeWiseDataOfDistrict: result.data
+                        })
+                    }, 10);
+                }).catch((err) => {
+
+                });
+
         })
 
 
