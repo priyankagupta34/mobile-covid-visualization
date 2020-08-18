@@ -71,6 +71,8 @@
 #detsin {
     border: 10px solid #fff7f9;
     overflow: hidden;
+    border-bottom: none;
+    background-color: rgba(255, 240, 245, 0.425);
 }
 
 .inLakhCrore {

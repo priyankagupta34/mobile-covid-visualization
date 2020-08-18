@@ -306,21 +306,23 @@ export default class IndiaCovidshowComponent extends Component {
                         </>
                     }</div>}
 
-
-
-
-                {!freshShow && <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'detsin', 'wayupanimation')}>
-                    <div id="detsin" className="backgroundDistInfo">
-                        <StateGridViewComponent
-                            quickCompleteData={quickCompleteData}
-                            sortType={sortType}
-                            placeType={placeType}
-                            sortData={this.sortData.bind(this)}
-                            title={tableTitle} icon="equalizer" />
-                    </div>
-                </Waypoint>}
-
-                <IndiaQuickGraphsComponent />
+                {!freshShow &&
+                    <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'detsin', 'wayupanimation')}>
+                        <div id="detsin">
+                            <StateGridViewComponent
+                                quickCompleteData={quickCompleteData}
+                                sortType={sortType}
+                                placeType={placeType}
+                                sortData={this.sortData.bind(this)}
+                                title={tableTitle} icon="equalizer" />
+                        </div>
+                    </Waypoint>}
+                {/* 
+                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'indiagrs', 'wayupanimation4')}>
+                    <div id="indiagrs"> */}
+                <IndiaQuickGraphsComponent addAnimationToWayUp={this.addAnimationToWayUp.bind(this)} />
+                {/* </div>
+                </Waypoint> */}
 
             </div>
         )

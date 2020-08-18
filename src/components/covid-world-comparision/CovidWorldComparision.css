@@ -66,6 +66,7 @@ option {
     align-items: center;
     height: 46vh;
     margin-top: 10px;
+    z-index: 2;
 }
 
 .trackerTitle {
@@ -86,4 +87,10 @@ svg {
 
 .nd_sm {
     margin-top: 5%;
+}
+
+.compari {
+    background-color: rgb(255 249 251 / 92%);
+    height: 46vh;
+    z-index: 1;
 }

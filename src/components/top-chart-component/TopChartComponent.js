@@ -33,7 +33,7 @@ export default class TopChartComponent extends Component {
             slice = newDataSet.length
         }
         d3.selectAll("#cov_1 > *").remove();
-        
+
         const height = document.documentElement.clientHeight * 0.3;
         const width = document.documentElement.clientWidth * 0.7;
 

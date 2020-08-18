@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { CountrySummaryMultiLineChart } from '../../chart-services/CountrySummaryMultiLineChart';
 import { CovidServices } from '../../services/CovidServices';
+import { DataStructureServices } from '../../services/DataStructureServices';
 import TitleIconComponent from '../title-icon-component/TitleIconComponent';
 import './CovidWorldComparision.css';
-import { DataStructureServices } from '../../services/DataStructureServices';
 
 export default class CovidWorldComparision extends Component {
 
@@ -18,7 +18,7 @@ export default class CovidWorldComparision extends Component {
             countrycList: [],
             countryList: [],
             eventType: 'Active',
-            showLoader: false
+            showLoader: true
         }
         this.resizingWindowHandler = this.resizingWindowHandler.bind(this);
     }
@@ -104,7 +104,7 @@ export default class CovidWorldComparision extends Component {
     }
 
     render() {
-        const { countrya, countryb, countryc, eventType, showLoader, countryList } = this.state;
+        const { countrya, countryb, countryc, eventType, showLoader, countryList, countryaList, countrybList, countrycList } = this.state;
         return (
             <div className="backgroundDistInfo">
                 <TitleIconComponent icon="map" title="Let's Compare Covid Across Countries"></TitleIconComponent>
@@ -140,7 +140,12 @@ export default class CovidWorldComparision extends Component {
                     </div>
                     {showLoader ? <i className="material-icons fontSize1 animateAnchor">anchor</i> :
                         <i className="material-icons fontSize1">anchor</i>}
-                    <div id="cov_6"></div>
+                    {(countryaList.length !== 0 || countrybList.length !== 0 || countrycList.length !== 0) ?
+                        <div id="cov_6"></div>
+                        :
+                        <div className="loaderGraph compari">
+                        </div>
+                    }
                 </div>
 
             </div>

@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
-import './IndiaQuickGraphsComponent.css'
-import { CovidServices } from '../../services/CovidServices';
+import React, { Component } from 'react';
 import { CountryEveryEventSummaryMultiLineChart } from '../../chart-services/CountryEveryEventSummaryMultiLineChart';
+import { CovidServices } from '../../services/CovidServices';
 import TitleIconComponent from '../title-icon-component/TitleIconComponent';
+import './IndiaQuickGraphsComponent.css';
+import { Waypoint } from 'react-waypoint';
 
 export default class IndiaQuickGraphsComponent extends Component {
     constructor(props) {
@@ -44,33 +45,43 @@ export default class IndiaQuickGraphsComponent extends Component {
         this.setState({
             ...this.state,
             chosenTab: type
-        }, ()=>{
+        }, () => {
             CountryEveryEventSummaryMultiLineChart.vividMultiLineChart('cov_2', this.state.data, this.state.chosenTab);
         });
     }
 
     render() {
-        const { chosenTab } = this.state;
+        const { chosenTab, data } = this.state;
         return (
             <div>
                 <TitleIconComponent icon="timeline" title="India's Covid Statistics" />
                 <div className="main_lastUpdt">
                     Simple Active, Recovered, Confirmed, Death Statistics
                 </div>
-                <div className="content5" id="quickDataContent">
-
-                    <div className="tab_content">
-                        <div className={chosenTab === 'lastweek' ? 'tab animateTab' : 'tab selectedTab'} onClick={this.choseTabHandler.bind(this, 'lastweek')}>
-                            Last Week </div>
-                        <div className={chosenTab === 'weekly' ? 'tab animateTab' : 'tab selectedTab'} onClick={this.choseTabHandler.bind(this, 'weekly')}>
-                            Weekly</div>
-                        <div className={chosenTab === 'monthly' ? 'tab animateTab' : 'tab selectedTab'} onClick={this.choseTabHandler.bind(this, 'monthly')}>
-                            Month</div>
-                        <div className={chosenTab === 'cumulative' ? 'tab animateTab' : 'tab selectedTab'} onClick={this.choseTabHandler.bind(this, 'cumulative')}>
-                            cumulative</div>
+                <Waypoint onEnter={() => this.props.addAnimationToWayUp('quickDataContent', 'wayupanimation')}>
+                    <div className="content5" id="quickDataContent">
+                        <div className="tab_content">
+                            <div className={chosenTab === 'lastweek' ? 'tab animateTab' : 'tab selectedTab'} onClick={this.choseTabHandler.bind(this, 'lastweek')}>
+                                Last Week </div>
+                            <div className={chosenTab === 'weekly' ? 'tab animateTab' : 'tab selectedTab'} onClick={this.choseTabHandler.bind(this, 'weekly')}>
+                                Weekly</div>
+                            <div className={chosenTab === 'monthly' ? 'tab animateTab' : 'tab selectedTab'} onClick={this.choseTabHandler.bind(this, 'monthly')}>
+                                Month</div>
+                            <div className={chosenTab === 'cumulative' ? 'tab animateTab' : 'tab selectedTab'} onClick={this.choseTabHandler.bind(this, 'cumulative')}>
+                                cumulative</div>
+                        </div>
                     </div>
-                </div>
-                <div id="cov_2"></div>
+                </Waypoint>
+                <Waypoint onEnter={() => this.props.addAnimationToWayUp('ingrph', 'wayupanimation5')}>
+                    <div id="ingrph">
+                        {data.length !== 0 ?
+                            <div id="cov_2"></div>
+                            :
+                            <div className="loaderGraph">
+                            </div>
+                        }
+                    </div>
+                </Waypoint>
             </div>
         )
     }

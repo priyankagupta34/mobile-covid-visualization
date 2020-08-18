@@ -74,19 +74,19 @@ function vividMultiLineChart(id, data, type) {
     const xAxis = d3.axisBottom(xScale).ticks(newData.length - 1);
 
     /* Now attaching x-scale in svg */
-    if(type !== 'cumulative'){ 
+    if (type !== 'cumulative') {
         svg.append('g')
             .style('transform', `translateY(${height}px)`)
             .call(xAxis)
             .attr('fill', 'none')
             .selectAll('text')
             .data(newData)
-            .text(d => new Date(d['Date']).toDateString().split(" ").slice(1,3).join(" "))
+            .text(d => new Date(d['Date']).toDateString().split(" ").slice(1, 3).join(" "))
             .style('transform', 'rotate(54deg)')
             .style('text-anchor', 'start')
             .attr('class', 'smallDateInfo')
             .attr('fill', '#a50404');
-        }
+    }
 
     /* Now attaching y-scale in svg */
     svg.append('g')
@@ -120,37 +120,87 @@ function vividMultiLineChart(id, data, type) {
         .y((d, i) => yScale(d['Deaths']))
         .curve(d3.curveMonotoneX);
 
+    function pathTween(d1, precision, self) {
+        return function () {
+            var path0 = self,
+                path1 = path0.cloneNode(),
+                n0 = path0.getTotalLength(),
+                n1 = (path1.setAttribute("d", d1), path1).getTotalLength();
+
+            // Uniform sampling of distance based on specified precision.
+            var distances = [0],
+                i = 0,
+                dt = precision / Math.max(n0, n1);
+            while ((i += dt) < 1) distances.push(i);
+            distances.push(1);
+
+            // Compute point-interpolators at each distance.
+            var points = distances.map(function (t) {
+                var p0 = path0.getPointAtLength(t * n0),
+                    p1 = path1.getPointAtLength(t * n1);
+                return d3.interpolate([p0.x, p0.y], [p1.x, p1.y]);
+            });
+
+            return function (t) {
+                return t < 1 ? "M" + points.map(function (p) {
+                    return p(t);
+                }).join("L") : d1;
+            };
+        };
+    }
+
     svg.append('path')
         .datum(newData)
+        .transition()
+        .duration(600)
         .attr("class", "line")
         .attr('fill', 'none')
         .attr('stroke', colorRecov)
         .attr('stroke-width', 3)
-        .attr('d', lineRecovered);
+        .attrTween("d", function (d) {
+            return pathTween(lineRecovered(d), 4, this)()
+        });
 
     svg.append('path')
         .datum(newData)
+        .transition()
+        .duration(1000)
         .attr("class", "line")
         .attr('fill', 'none')
         .attr('stroke', colorActive)
         .attr('stroke-width', 3)
-        .attr('d', lineActive);
+        // .attr('d', lineActive)
+        .attrTween("d", function (d) {
+            return pathTween(lineActive(d), 4, this)()
+        });
 
     svg.append('path')
         .datum(newData)
+        .transition()
+        .duration(1600)
         .attr("class", "line")
         .attr('fill', 'none')
         .attr('stroke', colorConfirmed)
         .attr('stroke-width', 3)
-        .attr('d', lineConfirmed);
+        // .attr('d', lineConfirmed);
+        .attrTween("d", function (d) {
+            return pathTween(lineConfirmed(d), 4, this)()
+        });
 
     svg.append('path')
         .datum(newData)
+        .transition()
+        .duration(2000)
         .attr("class", "line")
         .attr('fill', 'none')
         .attr('stroke', colorDeath)
         .attr('stroke-width', 3)
-        .attr('d', lineDeaths);
+        // .attr('d', lineDeaths);
+        .attrTween("d", function (d) {
+            return pathTween(lineDeaths(d), 4, this)()
+        });
+
+
 
     /* Adding Transitions */
     // lineActive.transition(transition);

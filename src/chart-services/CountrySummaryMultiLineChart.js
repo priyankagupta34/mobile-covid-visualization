@@ -26,10 +26,40 @@ function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type,
 
     const dataDisplayLengthForX = d3.max([newCountry1Data.length, newCountry2Data.length, newCountry3Data.length]);
 
-    console.log('dataDisplayLengthForX from mul', dataDisplayLengthForX)
     const xScale = d3.scaleLinear()
         .range([0, width])
         .domain([0, (dataDisplayLengthForX - 1)]);
+
+
+    function pathTween(d1, precision, self) {
+        return function () {
+            var path0 = self,
+                path1 = path0.cloneNode(),
+                n0 = path0.getTotalLength(),
+                n1 = (path1.setAttribute("d", d1), path1).getTotalLength();
+
+            // Uniform sampling of distance based on specified precision.
+            var distances = [0],
+                i = 0,
+                dt = precision / Math.max(n0, n1);
+            while ((i += dt) < 1) distances.push(i);
+            distances.push(1);
+
+            // Compute point-interpolators at each distance.
+            var points = distances.map(function (t) {
+                var p0 = path0.getPointAtLength(t * n0),
+                    p1 = path1.getPointAtLength(t * n1);
+                return d3.interpolate([p0.x, p0.y], [p1.x, p1.y]);
+            });
+
+            return function (t) {
+                return t < 1 ? "M" + points.map(function (p) {
+                    return p(t);
+                }).join("L") : d1;
+            };
+        };
+    }
+
 
     /* Providing label aat y axis scale */
     if (xData !== '') {
@@ -71,10 +101,15 @@ function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type,
         if (newCountry1Data.length !== 0) {
             svg.append('path')
                 .datum(newCountry1Data)
+                .transition()
+                .duration(600)
                 .attr('fill', 'none')
                 .attr('stroke', 'darkgreen')
                 .attr('stroke-width', 4)
-                .attr('d', line)
+                // .attr('d', line)
+                .attrTween("d", function (d) {
+                    return pathTween(line(d), 4, this)()
+                });
 
         }
 
@@ -82,20 +117,30 @@ function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type,
         if (newCountry2Data.length !== 0) {
             svg.append('path')
                 .datum(newCountry2Data)
+                .transition()
+                .duration(700)
                 .attr('fill', 'none')
                 .attr('stroke', 'brown')
                 .attr('stroke-width', 4)
-                .attr('d', line)
+                // .attr('d', line)
+                .attrTween("d", function (d) {
+                    return pathTween(line(d), 4, this)()
+                });
         }
 
         /* Curve of country 3 */
         if (newCountry3Data.length !== 0) {
             svg.append('path')
                 .datum(newCountry3Data)
+                .transition()
+                .duration(1000)
                 .attr('fill', 'none')
                 .attr('stroke', 'darkblue')
                 .attr('stroke-width', 4)
-                .attr('d', line)
+                // .attr('d', line)
+                .attrTween("d", function (d) {
+                    return pathTween(line(d), 4, this)()
+                });
         }
 
 
