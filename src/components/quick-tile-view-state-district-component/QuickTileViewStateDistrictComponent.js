@@ -6,9 +6,31 @@ import { LimitServices } from '../../services/LimitServices'
 import TitleIconComponent from '../title-icon-component/TitleIconComponent'
 
 export default class QuickTileViewStateDistrictComponent extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            tile: ''
+        }
+    }
+    componentDidMount(){
+        setTimeout(() => {
+            this.setState({
+                ...this.state,
+                tile: 'active'
+            })
+        }, 1600);
+    }
+    backgroundClickForTile(tile, event) {
+        console.log(tile);
+        this.setState({
+            ...this.state,
+            tile
+        })
+    }
     render() {
         const { title, state, lastupdatedtime, stateInfoLoader, completeDetailsOfRegion, deltaconfirmed,
             confirmed, active, deltarecovered, recovered, deltadeaths, deaths, transitionIdList } = this.props;
+        const { tile } = this.state;
         return (
             <div>
 
@@ -29,19 +51,24 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                         <div className="qdvc_ic clickConfirmedAnim" id={transitionIdList[1]}>
                             {
                                 stateInfoLoader && completeDetailsOfRegion !== '' ?
-                                    <div>
-                                        <div className="quickTitle confirmedCo">Confirmed</div>
+                                    <>
+                                        <div className="absolutePosition" onClick={this.backgroundClickForTile.bind(this, 'confirmed')}>
+                                            <div className="quickTitle confirmedCo">Confirmed</div>
 
-                                        <div className="confirmedCo delta">
-                                            {!(deltaconfirmed === '0' || deltaconfirmed === 0) &&
-                                                <><i className="material-icons  fontSize1 ">arrow_upward</i>
-                                                    {typeof deltaconfirmed !== 'undefined' &&
-                                                        LimitServices.inLakhsOrCrores(Number(deltaconfirmed))}</>}
+                                            <div className="confirmedCo delta">
+                                                {!(deltaconfirmed === '0' || deltaconfirmed === 0) &&
+                                                    <><i className="material-icons  fontSize1 ">arrow_upward</i>
+                                                        {typeof deltaconfirmed !== 'undefined' &&
+                                                            LimitServices.inLakhsOrCrores(Number(deltaconfirmed))}</>}
+                                            </div>
+
+                                            <div className="qvdc_nm">{typeof confirmed !== 'undefined' &&
+                                                LimitServices.inLakhsOrCrores(Number(confirmed))}</div>
                                         </div>
+                                        {tile === 'confirmed' && <div className="main_tile confirmedBG"></div>}
+                                    </>
 
-                                        <div className="qvdc_nm">{typeof confirmed !== 'undefined' &&
-                                            LimitServices.inLakhsOrCrores(Number(confirmed))}</div>
-                                    </div> :
+                                    :
                                     <LoaderComponent />}
                         </div>
                     </Waypoint>
@@ -50,13 +77,17 @@ export default class QuickTileViewStateDistrictComponent extends Component {
 
                             {
                                 (stateInfoLoader && completeDetailsOfRegion !== '') ?
-                                    <div>
-                                        <div className="quickTitle activeCo">Active</div>
+                                    <>
+                                        <div className="absolutePosition" onClick={this.backgroundClickForTile.bind(this, 'active')}>
+                                            <div className="quickTitle activeCo">Active</div>
 
-                                        <div className="activeCo delta"></div>
+                                            <div className="activeCo delta"></div>
 
-                                        <div className="qvdc_nm">{typeof active !== 'undefined' && LimitServices.inLakhsOrCrores(Number(active))}</div>
-                                    </div> :
+                                            <div className="qvdc_nm">{typeof active !== 'undefined' && LimitServices.inLakhsOrCrores(Number(active))}</div>
+
+                                        </div>
+                                        {tile === 'active' && <div className="main_tile activeBG"></div>}
+                                    </> :
                                     <LoaderComponent />}
 
 
@@ -66,18 +97,21 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                         <div className="qdvc_ic" id={transitionIdList[3]}>
                             {
                                 stateInfoLoader && completeDetailsOfRegion !== '' ?
-                                    <div>
-                                        <div className="quickTitle recoveredCo">Recovered</div>
+                                    <>
+                                        <div className="absolutePosition" onClick={this.backgroundClickForTile.bind(this, 'recovered')}>
+                                            <div className="quickTitle recoveredCo">Recovered</div>
 
-                                        <div className="recoveredCo delta">
-                                            {!(deltarecovered === '0' || deltarecovered === 0) &&
-                                                <><i className="material-icons fontSize1">arrow_upward</i>
-                                                    {typeof deltarecovered !== 'undefined' && deltarecovered}</>}
+                                            <div className="recoveredCo delta">
+                                                {!(deltarecovered === '0' || deltarecovered === 0) &&
+                                                    <><i className="material-icons fontSize1">arrow_upward</i>
+                                                        {typeof deltarecovered !== 'undefined' && deltarecovered}</>}
+                                            </div>
+
+                                            <div className="qvdc_nm">{typeof recovered !== 'undefined' &&
+                                                LimitServices.inLakhsOrCrores(Number(recovered))}</div>
                                         </div>
-
-                                        <div className="qvdc_nm">{typeof recovered !== 'undefined' &&
-                                            LimitServices.inLakhsOrCrores(Number(recovered))}</div>
-                                    </div> :
+                                        {tile === 'recovered' && <div className="main_tile recoveredBG"></div>}
+                                    </> :
                                     <LoaderComponent />}
 
 
@@ -87,18 +121,21 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                         <div className="qdvc_ic" id={transitionIdList[4]}>
                             {
                                 stateInfoLoader && completeDetailsOfRegion !== '' ?
-                                    <div>
-                                        <div className="quickTitle deceasedCo">Deceased</div>
+                                    <>
+                                        <div className="absolutePosition" onClick={this.backgroundClickForTile.bind(this, 'deaths')}>
+                                            <div className="quickTitle deceasedCo">Deceased</div>
 
-                                        <div className="deceasedCo delta">
-                                            {!(deltadeaths === '0' || deltadeaths === 0) &&
-                                                <><i className="material-icons fontSize1 ">arrow_upward</i>
-                                                    {deltadeaths}</>}
+                                            <div className="deceasedCo delta">
+                                                {!(deltadeaths === '0' || deltadeaths === 0) &&
+                                                    <><i className="material-icons fontSize1 ">arrow_upward</i>
+                                                        {deltadeaths}</>}
+                                            </div>
+                                            <div className="qvdc_nm">
+                                                {typeof deaths !== 'undefined' && LimitServices.inLakhsOrCrores(Number(deaths))}
+                                            </div>
                                         </div>
-                                        <div className="qvdc_nm">
-                                            {typeof deaths !== 'undefined' && LimitServices.inLakhsOrCrores(Number(deaths))}
-                                        </div>
-                                    </div> :
+                                        {tile === 'deaths' && <div className="main_tile deceasedBG"></div>}
+                                    </> :
                                     <LoaderComponent />}
                         </div>
                     </Waypoint>
