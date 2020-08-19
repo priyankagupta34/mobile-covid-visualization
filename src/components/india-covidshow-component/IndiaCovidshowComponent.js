@@ -379,7 +379,7 @@ export default class IndiaCovidshowComponent extends Component {
     render() {
         const { stateInfoLoader } = this.props;
         const { completeDetailsOfRegion, searchList, freshShow, selectedCode, placeType, quickCompleteData, sortType,
-            completeDetailsOfDistrict, tableTitle, tile,showtile } = this.state;
+            completeDetailsOfDistrict, tableTitle, tile, showtile, nationOrDistrictName } = this.state;
 
         return (
             <div>
@@ -469,7 +469,7 @@ export default class IndiaCovidshowComponent extends Component {
                 </div>
                 <div id="cov_id_india"></div>
                 <div className="main_lastUpdt graphti2">
-                    {showtile}
+                    {showtile} Covid19 situation in <font color="darkblue"><b>{nationOrDistrictName}</b></font>
                 </div>
 
 
