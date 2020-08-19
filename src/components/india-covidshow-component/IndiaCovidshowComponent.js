@@ -235,33 +235,42 @@ export default class IndiaCovidshowComponent extends Component {
             quickCompleteDataDistrict.push(detail)
         }
 
-        this.setState(state => {
-            const sorting = DataStructureServices.mergeSort(quickCompleteDataDistrict, state.sortType.event).reverse();
-            state.completeDetailsOfRegion = completeDetailsOfRegion;
-            state.completeDetailsOfDistrict = completeDetailsOfDistrict;
-            state.quickCompleteData = sorting;
-            state.selectedCode = place.code;
-            state.searchList = [];
-            state.placeType = place.type;
-            state.freshShow = true;
-            if (place.type === 'district') {
+        const sorting = DataStructureServices.mergeSort(quickCompleteDataDistrict, this.state.sortType.event).reverse();
 
-            }
-            state.tableTitle = `Districts of ${place.state}`;
-            return state;
-        }, () => {
-            CovidServices.timeWiseDataOfDistrict(this.state.selectedCode)
-                .then((result) => {
-                    setTimeout(() => {
-                        this.setState({
-                            ...this.state,
-                            freshShow: false,
-                            timeWiseDataOfDistrict: result.data
-                        })
-                    }, 10);
-                }).catch((err) => {
+        this.setState({
+            ...this.state,
+            completeDetailsOfRegion,
+            completeDetailsOfDistrict,
+            quickCompleteData: sorting,
+            selectedCode: place.code,
+            searchList: [],
+            placeType: place.type,
+            freshShow: true,
+            tableTitle: `Districts of ${place.state}`,
+            // const sorting = DataStructureServices.mergeSort(quickCompleteDataDistrict, state.sortType.event).reverse();
+            // state.completeDetailsOfRegion = completeDetailsOfRegion;
+            // state.completeDetailsOfDistrict = completeDetailsOfDistrict;
+            // state.quickCompleteData = sorting;
+            // state.selectedCode = place.code;
+            // state.searchList = [];
+            // state.placeType = place.type;
+            // state.freshShow = true;
+            // if (place.type === 'district') {
 
-                });
+            // }
+            // state.tableTitle = `Districts of ${place.state}`;
+            // return state;
+        })
+        CovidServices.timeWiseDataOfDistrict(this.state.selectedCode)
+            .then((result) => {
+                setTimeout(() => {
+                    this.setState({
+                        ...this.state,
+                        freshShow: false,
+                        timeWiseDataOfDistrict: result.data
+                    })
+                }, 10);
+            }).catch((err) => {
 
         })
 
