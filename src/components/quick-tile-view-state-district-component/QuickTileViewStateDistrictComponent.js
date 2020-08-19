@@ -27,6 +27,10 @@ export default class QuickTileViewStateDistrictComponent extends Component {
             tile
         })
     }
+
+    openLink(link){
+        window.location.href = link;
+    }
     render() {
         const { title, state, lastupdatedtime, stateInfoLoader, completeDetailsOfRegion, deltaconfirmed,
             confirmed, active, deltarecovered, recovered, deltadeaths, deaths, transitionIdList } = this.props;
@@ -252,10 +256,7 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                     typeof completeDetailsOfRegion.info2.meta.tested !== 'undefined' &&
                     typeof completeDetailsOfRegion.info2.meta.tested.source !== 'undefined' &&
                     <div className="main_lastUpdt checkSorcInfo">
-                        Covid19 Tests information Source available <b><a href={completeDetailsOfRegion.info2.meta.tested.source}
-                            style={{display: 'block'}}
-                            target="_noblank">
-                            here</a></b>
+                        Covid19 Tests information Source available <b className="link" onClick = {this.openLink.bind(this, completeDetailsOfRegion.info2.meta.tested.source)}>here</b>
                     </div>}
             </div>
         )
