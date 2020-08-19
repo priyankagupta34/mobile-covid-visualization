@@ -118,7 +118,7 @@
 
 #cov_id_india,
 #cov_id_state {
-    height: 30vh;
+    height: 27vh;
     justify-content: center;
     display: flex;
     align-items: center;
@@ -127,4 +127,10 @@
 #quickgrphof7{
     /* background-color: rgba(255, 240, 245, 0.425); */
     background-color: white;
+}
+
+.graphti2{
+    text-transform: capitalize;
+    padding: 10px;
+    padding-top: 0;
 }

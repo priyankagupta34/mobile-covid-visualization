@@ -21,6 +21,7 @@ export default class IndiaCovidshowComponent extends Component {
             nationOrDistrictName: 'India',
             selectedCode: 'TT',
             tile: 'confirmed',
+            showtile: 'confirmed',
             timeWiseDataOfNationOrState: [],
             completeDetailsOfDistrict: { info1: '', info2: '' },
             placeType: '',
@@ -363,6 +364,10 @@ export default class IndiaCovidshowComponent extends Component {
             tile
         }, () => {
             if (tile !== 'active') {
+                this.setState({
+                    ...this.state,
+                    showtile: tile
+                })
                 this.creatingBarChartSimply();
             }
         })
@@ -374,7 +379,7 @@ export default class IndiaCovidshowComponent extends Component {
     render() {
         const { stateInfoLoader } = this.props;
         const { completeDetailsOfRegion, searchList, freshShow, selectedCode, placeType, quickCompleteData, sortType,
-            completeDetailsOfDistrict, tableTitle, tile } = this.state;
+            completeDetailsOfDistrict, tableTitle, tile,showtile } = this.state;
 
         return (
             <div>
@@ -459,8 +464,13 @@ export default class IndiaCovidshowComponent extends Component {
                         </>
 
                     }</div>}
-
+                <div className="main_lastUpdt">
+                    Tap on the above tiles to change the graph.
+                </div>
                 <div id="cov_id_india"></div>
+                <div className="main_lastUpdt graphti2">
+                    {showtile}
+                </div>
 
 
                 {/* <div id="quickgrphof7">

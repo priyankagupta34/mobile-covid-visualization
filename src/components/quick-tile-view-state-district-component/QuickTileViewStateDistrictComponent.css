@@ -45,6 +45,7 @@
 .checkSorcInfo{
     padding: 15px;
     display: block;
+    padding-bottom: 0;
 }
 
 .link{
