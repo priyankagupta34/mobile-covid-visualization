@@ -4,6 +4,7 @@
 
 .displayjoe {
     padding: 0 15px;
+    /* background: #fff9fb; */
 }
 
 .main_tile {
@@ -48,4 +49,23 @@
 
 .link{
     text-decoration: underline;
+}
+
+.activeTile:active{
+    background-color: #d5d5fb80;
+}
+
+
+.recoveredTile:active{
+    background-color: #bafbbaa1;
+}
+
+
+.confirmTile:active{
+    background-color: #ff000021;
+}
+
+
+.deceasedTile:active{
+    background-color: #96959529;
 }

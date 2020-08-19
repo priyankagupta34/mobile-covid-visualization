@@ -300,34 +300,65 @@ a {
 
 .recoveredBG {
   background-color: #bafbbaa1;
+  fill: #bafbbaa1;
 }
 
 .deceasedBG {
   background-color: #96959529;
+  fill: #96959529;
 }
 
 .confirmedBG {
   background-color: #ff000021;
+  fill: #ff000021;
 }
 
 .activeBG {
   background-color: #d5d5fb80;
 }
 
+.lightrecoveredBG {
+  background-color: #8be28bd5;
+  fill: #8be28bd5;
+  font-weight: 500;
+}
+
+.lightdeceasedBG {
+  background-color: #96959591;
+  fill: #96959591;
+  font-weight: 500;
+}
+
+.lightconfirmedBG {
+  background-color: #ff00007c;
+  fill: #ff00007c;
+  font-weight: 500;
+}
+
+.lightactiveBG {
+  background-color: #d5d5fb80;
+  fill: #d5d5fb80;
+  font-weight: 500;
+}
+
 .recoveredCo {
   color: #17da17;
+  fill: #17da17;
 }
 
 .deceasedCo {
   color: #969595;
+  fill: #969595;
 }
 
 .confirmedCo {
   color: #ff0000;
+  fill: #ff0000;
 }
 
 .activeCo {
   color: #5a82f3;
+  fill: #5a82f3;
 }
 
 .anyCo {

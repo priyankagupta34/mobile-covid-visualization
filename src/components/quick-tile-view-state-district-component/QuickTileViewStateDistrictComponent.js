@@ -16,16 +16,17 @@ export default class QuickTileViewStateDistrictComponent extends Component {
         setTimeout(() => {
             this.setState({
                 ...this.state,
-                tile: 'active'
+                tile: this.props.tile
             })
         }, 1600);
     }
-    backgroundClickForTile(tile, event) {
-        console.log(tile);
-        this.setState({
-            ...this.state,
-            tile
-        })
+    componentDidUpdate(prev) {
+        if (this.props !== prev) {
+            this.setState({
+                ...this.state,
+                tile: this.props.tile
+            })
+        }
     }
 
     openLink(link) {
@@ -56,7 +57,7 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                             {
                                 stateInfoLoader && completeDetailsOfRegion !== '' ?
                                     <>
-                                        <div className="absolutePosition" onClick={this.backgroundClickForTile.bind(this, 'confirmed')}>
+                                        <div className="absolutePosition" onClick={() => this.props.backgroundClickForTile('confirmed')}>
                                             <div className="quickTitle confirmedCo">Confirmed</div>
 
                                             <div className="confirmedCo delta">
@@ -78,11 +79,10 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                     </Waypoint>
                     <Waypoint onEnter={this.props.addAnimationToWayUp(transitionIdList[2], 'wayupanimation2')}>
                         <div className="qdvc_ic" id={transitionIdList[2]}>
-
                             {
                                 (stateInfoLoader && completeDetailsOfRegion !== '') ?
                                     <>
-                                        <div className="absolutePosition" onClick={this.backgroundClickForTile.bind(this, 'active')}>
+                                        <div className="absolutePosition" onClick={() => this.props.backgroundClickForTile('active')}>
                                             <div className="quickTitle activeCo">Active</div>
 
                                             <div className="activeCo delta"></div>
@@ -102,7 +102,7 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                             {
                                 stateInfoLoader && completeDetailsOfRegion !== '' ?
                                     <>
-                                        <div className="absolutePosition" onClick={this.backgroundClickForTile.bind(this, 'recovered')}>
+                                        <div className="absolutePosition" onClick={() => this.props.backgroundClickForTile('recovered')}>
                                             <div className="quickTitle recoveredCo">Recovered</div>
 
                                             <div className="recoveredCo delta">
@@ -126,7 +126,7 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                             {
                                 stateInfoLoader && completeDetailsOfRegion !== '' ?
                                     <>
-                                        <div className="absolutePosition" onClick={this.backgroundClickForTile.bind(this, 'deaths')}>
+                                        <div className="absolutePosition" onClick={() => this.props.backgroundClickForTile('deceased')}>
                                             <div className="quickTitle deceasedCo">Deceased</div>
 
                                             <div className="deceasedCo delta">
@@ -138,7 +138,7 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                                                 {typeof deaths !== 'undefined' && LimitServices.inLakhsOrCrores(Number(deaths))}
                                             </div>
                                         </div>
-                                        {tile === 'deaths' && <div className="main_tile deceasedBG"></div>}
+                                        {tile === 'deceased' && <div className="main_tile deceasedBG"></div>}
                                     </> :
                                     <LoaderComponent />}
                         </div>

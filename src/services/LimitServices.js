@@ -65,8 +65,11 @@ function abbreviateIntToReadableString(value) {
 
 function inLakhsOrCrores(dataVal) {
     if (typeof dataVal !== 'undefined') {
-        if (dataVal.toString().length < 6) {
+        if (dataVal.toString().length < 3) {
             return dataVal;
+        }
+        if (dataVal.toString().length >= 3 && dataVal.toString().length < 6) {
+            return `${(dataVal / 1000).toFixed(1)}K`;
         }
         if (dataVal.toString().length >= 6 && dataVal.toString().length <= 7) {
             return `${(dataVal / 100000).toFixed(1)}L`;
