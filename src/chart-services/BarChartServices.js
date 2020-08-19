@@ -11,7 +11,7 @@ function creatingBarChart(id, data, event) {
     const cloneDate = Object.assign([], data);
     const plottableData = cloneDate.reverse().slice(0, 7).reverse();
 
-    console.log('plottableData ', plottableData);
+    // console.log('plottableData ', plottableData);
     d3.selectAll(`#${id} > *`).remove();
 
     const height = document.documentElement.clientHeight * 0.1;

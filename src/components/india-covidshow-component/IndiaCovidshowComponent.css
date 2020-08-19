@@ -124,13 +124,23 @@
     align-items: center;
 }
 
-#quickgrphof7{
+#quickgrphof7 {
     /* background-color: rgba(255, 240, 245, 0.425); */
     background-color: white;
 }
 
-.graphti2{
+.graphti2 {
     text-transform: capitalize;
     padding: 10px;
     padding-top: 0;
+}
+
+
+.grphUpdtm {
+    padding: 20px;
+    padding-bottom: 0;
+}
+
+#swooshTile {
+    padding-bottom: 10px;
 }

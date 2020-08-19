@@ -23,8 +23,10 @@ export default class IndiaCovidshowComponent extends Component {
             tile: 'confirmed',
             showtile: 'confirmed',
             timeWiseDataOfNationOrState: [],
+            timeWiseDataOfDistrict: [],
             completeDetailsOfDistrict: { info1: '', info2: '' },
             placeType: '',
+            placeSearch: '',
             sortType: {
                 event: 'active',
                 sorting: true
@@ -41,14 +43,27 @@ export default class IndiaCovidshowComponent extends Component {
     }
 
     getTimeWiseData() {
-        console.log('get ')
         CovidServices.timeWiseDataOfDistrict(this.state.selectedCode)
             .then((result) => {
-                const timewisedata = this.separateStateDistrictTimewiseInfo(result.data);
-                console.log('result.data ', result.data)
+                let timewisedata = this.separateStateDistrictTimewiseInfo(result.data[this.state.selectedCode]);
                 BarChartServices.creatingBarChart('cov_id_india', timewisedata, this.state.tile);
+                let timewisedataofDistrict = this.separateStateDistrictTimewiseInfo(result.data[this.state.selectedCode]['districts'][this.state.placeSearch]);         
+                // setTimeout(() => {
+                //     BarChartServices.creatingBarChart('cov_id_state', timewisedataofDistrict, this.state.tile);
+                // }, 20); 
+                if(typeof timewisedata === 'undefined' && timewisedata.length === 0){
+                    timewisedata = [];
+                }
+                if(typeof timewisedataofDistrict !== 'undefined' && timewisedataofDistrict.length !== 0){
+                    setTimeout(() => {
+                    BarChartServices.creatingBarChart('cov_id_state', timewisedataofDistrict, this.state.tile);
+                }, 20); 
+                }else{
+                    timewisedataofDistrict = []
+                }
                 this.setState(state => {
                     state.timeWiseDataOfNationOrState = timewisedata;
+                    state.timeWiseDataOfDistrict = timewisedataofDistrict;
                     return state;
                 })
             }).catch((err) => {
@@ -58,14 +73,20 @@ export default class IndiaCovidshowComponent extends Component {
 
     creatingBarChartSimply() {
         BarChartServices.creatingBarChart('cov_id_india', this.state.timeWiseDataOfNationOrState, this.state.tile);
+        if(this.state.placeType === 'district'){
+            setTimeout(() => {
+                BarChartServices.creatingBarChart('cov_id_state', this.state.timeWiseDataOfDistrict, this.state.tile);
+            }, 20); 
+        }
     }
 
     separateStateDistrictTimewiseInfo(data) {
+        console.log('data ', data)
         let stateInfoList = [];
-        if (this.state.selectedCode !== 'LD') {
-            if (typeof data[this.state.selectedCode].dates !== 'undefined') {
-                const allDatesForStateKey = Object.keys(data[this.state.selectedCode].dates);
-                const allDates = data[this.state.selectedCode].dates;
+        // if (this.state.selectedCode !== 'LD') {
+            // if (typeof data[this.state.selectedCode].dates !== 'undefined') {
+                const allDatesForStateKey = Object.keys(data['dates']);
+                const allDates = data['dates'];
                 for (let i = 0; i < allDatesForStateKey.length; i++) {
                     let stateInfo = {};
                     stateInfo.date = allDatesForStateKey[i];
@@ -104,7 +125,7 @@ export default class IndiaCovidshowComponent extends Component {
                         stateInfo.recovered = 0;
                     }
                     if (typeof allDates[allDatesForStateKey[i]].delta !== 'undefined') {
-                        console.log('not undefined')
+                        // console.log('not undefined')
                         if (typeof allDates[allDatesForStateKey[i]].delta.confirmed !== 'undefined') {
                             stateInfo.deltaconfirmed = allDates[allDatesForStateKey[i]].delta.confirmed;
                         } else {
@@ -140,12 +161,11 @@ export default class IndiaCovidshowComponent extends Component {
 
                     stateInfoList.push(stateInfo);
                 }
-            }
+            // }
 
             // if (this.state.selectedCode !== 'TT' && this.state.selectedCode !== 'UN') {
             // }
-        }
-        console.log('stateInfoList', stateInfoList);
+        // }
         return stateInfoList;
     }
 
@@ -190,7 +210,8 @@ export default class IndiaCovidshowComponent extends Component {
                 completeDetailsOfRegion: this.props.findDetailsByCode('TT'),
                 tableTitle: 'All States Info',
                 nationOrDistrictName: 'India',
-                freshShow: true
+                freshShow: true,
+                placeSearch: ''
             }, () => {
                 setTimeout(() => {
                     this.setState({
@@ -233,7 +254,7 @@ export default class IndiaCovidshowComponent extends Component {
     }
 
     provideDataOfPlace(placek, event) {
-        console.log('placek ', placek)
+        // console.log('placek ', placek)
         const place = placek;
         const completeDetailsOfRegion = this.props.findDetailsByCode(place.code);
         let completeDetailsOfDistrict = { info1: '', info2: '', info3: '' };
@@ -267,17 +288,30 @@ export default class IndiaCovidshowComponent extends Component {
 
         const sorting = DataStructureServices.mergeSort(quickCompleteDataDistrict, this.state.sortType.event).reverse();
 
-        this.setState({
-            ...this.state,
-            completeDetailsOfRegion,
-            completeDetailsOfDistrict,
-            quickCompleteData: sorting,
-            selectedCode: place.code,
-            searchList: [],
-            placeType: place.type,
-            freshShow: true,
-            nationOrDistrictName: place.state,
-            tableTitle: `Districts of ${place.state}`,
+        this.setState((state)=>{
+            // ...this.state,
+            // completeDetailsOfRegion,
+            // completeDetailsOfDistrict,
+            // quickCompleteData: sorting,
+            // selectedCode: place.code,
+            // searchList: [],
+            // placeType: place.type,
+            // placeSearch: place.search,
+            // freshShow: true,
+            // nationOrDistrictName: place.state,
+            // tableTitle: `Districts of ${place.state}`,
+
+              state.completeDetailsOfRegion = completeDetailsOfRegion;
+              state.completeDetailsOfDistrict = completeDetailsOfDistrict;
+              state.quickCompleteData = sorting;
+              state.selectedCode= place.code;
+              state.searchList= [];
+              state.placeType= place.type;
+              state.placeSearch= place.search;
+              state.freshShow= true;
+              state.nationOrDistrictName = place.state;
+              state.tableTitle = `Districts of ${place.state}`;
+            return state;
 
         }, () => {
             this.setState({
@@ -353,6 +387,8 @@ export default class IndiaCovidshowComponent extends Component {
     backToIndiaInfo() {
         this.setState(state => {
             this.provideDataOfPlace.bind(this, { code: 'TT', type: '', });
+            state.searchList = [];
+            return state;
         }, () => {
             this.creatingInfoListForQuickCompleteStateData();
         })
@@ -379,7 +415,7 @@ export default class IndiaCovidshowComponent extends Component {
     render() {
         const { stateInfoLoader } = this.props;
         const { completeDetailsOfRegion, searchList, freshShow, selectedCode, placeType, quickCompleteData, sortType,
-            completeDetailsOfDistrict, tableTitle, tile, showtile, nationOrDistrictName } = this.state;
+            completeDetailsOfDistrict, tableTitle, tile, showtile, nationOrDistrictName, placeSearch } = this.state;
 
         return (
             <div>
@@ -409,33 +445,37 @@ export default class IndiaCovidshowComponent extends Component {
 
                 {!freshShow && placeType === 'district' && <div className="displayjoe backgroundDistInfo">
                     {(completeDetailsOfDistrict.info1 !== '' && completeDetailsOfDistrict.info2 !== '') &&
-                        <div id="swooshTile">
-                            <QuickTileViewStateDistrictComponent
-                                title={"games"}
-                                stateInfoLoader={stateInfoLoader}
-                                tile={tile}
-                                completeDetailsOfRegion={completeDetailsOfDistrict}
-                                state={completeDetailsOfDistrict.info3.place}
-                                deltaconfirmed={completeDetailsOfDistrict.info1.delta.confirmed}
-                                active={completeDetailsOfDistrict.info1.active}
-                                deltarecovered={completeDetailsOfDistrict.info1.delta.recovered}
-                                recovered={completeDetailsOfDistrict.info1.recovered}
-                                confirmed={completeDetailsOfDistrict.info1.confirmed}
-                                deltadeaths={completeDetailsOfDistrict.info1.delta.deceased}
-                                deaths={completeDetailsOfDistrict.info1.deceased}
-                                lastupdatedtime={completeDetailsOfDistrict.info3.lastupdatedtime}
-                                convertDateToDate={this.props.convertDateToDate}
-                                addAnimationToWayUp={this.addAnimationToWayUp.bind(this)}
-                                backgroundClickForTile={this.backgroundClickForTile.bind(this)}
-                                transitionIdList={['difter1', 'difter2', 'difter3', 'difter4', 'difter5']}
-                            />
-
-                        </div>
+                        <>
+                            <div id="swooshTile">
+                                <QuickTileViewStateDistrictComponent
+                                    title={"games"}
+                                    stateInfoLoader={stateInfoLoader}
+                                    tile={tile}
+                                    completeDetailsOfRegion={completeDetailsOfDistrict}
+                                    state={completeDetailsOfDistrict.info3.place}
+                                    deltaconfirmed={completeDetailsOfDistrict.info1.delta.confirmed}
+                                    active={completeDetailsOfDistrict.info1.active}
+                                    deltarecovered={completeDetailsOfDistrict.info1.delta.recovered}
+                                    recovered={completeDetailsOfDistrict.info1.recovered}
+                                    confirmed={completeDetailsOfDistrict.info1.confirmed}
+                                    deltadeaths={completeDetailsOfDistrict.info1.delta.deceased}
+                                    deaths={completeDetailsOfDistrict.info1.deceased}
+                                    lastupdatedtime={completeDetailsOfDistrict.info3.lastupdatedtime}
+                                    convertDateToDate={this.props.convertDateToDate}
+                                    addAnimationToWayUp={this.addAnimationToWayUp.bind(this)}
+                                    backgroundClickForTile={this.backgroundClickForTile.bind(this)}
+                                    transitionIdList={['difter1', 'difter2', 'difter3', 'difter4', 'difter5']}
+                                />
+                            </div>
+                            <div className="main_lastUpdt">
+                                Tap on the above tiles to change the graph.
+                            </div>
+                            <div id="cov_id_state"></div>
+                            <div className="main_lastUpdt graphti2">
+                                {showtile} Covid19 situation in <font color="darkblue"><b>{placeSearch}</b></font>
+                            </div>
+                        </>
                     }</div>}
-
-
-
-
 
 
                 {!freshShow && <div className="displayjoe">
@@ -461,6 +501,7 @@ export default class IndiaCovidshowComponent extends Component {
                                 transitionIdList={['difter6', 'difter7', 'difter8', 'difter9', 'difter10']}
                             />
 
+
                         </>
 
                     }</div>}
@@ -471,6 +512,8 @@ export default class IndiaCovidshowComponent extends Component {
                 <div className="main_lastUpdt graphti2">
                     {showtile} Covid19 situation in <font color="darkblue"><b>{nationOrDistrictName}</b></font>
                 </div>
+
+
 
 
                 {/* <div id="quickgrphof7">
