@@ -63,11 +63,11 @@ function singleLineChart(id, data, event, lineColor) {
                 .datum(plottableDataBar)
                 .attr("fill", "none")
                 .attr("stroke", lineColor)
-                .attr("stroke-width", 2)
+                .attr("stroke-width", 1)
                 .attr("d", line);
                 i++;
                 move();
-            }, 20)
+            }, 30)
         }
     }
 
