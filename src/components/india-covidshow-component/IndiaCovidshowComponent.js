@@ -37,28 +37,41 @@ export default class IndiaCovidshowComponent extends Component {
     componentDidMount() {
         this.setState(state => {
             this.creatingInfoListForQuickCompleteStateData();
+        }, () => {
+            this.getTimeWiseData();
         })
-        this.getTimeWiseData();
+
 
     }
 
     getTimeWiseData() {
         CovidServices.timeWiseDataOfDistrict(this.state.selectedCode)
             .then((result) => {
-                let timewisedata = this.separateStateDistrictTimewiseInfo(result.data[this.state.selectedCode]);
-                BarChartServices.creatingBarChart('cov_id_india', timewisedata, this.state.tile);
-                let timewisedataofDistrict = this.separateStateDistrictTimewiseInfo(result.data[this.state.selectedCode]['districts'][this.state.placeSearch]);         
-                // setTimeout(() => {
-                //     BarChartServices.creatingBarChart('cov_id_state', timewisedataofDistrict, this.state.tile);
-                // }, 20); 
-                if(typeof timewisedata === 'undefined' && timewisedata.length === 0){
-                    timewisedata = [];
+                let timewisedataofDistrict = [];
+                let timewisedata = []
+                if (typeof result.data[this.state.selectedCode] !== 'undefined') {
+                    timewisedata = this.separateStateDistrictTimewiseInfo(result.data[this.state.selectedCode]);
                 }
-                if(typeof timewisedataofDistrict !== 'undefined' && timewisedataofDistrict.length !== 0){
-                    setTimeout(() => {
-                    BarChartServices.creatingBarChart('cov_id_state', timewisedataofDistrict, this.state.tile);
-                }, 20); 
-                }else{
+                if (typeof timewisedata === 'undefined' && timewisedata.length === 0) {
+                    timewisedata = [];
+                } else {
+                    BarChartServices.creatingBarChart('cov_id_india', timewisedata, this.state.tile);
+                }
+                if (this.state.selectedCode !== 'TT') {
+                    if (typeof result.data[this.state.selectedCode]['districts'][this.state.placeSearch] !== 'undefined') {
+                        timewisedataofDistrict = this.separateStateDistrictTimewiseInfo(result.data[this.state.selectedCode]['districts'][this.state.placeSearch]);
+                    } else {
+                        timewisedataofDistrict = [];
+                    }
+                    if (typeof timewisedataofDistrict !== 'undefined' && timewisedataofDistrict.length !== 0) {
+                        setTimeout(() => {
+                            BarChartServices.creatingBarChart('cov_id_state', timewisedataofDistrict, this.state.tile);
+                        }, 20);
+                    } else {
+                        timewisedataofDistrict = []
+                    }
+                }
+                else {
                     timewisedataofDistrict = []
                 }
                 this.setState(state => {
@@ -72,11 +85,15 @@ export default class IndiaCovidshowComponent extends Component {
     }
 
     creatingBarChartSimply() {
-        BarChartServices.creatingBarChart('cov_id_india', this.state.timeWiseDataOfNationOrState, this.state.tile);
-        if(this.state.placeType === 'district'){
+        if (typeof this.state.timeWiseDataOfNationOrState !== 'undefined' && this.state.timeWiseDataOfNationOrState.length !== 0) {
+            BarChartServices.creatingBarChart('cov_id_india', this.state.timeWiseDataOfNationOrState, this.state.tile);
+        }
+        if (this.state.placeType === 'district') {
             setTimeout(() => {
-                BarChartServices.creatingBarChart('cov_id_state', this.state.timeWiseDataOfDistrict, this.state.tile);
-            }, 20); 
+                if (typeof this.state.timeWiseDataOfDistrict !== 'undefined' && this.state.timeWiseDataOfDistrict.length !== 0) {
+                    BarChartServices.creatingBarChart('cov_id_state', this.state.timeWiseDataOfDistrict, this.state.tile);
+                }
+            }, 0);
         }
     }
 
@@ -84,87 +101,87 @@ export default class IndiaCovidshowComponent extends Component {
         console.log('data ', data)
         let stateInfoList = [];
         // if (this.state.selectedCode !== 'LD') {
-            // if (typeof data[this.state.selectedCode].dates !== 'undefined') {
-                const allDatesForStateKey = Object.keys(data['dates']);
-                const allDates = data['dates'];
-                for (let i = 0; i < allDatesForStateKey.length; i++) {
-                    let stateInfo = {};
-                    stateInfo.date = allDatesForStateKey[i];
-                    if (typeof allDates[allDatesForStateKey[i]].total !== 'undefined') {
-                        if (typeof allDates[allDatesForStateKey[i]].total.confirmed !== 'undefined') {
-                            stateInfo.confirmed = allDates[allDatesForStateKey[i]].total.confirmed;
-                        } else {
-                            stateInfo.confirmed = 0;
-                        }
-                        if (typeof allDates[allDatesForStateKey[i]].total.deceased !== 'undefined') {
-                            stateInfo.deceased = allDates[allDatesForStateKey[i]].total.deceased;
-                        } else {
-                            stateInfo.deceased = 0;
-                        }
-                        if (typeof allDates[allDatesForStateKey[i]].total.other !== 'undefined') {
-                            stateInfo.other = allDates[allDatesForStateKey[i]].total.other;
-                        } else {
-                            stateInfo.other = 0;
-                        }
-                        if (typeof allDates[allDatesForStateKey[i]].total.recovered !== 'undefined') {
-                            stateInfo.recovered = allDates[allDatesForStateKey[i]].total.recovered;
-                        } else {
-                            stateInfo.recovered = 0;
-                        }
-                        if (typeof allDates[allDatesForStateKey[i]].total.tested !== 'undefined') {
-                            stateInfo.tested = allDates[allDatesForStateKey[i]].total.tested;
-                        } else {
-                            stateInfo.tested = 0;
-                        }
-                    }
-                    else {
-                        stateInfo.confirmed = 0;
-                        stateInfo.deceased = 0;
-                        stateInfo.other = 0;
-                        stateInfo.recovered = 0;
-                        stateInfo.recovered = 0;
-                    }
-                    if (typeof allDates[allDatesForStateKey[i]].delta !== 'undefined') {
-                        // console.log('not undefined')
-                        if (typeof allDates[allDatesForStateKey[i]].delta.confirmed !== 'undefined') {
-                            stateInfo.deltaconfirmed = allDates[allDatesForStateKey[i]].delta.confirmed;
-                        } else {
-                            stateInfo.deltaconfirmed = 0;
-                        }
-                        if (typeof allDates[allDatesForStateKey[i]].delta.deceased !== 'undefined') {
-                            stateInfo.deltadeceased = allDates[allDatesForStateKey[i]].delta.deceased;
-                        } else {
-                            stateInfo.deltadeceased = 0;
-                        }
-                        if (typeof allDates[allDatesForStateKey[i]].delta.other !== 'undefined') {
-                            stateInfo.deltaother = allDates[allDatesForStateKey[i]].delta.other;
-                        } else {
-                            stateInfo.deltaother = 0;
-                        }
-                        if (typeof allDates[allDatesForStateKey[i]].delta.recovered !== 'undefined') {
-                            stateInfo.deltarecovered = allDates[allDatesForStateKey[i]].delta.recovered;
-                        } else {
-                            stateInfo.deltarecovered = 0;
-                        }
-                        if (typeof allDates[allDatesForStateKey[i]].delta.tested !== 'undefined') {
-                            stateInfo.deltatested = allDates[allDatesForStateKey[i]].delta.tested;
-                        } else {
-                            stateInfo.deltarecovered = 0;
-                        }
-                    } else {
-                        stateInfo.deltaconfirmed = 0;
-                        stateInfo.deltadeceased = 0;
-                        stateInfo.deltaother = 0;
-                        stateInfo.deltarecovered = 0;
-                        stateInfo.deltarecovered = 0;
-                    }
-
-                    stateInfoList.push(stateInfo);
+        // if (typeof data[this.state.selectedCode].dates !== 'undefined') {
+        const allDatesForStateKey = Object.keys(data['dates']);
+        const allDates = data['dates'];
+        for (let i = 0; i < allDatesForStateKey.length; i++) {
+            let stateInfo = {};
+            stateInfo.date = allDatesForStateKey[i];
+            if (typeof allDates[allDatesForStateKey[i]].total !== 'undefined') {
+                if (typeof allDates[allDatesForStateKey[i]].total.confirmed !== 'undefined') {
+                    stateInfo.confirmed = allDates[allDatesForStateKey[i]].total.confirmed;
+                } else {
+                    stateInfo.confirmed = 0;
                 }
-            // }
+                if (typeof allDates[allDatesForStateKey[i]].total.deceased !== 'undefined') {
+                    stateInfo.deceased = allDates[allDatesForStateKey[i]].total.deceased;
+                } else {
+                    stateInfo.deceased = 0;
+                }
+                if (typeof allDates[allDatesForStateKey[i]].total.other !== 'undefined') {
+                    stateInfo.other = allDates[allDatesForStateKey[i]].total.other;
+                } else {
+                    stateInfo.other = 0;
+                }
+                if (typeof allDates[allDatesForStateKey[i]].total.recovered !== 'undefined') {
+                    stateInfo.recovered = allDates[allDatesForStateKey[i]].total.recovered;
+                } else {
+                    stateInfo.recovered = 0;
+                }
+                if (typeof allDates[allDatesForStateKey[i]].total.tested !== 'undefined') {
+                    stateInfo.tested = allDates[allDatesForStateKey[i]].total.tested;
+                } else {
+                    stateInfo.tested = 0;
+                }
+            }
+            else {
+                stateInfo.confirmed = 0;
+                stateInfo.deceased = 0;
+                stateInfo.other = 0;
+                stateInfo.recovered = 0;
+                stateInfo.recovered = 0;
+            }
+            if (typeof allDates[allDatesForStateKey[i]].delta !== 'undefined') {
+                // console.log('not undefined')
+                if (typeof allDates[allDatesForStateKey[i]].delta.confirmed !== 'undefined') {
+                    stateInfo.deltaconfirmed = allDates[allDatesForStateKey[i]].delta.confirmed;
+                } else {
+                    stateInfo.deltaconfirmed = 0;
+                }
+                if (typeof allDates[allDatesForStateKey[i]].delta.deceased !== 'undefined') {
+                    stateInfo.deltadeceased = allDates[allDatesForStateKey[i]].delta.deceased;
+                } else {
+                    stateInfo.deltadeceased = 0;
+                }
+                if (typeof allDates[allDatesForStateKey[i]].delta.other !== 'undefined') {
+                    stateInfo.deltaother = allDates[allDatesForStateKey[i]].delta.other;
+                } else {
+                    stateInfo.deltaother = 0;
+                }
+                if (typeof allDates[allDatesForStateKey[i]].delta.recovered !== 'undefined') {
+                    stateInfo.deltarecovered = allDates[allDatesForStateKey[i]].delta.recovered;
+                } else {
+                    stateInfo.deltarecovered = 0;
+                }
+                if (typeof allDates[allDatesForStateKey[i]].delta.tested !== 'undefined') {
+                    stateInfo.deltatested = allDates[allDatesForStateKey[i]].delta.tested;
+                } else {
+                    stateInfo.deltarecovered = 0;
+                }
+            } else {
+                stateInfo.deltaconfirmed = 0;
+                stateInfo.deltadeceased = 0;
+                stateInfo.deltaother = 0;
+                stateInfo.deltarecovered = 0;
+                stateInfo.deltarecovered = 0;
+            }
 
-            // if (this.state.selectedCode !== 'TT' && this.state.selectedCode !== 'UN') {
-            // }
+            stateInfoList.push(stateInfo);
+        }
+        // }
+
+        // if (this.state.selectedCode !== 'TT' && this.state.selectedCode !== 'UN') {
+        // }
         // }
         return stateInfoList;
     }
@@ -288,7 +305,7 @@ export default class IndiaCovidshowComponent extends Component {
 
         const sorting = DataStructureServices.mergeSort(quickCompleteDataDistrict, this.state.sortType.event).reverse();
 
-        this.setState((state)=>{
+        this.setState((state) => {
             // ...this.state,
             // completeDetailsOfRegion,
             // completeDetailsOfDistrict,
@@ -301,16 +318,16 @@ export default class IndiaCovidshowComponent extends Component {
             // nationOrDistrictName: place.state,
             // tableTitle: `Districts of ${place.state}`,
 
-              state.completeDetailsOfRegion = completeDetailsOfRegion;
-              state.completeDetailsOfDistrict = completeDetailsOfDistrict;
-              state.quickCompleteData = sorting;
-              state.selectedCode= place.code;
-              state.searchList= [];
-              state.placeType= place.type;
-              state.placeSearch= place.search;
-              state.freshShow= true;
-              state.nationOrDistrictName = place.state;
-              state.tableTitle = `Districts of ${place.state}`;
+            state.completeDetailsOfRegion = completeDetailsOfRegion;
+            state.completeDetailsOfDistrict = completeDetailsOfDistrict;
+            state.quickCompleteData = sorting;
+            state.selectedCode = place.code;
+            state.searchList = [];
+            state.placeType = place.type;
+            state.placeSearch = place.search;
+            state.freshShow = true;
+            state.nationOrDistrictName = place.state;
+            state.tableTitle = `Districts of ${place.state}`;
             return state;
 
         }, () => {
@@ -415,7 +432,8 @@ export default class IndiaCovidshowComponent extends Component {
     render() {
         const { stateInfoLoader } = this.props;
         const { completeDetailsOfRegion, searchList, freshShow, selectedCode, placeType, quickCompleteData, sortType,
-            completeDetailsOfDistrict, tableTitle, tile, showtile, nationOrDistrictName, placeSearch } = this.state;
+            completeDetailsOfDistrict, tableTitle, tile, showtile, nationOrDistrictName, placeSearch,
+            timeWiseDataOfNationOrState, timeWiseDataOfDistrict } = this.state;
 
         return (
             <div>
@@ -467,13 +485,16 @@ export default class IndiaCovidshowComponent extends Component {
                                     transitionIdList={['difter1', 'difter2', 'difter3', 'difter4', 'difter5']}
                                 />
                             </div>
-                            <div className="main_lastUpdt">
-                                Tap on the above tiles to change the graph.
+
+                            {typeof timeWiseDataOfDistrict !== 'undefined' && timeWiseDataOfDistrict.length !== 0 && <>
+                                <div className="main_lastUpdt">
+                                    Tap on the above tiles to change the graph.
                             </div>
-                            <div id="cov_id_state"></div>
-                            <div className="main_lastUpdt graphti2">
-                                {showtile} Covid19 situation in <font color="darkblue"><b>{placeSearch}</b></font>
-                            </div>
+                                <div id="cov_id_state"></div>
+                                <div className="main_lastUpdt graphti2">
+                                    {showtile} Covid19 situation in <font color="darkblue"><b>{placeSearch}</b></font>
+                                </div>
+                            </>}
                         </>
                     }</div>}
 
@@ -505,13 +526,15 @@ export default class IndiaCovidshowComponent extends Component {
                         </>
 
                     }</div>}
-                <div className="main_lastUpdt">
-                    Tap on the above tiles to change the graph.
+                {typeof timeWiseDataOfNationOrState !== 'undefined' && timeWiseDataOfNationOrState.length !== 0 && <>
+                    <div className="main_lastUpdt">
+                        Tap on the above tiles to change the graph.
                 </div>
-                <div id="cov_id_india"></div>
-                <div className="main_lastUpdt graphti2">
-                    {showtile} Covid19 situation in <font color="darkblue"><b>{nationOrDistrictName}</b></font>
-                </div>
+                    <div id="cov_id_india"></div>
+                    <div className="main_lastUpdt graphti2">
+                        {showtile} Covid19 situation in <font color="darkblue"><b>{nationOrDistrictName}</b></font>
+                    </div>
+                </>}
 
 
 
