@@ -276,13 +276,20 @@ export default class IndiaCovidshowComponent extends Component {
         // console.log('placek ', placek)
         const place = placek;
         const completeDetailsOfRegion = this.props.findDetailsByCode(place.code);
+        console.log('completeDetailsOfRegion ', completeDetailsOfRegion)
         let completeDetailsOfDistrict = { info1: '', info2: '', info3: '' };
         if (place.type === 'district') {
-            completeDetailsOfDistrict.info1 = completeDetailsOfRegion.info1.districtData[place.search];
-            completeDetailsOfDistrict.info2 = completeDetailsOfRegion.info2.districts[place.search];
+            if (typeof completeDetailsOfRegion.info1.districtData !== 'undefined' &&
+                typeof completeDetailsOfRegion.info1.districtData[place.search] !== 'undefined') {
+                completeDetailsOfDistrict.info1 = completeDetailsOfRegion.info1.districtData[place.search];
+            }
+            if (completeDetailsOfRegion.info2 !== '' && typeof completeDetailsOfRegion.info2.districts[place.search] !== 'undefined') {
+                completeDetailsOfDistrict.info2 = completeDetailsOfRegion.info2.districts[place.search];
+            }
             completeDetailsOfDistrict.info3 = place;
             completeDetailsOfDistrict.info3.lastupdatedtime = completeDetailsOfRegion.info3.lastupdatedtime;
         }
+
         let quickCompleteDataDistrict = [];
         const districtData = completeDetailsOfRegion.info1.districtData;
         const districtDataKeys = Object.keys(districtData);
@@ -297,7 +304,7 @@ export default class IndiaCovidshowComponent extends Component {
             detail.deltarecovered = districtData[districtDataKeys[i]].delta.recovered;
             detail.state = districtDataKeys[i];
             detail.migratedother = "N/A";
-            if (typeof completeDetailsOfRegion.info2.districts[districtDataKeys[i]] !== 'undefined' && typeof completeDetailsOfRegion.info2.districts[districtDataKeys[i]].meta !== 'undefined') {
+            if (typeof completeDetailsOfRegion.info2.districts !== 'undefined' && typeof completeDetailsOfRegion.info2.districts[districtDataKeys[i]] !== 'undefined' && typeof completeDetailsOfRegion.info2.districts[districtDataKeys[i]].meta !== 'undefined') {
                 detail.population = completeDetailsOfRegion.info2.districts[districtDataKeys[i]].meta.population;
             } else {
                 detail.population = 'N/A'

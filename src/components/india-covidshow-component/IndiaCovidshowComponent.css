@@ -113,7 +113,7 @@
 
 .backgroundDistInfo {
     background-color: rgba(255, 240, 245, 0.425);
-    padding-bottom: 20px;
+    /* padding-bottom: 20px; */
 }
 
 #cov_id_india,
@@ -142,5 +142,5 @@
 }
 
 #swooshTile {
-    padding-bottom: 10px;
+    /* padding-bottom: 10px; */
 }
