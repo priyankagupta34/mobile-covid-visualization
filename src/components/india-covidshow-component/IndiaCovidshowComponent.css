@@ -21,6 +21,7 @@
     height: 11vh;
     margin: 10px 0;
     min-height: 75px;
+    margin-top: 0;
 }
 
 .main_lastUpdt {
@@ -141,6 +142,6 @@
     padding-bottom: 0;
 }
 
-#swooshTile {
-    /* padding-bottom: 10px; */
-}
+/* #swooshTile {
+    padding-bottom: 10px;
+} */

@@ -7,9 +7,12 @@ export const BarChartServices = {
 }
 
 function creatingBarChart(id, data, event) {
-    console.log('data ', data);
+
     const cloneDate = Object.assign([], data);
     const plottableData = cloneDate.reverse().slice(0, 7).reverse();
+
+
+
 
     // console.log('plottableData ', plottableData);
     d3.selectAll(`#${id} > *`).remove();
@@ -19,7 +22,7 @@ function creatingBarChart(id, data, event) {
 
 
     const transition = d3.transition()
-        .duration(500);
+        .duration(100);
 
     const xScale = d3.scaleLinear()
         .range([0, width])
@@ -39,20 +42,37 @@ function creatingBarChart(id, data, event) {
         .attr('width', width)
         .attr('height', height);
 
-    /* Creating rectangle bars here */
-    const bars = svg.selectAll('rect')
-        .data(plottableData)
-        .enter()
-        .append('rect');
 
-    /* Display rectangle bars here */
-    bars.transition(transition)
-        .delay(function (d, i) { return 30 * i; })
-        .attr('x', (d, i) => xScale(i))
-        .attr('y', (d, i) => yScale(d[event]))
-        .attr('class', `${event}BG`)
-        .attr('width', 20)
-        .attr('height', (d, i) => height - yScale(d[event]))
+    let plottableDataBar = plottableData.slice(0, 1);
+    let plotLength = plottableData.length;
+
+    let i = 0;
+    move();
+    function move() {
+        if (i < plotLength) {
+            setTimeout(() => {
+                plottableDataBar = plottableData.slice(0, i);
+                const bars = svg.selectAll('rect')
+                    .data(plottableDataBar)
+                    .enter()
+                    .append('rect');
+
+                /* Display rectangle bars here */
+                bars
+                    .transition(transition)
+                    // .delay(function (d, i) { return 30 * i; })
+                    .attr('x', (d, i) => xScale(i))
+                    .attr('y', (d, i) => yScale(d[event]))
+                    .attr('class', `${event}BG`)
+                    .attr('width', 20)
+                    .attr('height', (d, i) => height - yScale(d[event]))
+                move();
+            }, 100);
+            i++;
+
+        }
+    }
+
 
 
     /* Adding data over the bars for better visual effects */
@@ -65,13 +85,17 @@ function creatingBarChart(id, data, event) {
         .attr('dx', (d, i) => xScale(i))
         .attr('dy', (d, i) => yScale(d[event]) - 10)
 
-    /* Adding data over the bars for better visual effects */
+    /* Adding data over the bars for better visual effects delta data */
     svg.selectAll('.maq1')
         .data(plottableData)
         .enter()
         .append('text')
         .attr('class', `tx_mn light${event}BG`)
-        .text(d => `+${LimitServices.inLakhsOrCrores(Number(d[`delta${event}`]))}`)
+        .text(d => {
+            if(Number(d[`delta${event}`]) !== 0){
+               return `+${LimitServices.inLakhsOrCrores(Number(d[`delta${event}`]))}`;
+            }
+        })
         .attr('dx', (d, i) => xScale(i))
         .attr('dy', (d, i) => yScale(d[event]) - 30)
 
@@ -94,13 +118,7 @@ function creatingBarChart(id, data, event) {
         .attr('class', `tx_mn ${event}Co`)
         .text(d => `${new Date(d.date).toDateString().split(" ").slice(1, 3)[0]}`)
         .attr('dx', (d, i) => xScale(i))
-        .attr('dy', (d, i) => height + 30)
-
-
-
-
-
-
+        .attr('dy', (d, i) => height + 30);
 
 
 

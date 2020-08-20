@@ -70,3 +70,26 @@
 .deceasedTile:active{
     background-color: #96959529;
 }
+
+#miniLineCharts{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-column-gap: 4px;
+    margin-top: 10px;
+}
+
+
+.miniLineCharts_qdvc{
+    height: 6vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 -2px 4px #ff00002b;
+    background-color: white;
+}
+
+.miniLineCharts_qdvc:nth-child(2){
+    box-shadow: none;
+
+}
+

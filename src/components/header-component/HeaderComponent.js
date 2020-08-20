@@ -54,7 +54,7 @@ export default class HeaderComponent extends Component {
                 if (id !== null) {
                     id.classList.remove('slideOutFromLeft');
                 }
-                if(id1 !== null){
+                if (id1 !== null) {
                     id1.classList.remove('reverseScrollHeadingAnim');
                 }
                 return state;
@@ -150,7 +150,7 @@ export default class HeaderComponent extends Component {
         return (
             <div>
                 <div className={showScrollHeading ? 'hc1_scroll_heading' : 'hc1'} id={showScrollHeading ? 'hc1_scroll' : 'hc1_withoutscroll'}>
-                    <i className={showScrollHeading? "material-icons my_ic1 marginTp10": 'material-icons my_ic1'} onClick={this.openMenuForSm.bind(this)} >menu</i>
+                    <i className={showScrollHeading ? "material-icons my_ic1 marginTp10" : 'material-icons my_ic1'} onClick={this.openMenuForSm.bind(this)} >menu</i>
                     <div>
                         <div className="notificationPoint">
                             <div className="hc8">

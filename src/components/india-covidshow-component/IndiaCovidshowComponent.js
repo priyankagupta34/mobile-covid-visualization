@@ -8,6 +8,7 @@ import SearchDetailedComponent from '../search-detailed-component/SearchDetailed
 import StateGridViewComponent from '../state-grid-view-component/StateGridViewComponent';
 import TitleIconComponent from '../title-icon-component/TitleIconComponent';
 import './IndiaCovidshowComponent.css';
+import { LineChartServices } from '../../chart-services/LineChartServices';
 
 export default class IndiaCovidshowComponent extends Component {
     constructor(props) {
@@ -57,7 +58,17 @@ export default class IndiaCovidshowComponent extends Component {
                 } else {
                     setTimeout(() => {
                         BarChartServices.creatingBarChart('cov_id_india', timewisedata, this.state.tile);
+                       
+                    }, 100);
+                    setTimeout(() => {
+                        LineChartServices.singleLineChart('tick1', timewisedata, 'confirmed', '#f7c3c3');                            
+                    }, 10);
+                    setTimeout(() => {
+                        LineChartServices.singleLineChart('tick2', timewisedata, 'recovered', 'greenyellow');                            
                     }, 20);
+                    setTimeout(() => {
+                        LineChartServices.singleLineChart('tick3', timewisedata, 'deceased', 'lightblue');                            
+                    }, 30);
                 }
                 if (this.state.selectedCode !== 'TT') {
                     if (typeof result.data[this.state.selectedCode]['districts'][this.state.placeSearch] !== 'undefined') {
@@ -68,7 +79,16 @@ export default class IndiaCovidshowComponent extends Component {
                     if (typeof timewisedataofDistrict !== 'undefined' && timewisedataofDistrict.length !== 0) {
                         setTimeout(() => {
                             BarChartServices.creatingBarChart('cov_id_state', timewisedataofDistrict, this.state.tile);
-                        }, 20);
+                        }, 10);
+                            setTimeout(() => {
+                                LineChartServices.singleLineChart('tick4', timewisedataofDistrict, 'confirmed', '#f7c3c3');                            
+                            }, 40);
+                            setTimeout(() => {
+                                LineChartServices.singleLineChart('tick5', timewisedataofDistrict, 'recovered', 'greenyellow');                            
+                            }, 50);
+                            setTimeout(() => {
+                                LineChartServices.singleLineChart('tick6', timewisedataofDistrict, 'deceased', 'lightblue');                            
+                            }, 60);
                     } else {
                         timewisedataofDistrict = []
                     }
@@ -273,10 +293,8 @@ export default class IndiaCovidshowComponent extends Component {
     }
 
     provideDataOfPlace(placek, event) {
-        // console.log('placek ', placek)
         const place = placek;
         const completeDetailsOfRegion = this.props.findDetailsByCode(place.code);
-        console.log('completeDetailsOfRegion ', completeDetailsOfRegion)
         let completeDetailsOfDistrict = { info1: '', info2: '', info3: '' };
         if (place.type === 'district') {
             if (typeof completeDetailsOfRegion.info1.districtData !== 'undefined' &&
@@ -492,6 +510,7 @@ export default class IndiaCovidshowComponent extends Component {
                                     addAnimationToWayUp={this.addAnimationToWayUp.bind(this)}
                                     backgroundClickForTile={this.backgroundClickForTile.bind(this)}
                                     transitionIdList={['difter1', 'difter2', 'difter3', 'difter4', 'difter5']}
+                                    chartIdList={['tick4', 'tick5', 'tick6']}
                                 />
                             </div>
 
@@ -531,6 +550,7 @@ export default class IndiaCovidshowComponent extends Component {
                                 addAnimationToWayUp={this.addAnimationToWayUp.bind(this)}
                                 backgroundClickForTile={this.backgroundClickForTile.bind(this)}
                                 transitionIdList={['difter6', 'difter7', 'difter8', 'difter9', 'difter10']}
+                                chartIdList={['tick1', 'tick2', 'tick3']}
                             />
 
 
