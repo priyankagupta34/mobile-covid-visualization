@@ -55,7 +55,9 @@ export default class IndiaCovidshowComponent extends Component {
                 if (typeof timewisedata === 'undefined' && timewisedata.length === 0) {
                     timewisedata = [];
                 } else {
-                    BarChartServices.creatingBarChart('cov_id_india', timewisedata, this.state.tile);
+                    setTimeout(() => {
+                        BarChartServices.creatingBarChart('cov_id_india', timewisedata, this.state.tile);
+                    }, 20);
                 }
                 if (this.state.selectedCode !== 'TT') {
                     if (typeof result.data[this.state.selectedCode]['districts'][this.state.placeSearch] !== 'undefined') {
@@ -486,15 +488,17 @@ export default class IndiaCovidshowComponent extends Component {
                                 />
                             </div>
 
-                            {typeof timeWiseDataOfDistrict !== 'undefined' && timeWiseDataOfDistrict.length !== 0 && <>
-                                <div className="main_lastUpdt">
-                                    Tap on the above tiles to change the graph.
+                            {typeof timeWiseDataOfDistrict !== 'undefined' && timeWiseDataOfDistrict.length !== 0 &&
+                                <>
+                                    <div className="main_lastUpdt">
+                                        Tap on the above tiles to change the graph.
                             </div>
-                                <div id="cov_id_state"></div>
-                                <div className="main_lastUpdt graphti2">
-                                    {showtile} Covid19 situation in <font color="darkblue"><b>{placeSearch}</b></font>
-                                </div>
-                            </>}
+                                    <div id="cov_id_state"></div>
+                                    <div className="main_lastUpdt graphti2">
+                                        {showtile} Covid19 situation in <font color="darkblue"><b>{placeSearch}</b></font>
+                                    </div>
+                                </>
+                            }
                         </>
                     }</div>}
 
@@ -526,15 +530,17 @@ export default class IndiaCovidshowComponent extends Component {
                         </>
 
                     }</div>}
-                {typeof timeWiseDataOfNationOrState !== 'undefined' && timeWiseDataOfNationOrState.length !== 0 && <>
-                    <div className="main_lastUpdt">
-                        Tap on the above tiles to change the graph.
+                {typeof timeWiseDataOfNationOrState !== 'undefined' && timeWiseDataOfNationOrState.length !== 0 &&
+                    <>
+                        <div className="main_lastUpdt">
+                            Tap on the above tiles to change the graph.
                 </div>
-                    <div id="cov_id_india"></div>
-                    <div className="main_lastUpdt graphti2">
-                        {showtile} Covid19 situation in <font color="darkblue"><b>{nationOrDistrictName}</b></font>
-                    </div>
-                </>}
+                        <div id="cov_id_india"></div>
+                        <div className="main_lastUpdt graphti2">
+                            {showtile} Covid19 situation in <font color="darkblue"><b>{nationOrDistrictName}</b></font>
+                        </div>
+                    </>
+                }
 
 
 
