@@ -36,7 +36,6 @@ export default class QuickTileViewStateDistrictComponent extends Component {
         const { title, state, lastupdatedtime, stateInfoLoader, completeDetailsOfRegion, deltaconfirmed,
             confirmed, active, deltarecovered, recovered, deltadeaths, deaths, transitionIdList, chartIdList } = this.props;
         const { tile } = this.state;
-        console.log('chartIdList ', )
         return (
             <div>
 
@@ -51,20 +50,7 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                     </div>
                 </Waypoint>
 
-                <div id="miniLineCharts">
-                    <div className="miniLineCharts_qdvc">
-                        <div id={chartIdList[0]}></div>
-                    </div>
-                    <div className="miniLineCharts_qdvc">
-                        <span role="img" aria-label="heart emoji"> &#10084;&#65039;</span>
-                    </div>
-                    <div className="miniLineCharts_qdvc">
-                        <div id={chartIdList[1]}></div>
-                        </div>
-                    <div className="miniLineCharts_qdvc">
-                        <div id={chartIdList[2]}></div>
-                        </div>
-                </div>
+
 
                 <div className="icsc_qdvc">
                     <Waypoint onEnter={this.props.addAnimationToWayUp(transitionIdList[1], 'wayupanimation1')}>
@@ -158,6 +144,21 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                                     <LoaderComponent />}
                         </div>
                     </Waypoint>
+                </div>
+
+                <div id="miniLineCharts">
+                    <div className="miniLineCharts_qdvc">
+                        <div id={chartIdList[0]}></div>
+                    </div>
+                    <div className="miniLineCharts_qdvc">
+                        <span role="img" aria-label="heart emoji"> &#10084;&#65039;</span>
+                    </div>
+                    <div className="miniLineCharts_qdvc">
+                        <div id={chartIdList[1]}></div>
+                        </div>
+                    <div className="miniLineCharts_qdvc">
+                        <div id={chartIdList[2]}></div>
+                        </div>
                 </div>
 
                 {(typeof completeDetailsOfRegion.info2 !== 'undefined' && completeDetailsOfRegion.info2 !== '') ?

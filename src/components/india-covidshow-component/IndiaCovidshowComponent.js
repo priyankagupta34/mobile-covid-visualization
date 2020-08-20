@@ -62,13 +62,13 @@ export default class IndiaCovidshowComponent extends Component {
                     }, 100);
                     setTimeout(() => {
                         LineChartServices.singleLineChart('tick1', timewisedata, 'confirmed', '#f7c3c3');                            
-                    }, 10);
+                    }, 100);
                     setTimeout(() => {
                         LineChartServices.singleLineChart('tick2', timewisedata, 'recovered', 'greenyellow');                            
-                    }, 20);
+                    }, 200);
                     setTimeout(() => {
                         LineChartServices.singleLineChart('tick3', timewisedata, 'deceased', 'lightblue');                            
-                    }, 30);
+                    }, 300);
                 }
                 if (this.state.selectedCode !== 'TT') {
                     if (typeof result.data[this.state.selectedCode]['districts'][this.state.placeSearch] !== 'undefined') {
@@ -120,7 +120,7 @@ export default class IndiaCovidshowComponent extends Component {
     }
 
     separateStateDistrictTimewiseInfo(data) {
-        console.log('data ', data)
+        // // console.log('data ', data)
         let stateInfoList = [];
         // if (this.state.selectedCode !== 'LD') {
         // if (typeof data[this.state.selectedCode].dates !== 'undefined') {
@@ -164,7 +164,7 @@ export default class IndiaCovidshowComponent extends Component {
                 stateInfo.recovered = 0;
             }
             if (typeof allDates[allDatesForStateKey[i]].delta !== 'undefined') {
-                // console.log('not undefined')
+                // // // console.log('not undefined')
                 if (typeof allDates[allDatesForStateKey[i]].delta.confirmed !== 'undefined') {
                     stateInfo.deltaconfirmed = allDates[allDatesForStateKey[i]].delta.confirmed;
                 } else {
