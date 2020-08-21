@@ -21,7 +21,7 @@
     height: 11vh;
     margin: 10px 0;
     min-height: 75px;
-    margin-top: 0;
+    margin-top: 10px;
 }
 
 .main_lastUpdt {
@@ -123,6 +123,7 @@
     justify-content: center;
     display: flex;
     align-items: center;
+    min-height: 172px;
 }
 
 #quickgrphof7 {
