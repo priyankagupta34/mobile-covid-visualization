@@ -89,60 +89,129 @@ function multiLineChart(newCountry1Data, newCountry2Data, newCountry3Data, type,
             .call(yAxis)
             .attr('fill', 'none')
             .selectAll('text')
-            .attr('fill', '#a50404')
+            .attr('fill', '#a50404');
 
-        /* Generating lines */
-        const line = d3.line()
-            .x((d, i) => xScale(i))
-            .y((d, i) => yScale(d[type]))
-            .curve(d3.curveMonotoneX);
 
-        /* Curve of country 1 */
+        let i = 0;
+        let plottableDataBar1 = newCountry1Data.slice(0, 1);
+        let plotLength1 = newCountry1Data.length;
+        let plottableDataBar2 = newCountry2Data.slice(0, 1);
+        let plotLength2 = newCountry2Data.length;
+        let plottableDataBar3 = newCountry3Data.slice(0, 1);
+        let plotLength3 = newCountry3Data.length;
+
+
+        /* Curve of country 3 */
         if (newCountry1Data.length !== 0) {
-            svg.append('path')
-                .datum(newCountry1Data)
-                .transition()
-                .duration(600)
-                .attr('fill', 'none')
-                .attr('stroke', 'darkgreen')
-                .attr('stroke-width', 4)
-                // .attr('d', line)
-                .attrTween("d", function (d) {
-                    return pathTween(line(d), 4, this)()
-                });
-
-        }
-
-        /* Curve of country 2 */
-        if (newCountry2Data.length !== 0) {
-            svg.append('path')
-                .datum(newCountry2Data)
-                .transition()
-                .duration(700)
-                .attr('fill', 'none')
-                .attr('stroke', 'brown')
-                .attr('stroke-width', 4)
-                // .attr('d', line)
-                .attrTween("d", function (d) {
-                    return pathTween(line(d), 4, this)()
-                });
+            move1();
         }
 
         /* Curve of country 3 */
-        if (newCountry3Data.length !== 0) {
-            svg.append('path')
-                .datum(newCountry3Data)
-                .transition()
-                .duration(1000)
-                .attr('fill', 'none')
-                .attr('stroke', 'darkblue')
-                .attr('stroke-width', 4)
-                // .attr('d', line)
-                .attrTween("d", function (d) {
-                    return pathTween(line(d), 4, this)()
-                });
+        if (newCountry2Data.length !== 0) {
+            move2();
         }
 
+
+        /* Curve of country 3 */
+        if (newCountry3Data.length !== 0) {
+            move3();
+        }
+
+        function move1() {
+
+            setTimeout(() => {
+                plottableDataBar1 = newCountry1Data.slice(0, i);
+                /* Generating lines */
+                const line = d3.line()
+                    .x((d, i) => xScale(i))
+                    .y((d, i) => yScale(d[type]))
+                    .curve(d3.curveMonotoneX);
+
+
+                /* Curve of country 1 */
+                svg.append('path')
+                    .datum(plottableDataBar1)
+                    .attr('fill', 'none')
+                    .attr('stroke', 'darkgreen')
+                    .attr('stroke-width', 4)
+                    .attr('d', line)
+                // .attrTween("d", function (d) {
+                //     return pathTween(line(d), 4, this)()
+                // });
+
+
+
+                if (i < plotLength1) {
+                    i++;
+                    move1();
+                }
+
+            }, 100);
+
+        }
+
+        function move2() {
+
+            setTimeout(() => {
+                plottableDataBar2 = newCountry2Data.slice(0, i);
+                /* Generating lines */
+                const line = d3.line()
+                    .x((d, i) => xScale(i))
+                    .y((d, i) => yScale(d[type]))
+                    .curve(d3.curveMonotoneX);
+
+                /* Curve of country 2 */
+                svg.append('path')
+                    .datum(plottableDataBar2)
+                    .attr('fill', 'none')
+                    .attr('stroke', 'brown')
+                    .attr('stroke-width', 4)
+                    .attr('d', line)
+                // .attrTween("d", function (d) {
+                //     return pathTween(line(d), 4, this)()
+                // });
+
+
+                if (i < plotLength2) {
+                    i++;
+                    move2();
+                }
+
+            }, 30);
+
+
+        }
+
+
+        function move3() {
+            setTimeout(() => {
+                plottableDataBar3 = newCountry3Data.slice(0, i);
+
+                /* Generating lines */
+                const line = d3.line()
+                    .x((d, i) => xScale(i))
+                    .y((d, i) => yScale(d[type]))
+                    .curve(d3.curveMonotoneX);
+
+                svg.append('path')
+                    .datum(plottableDataBar3)
+                    .attr('fill', 'none')
+                    .attr('stroke', 'darkblue')
+                    .attr('stroke-width', 4)
+                    .attr('d', line)
+                // .attrTween("d", function (d) {
+                //     return pathTween(line(d), 4, this)()
+                // });
+
+
+                if (i < plotLength3) {
+                    i++;
+                    move3();
+                }
+            }, 30)
+
+
+        }
 
         /* x Label */
         svg.append('text')
