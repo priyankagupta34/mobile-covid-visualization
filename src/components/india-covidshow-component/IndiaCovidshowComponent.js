@@ -35,8 +35,10 @@ export default class IndiaCovidshowComponent extends Component {
             },
             tableTitle: 'All States Info'
         }
+        this.resizingWindowHandler = this.resizingWindowHandler.bind(this);
     }
     componentDidMount() {
+        window.addEventListener('resize', this.resizingWindowHandler, false);
         this.setState(state => {
             this.creatingInfoListForQuickCompleteStateData();
         }, () => {
@@ -44,6 +46,11 @@ export default class IndiaCovidshowComponent extends Component {
         })
 
 
+    }
+
+    resizingWindowHandler(event) {
+        this.creatingLineChartSimply();
+        this.creatingBarChartSimply();
     }
 
     getTimeWiseData() {
