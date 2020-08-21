@@ -34,7 +34,8 @@ export default class QuickTileViewStateDistrictComponent extends Component {
     }
     render() {
         const { title, state, lastupdatedtime, stateInfoLoader, completeDetailsOfRegion, deltaconfirmed,
-            confirmed, active, deltarecovered, recovered, deltadeaths, deaths, transitionIdList, chartIdList } = this.props;
+            confirmed, active, deltarecovered, recovered, deltadeaths, deaths, transitionIdList, chartIdList,
+            timewiseData } = this.props;
         const { tile } = this.state;
         return (
             <div>
@@ -146,20 +147,23 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                     </Waypoint>
                 </div>
 
-                <div id="miniLineCharts">
-                    <div className="miniLineCharts_qdvc">
-                        <div id={chartIdList[0]}></div>
-                    </div>
-                    <div className="miniLineCharts_qdvc">
-                        <span role="img" aria-label="heart emoji"> &#10084;&#65039;</span>
-                    </div>
-                    <div className="miniLineCharts_qdvc">
-                        <div id={chartIdList[1]}></div>
+
+                {typeof timewiseData !== 'undefined' && timewiseData.length !== 0 &&
+                    <div id="miniLineCharts">
+                        <div className="miniLineCharts_qdvc">
+                            <div id={chartIdList[0]}></div>
                         </div>
-                    <div className="miniLineCharts_qdvc">
-                        <div id={chartIdList[2]}></div>
+                        <div className="miniLineCharts_qdvc">
+                            <span role="img" aria-label="heart emoji"> &#10084;&#65039;</span>
                         </div>
-                </div>
+                        <div className="miniLineCharts_qdvc">
+                            <div id={chartIdList[1]}></div>
+                        </div>
+                        <div className="miniLineCharts_qdvc">
+                            <div id={chartIdList[2]}></div>
+                        </div>
+                    </div>
+                }
 
                 {(typeof completeDetailsOfRegion.info2 !== 'undefined' && completeDetailsOfRegion.info2 !== '') ?
                     <div className="metaPop">

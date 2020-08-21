@@ -63,13 +63,13 @@ export default class IndiaCovidshowComponent extends Component {
                     }, 100);
                     setTimeout(() => {
                         LineChartServices.singleLineChart('tick1', timewisedata, 'confirmed', '#f7c3c3');
-                    }, 100);
+                    }, 300);
                     setTimeout(() => {
                         LineChartServices.singleLineChart('tick2', timewisedata, 'recovered', 'greenyellow');
-                    }, 200);
+                    }, 400);
                     setTimeout(() => {
                         LineChartServices.singleLineChart('tick3', timewisedata, 'deceased', 'lightblue');
-                    }, 300);
+                    }, 500);
                 }
                 if (this.state.selectedCode !== 'TT') {
                     if (typeof result.data[this.state.selectedCode]['districts'][this.state.placeSearch] !== 'undefined') {
@@ -496,7 +496,7 @@ export default class IndiaCovidshowComponent extends Component {
         const { completeDetailsOfRegion, searchList, freshShow, selectedCode, placeType, quickCompleteData, sortType,
             completeDetailsOfDistrict, tableTitle, tile, showtile, nationOrDistrictName, placeSearch,
             timeWiseDataOfNationOrState, timeWiseDataOfDistrict } = this.state;
-        // console.log('this.state ', this.state)
+        console.log('this.state ', this.state)
 
         return (
             <div>
@@ -525,7 +525,7 @@ export default class IndiaCovidshowComponent extends Component {
 
 
                 {!freshShow && placeType === 'district' && <div className="displayjoe backgroundDistInfo">
-                    {(completeDetailsOfDistrict.info1 !== '' && completeDetailsOfDistrict.info2 !== '') &&
+                    {/* {(completeDetailsOfDistrict.info1 !== '' && completeDetailsOfDistrict.info2 !== '') && */}
                         <>
                             <div id="swooshTile">
                                 <QuickTileViewStateDistrictComponent
@@ -547,6 +547,7 @@ export default class IndiaCovidshowComponent extends Component {
                                     backgroundClickForTile={this.backgroundClickForTile.bind(this)}
                                     transitionIdList={['difter1', 'difter2', 'difter3', 'difter4', 'difter5']}
                                     chartIdList={['tick4', 'tick5', 'tick6']}
+                                    timewiseData={timeWiseDataOfDistrict}
                                 />
                             </div>
 
@@ -562,7 +563,8 @@ export default class IndiaCovidshowComponent extends Component {
                                 </>
                             }
                         </>
-                    }</div>}
+                    {/* } */}
+                    </div>}
 
 
                 {!freshShow && <div className="displayjoe">
@@ -587,6 +589,7 @@ export default class IndiaCovidshowComponent extends Component {
                                 backgroundClickForTile={this.backgroundClickForTile.bind(this)}
                                 transitionIdList={['difter6', 'difter7', 'difter8', 'difter9', 'difter10']}
                                 chartIdList={['tick1', 'tick2', 'tick3']}
+                                timewiseData={timeWiseDataOfNationOrState}
                             />
 
 

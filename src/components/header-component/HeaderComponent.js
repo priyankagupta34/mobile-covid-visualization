@@ -213,8 +213,8 @@ export default class HeaderComponent extends Component {
                         <a href="https://www.facebook.com/Priyannca" target="_blank" rel="noopener noreferrer" >
                             <i className="material-icons my_ic2">facebook</i>
                         </a>
-                        <a href="tel:+917903365508">
-                            <i className="material-icons my_ic2">call</i>
+                        <a href="https://www.instagram.com/priyannca/?hl=en">
+                            <i className="material-icons my_ic2">photo_camera</i>
                         </a>
                         <a href="mailto:34priyankagupta@gmail.com">
                             <i className="material-icons my_ic2">email</i>
