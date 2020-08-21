@@ -7,8 +7,6 @@ export const LineChartServices = {
 
 function singleLineChart(id, data, event, lineColor) {
     const cloneDate = Object.assign([], data);
-    // console.log('data ', cloneDate)
-    // const plottableData = cloneDate.reverse().slice(0, 60).reverse();
     const dataLength = cloneDate.length;
     let slicingData = 1;
     if (dataLength >= 40) {
@@ -16,8 +14,6 @@ function singleLineChart(id, data, event, lineColor) {
     } else {
         slicingData = 1;
     }
-    // console.log('dataLength ', dataLength)
-    // console.log('slicingData ', slicingData)
     let plottableData = [];
     for (let i = 0; i < dataLength; i++) {
         if (i % slicingData === 0) {
@@ -25,7 +21,6 @@ function singleLineChart(id, data, event, lineColor) {
         }
     }
     plottableData.push(cloneDate[dataLength - 1]);
-    // // console.log('event ', event);
     const height = document.documentElement.clientHeight * 0.04;
     const width = document.documentElement.clientWidth * 0.16;
 
@@ -38,7 +33,6 @@ function singleLineChart(id, data, event, lineColor) {
     const xScale = d3.scaleLinear()
         .range([0, width])
         .domain([0, (plottableData.length - 1)]);
-
     const yScale = d3.scaleLinear()
         .range([height, 0])
         .domain([d3.min(plottableData, (d) => d[event]), d3.max(plottableData, (d) => d[event])]);
@@ -48,28 +42,33 @@ function singleLineChart(id, data, event, lineColor) {
     let plotLength = plottableData.length;
     move();
     function move() {
-        if (i < plotLength) {
-            console.log('i', i)
-            setTimeout(() => {
-                plottableDataBar = plottableData.slice(0, i);
-                console.log('plottableDataBar ', plottableDataBar)
-                const line = d3.line()
+
+        setTimeout(() => {
+            plottableDataBar = plottableData.slice(0, i);
+
+            const line = d3.line()
                 .x((d, i) => xScale(i))
                 .y((d, i) => yScale(d[event]))
                 .curve(d3.curveMonotoneX);
-        
-        
+
+
             svg.append('path')
                 .datum(plottableDataBar)
                 .attr("fill", "none")
                 .attr("stroke", lineColor)
                 .attr("stroke-width", 1)
-                .attr("d", line);
+                .attr("d", line)
+
+
+
+            if (i < plotLength) {
                 i++;
                 move();
-            }, 30)
-        }
+            }
+        }, 35);
+
+
     }
-
-
 }
+
+

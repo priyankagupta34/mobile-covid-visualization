@@ -24,6 +24,7 @@ export default class IndiaCovidshowComponent extends Component {
             tile: 'confirmed',
             showtile: 'confirmed',
             timeWiseDataOfNationOrState: [],
+            timeWiseDataOfIndia: [],
             timeWiseDataOfDistrict: [],
             completeDetailsOfDistrict: { info1: '', info2: '' },
             placeType: '',
@@ -58,16 +59,16 @@ export default class IndiaCovidshowComponent extends Component {
                 } else {
                     setTimeout(() => {
                         BarChartServices.creatingBarChart('cov_id_india', timewisedata, this.state.tile);
-                       
+
                     }, 100);
                     setTimeout(() => {
-                        LineChartServices.singleLineChart('tick1', timewisedata, 'confirmed', '#f7c3c3');                            
+                        LineChartServices.singleLineChart('tick1', timewisedata, 'confirmed', '#f7c3c3');
                     }, 100);
                     setTimeout(() => {
-                        LineChartServices.singleLineChart('tick2', timewisedata, 'recovered', 'greenyellow');                            
+                        LineChartServices.singleLineChart('tick2', timewisedata, 'recovered', 'greenyellow');
                     }, 200);
                     setTimeout(() => {
-                        LineChartServices.singleLineChart('tick3', timewisedata, 'deceased', 'lightblue');                            
+                        LineChartServices.singleLineChart('tick3', timewisedata, 'deceased', 'lightblue');
                     }, 300);
                 }
                 if (this.state.selectedCode !== 'TT') {
@@ -80,15 +81,15 @@ export default class IndiaCovidshowComponent extends Component {
                         setTimeout(() => {
                             BarChartServices.creatingBarChart('cov_id_state', timewisedataofDistrict, this.state.tile);
                         }, 10);
-                            setTimeout(() => {
-                                LineChartServices.singleLineChart('tick4', timewisedataofDistrict, 'confirmed', '#f7c3c3');                            
-                            }, 40);
-                            setTimeout(() => {
-                                LineChartServices.singleLineChart('tick5', timewisedataofDistrict, 'recovered', 'greenyellow');                            
-                            }, 50);
-                            setTimeout(() => {
-                                LineChartServices.singleLineChart('tick6', timewisedataofDistrict, 'deceased', 'lightblue');                            
-                            }, 60);
+                        setTimeout(() => {
+                            LineChartServices.singleLineChart('tick4', timewisedataofDistrict, 'confirmed', '#f7c3c3');
+                        }, 40);
+                        setTimeout(() => {
+                            LineChartServices.singleLineChart('tick5', timewisedataofDistrict, 'recovered', 'greenyellow');
+                        }, 50);
+                        setTimeout(() => {
+                            LineChartServices.singleLineChart('tick6', timewisedataofDistrict, 'deceased', 'lightblue');
+                        }, 60);
                     } else {
                         timewisedataofDistrict = []
                     }
@@ -98,12 +99,44 @@ export default class IndiaCovidshowComponent extends Component {
                 }
                 this.setState(state => {
                     state.timeWiseDataOfNationOrState = timewisedata;
+                    if (this.state.selectedCode === 'TT') {
+                        state.timeWiseDataOfIndia = timewisedata;
+                    }
                     state.timeWiseDataOfDistrict = timewisedataofDistrict;
                     return state;
                 })
             }).catch((err) => {
 
             });
+    }
+
+    creatingLineChartSimply() {
+        if (typeof this.state.timeWiseDataOfNationOrState !== 'undefined' && this.state.timeWiseDataOfNationOrState.length !== 0) {
+            setTimeout(() => {
+                LineChartServices.singleLineChart('tick1', this.state.timeWiseDataOfNationOrState, 'confirmed', '#f7c3c3');
+            }, 100);
+            setTimeout(() => {
+                LineChartServices.singleLineChart('tick2', this.state.timeWiseDataOfNationOrState, 'recovered', 'greenyellow');
+            }, 200);
+            setTimeout(() => {
+                LineChartServices.singleLineChart('tick3', this.state.timeWiseDataOfNationOrState, 'deceased', 'lightblue');
+            }, 300);
+        }
+        if (this.state.placeType === 'district') {
+            setTimeout(() => {
+                if (typeof this.state.timeWiseDataOfDistrict !== 'undefined' && this.state.timeWiseDataOfDistrict.length !== 0) {
+                    setTimeout(() => {
+                        LineChartServices.singleLineChart('tick4', this.state.timeWiseDataOfDistrict, 'confirmed', '#f7c3c3');
+                    }, 40);
+                    setTimeout(() => {
+                        LineChartServices.singleLineChart('tick5', this.state.timeWiseDataOfDistrict, 'recovered', 'greenyellow');
+                    }, 50);
+                    setTimeout(() => {
+                        LineChartServices.singleLineChart('tick6', this.state.timeWiseDataOfDistrict, 'deceased', 'lightblue');
+                    }, 60);
+                }
+            }, 0);
+        }
     }
 
     creatingBarChartSimply() {
@@ -120,10 +153,7 @@ export default class IndiaCovidshowComponent extends Component {
     }
 
     separateStateDistrictTimewiseInfo(data) {
-        // // console.log('data ', data)
         let stateInfoList = [];
-        // if (this.state.selectedCode !== 'LD') {
-        // if (typeof data[this.state.selectedCode].dates !== 'undefined') {
         const allDatesForStateKey = Object.keys(data['dates']);
         const allDates = data['dates'];
         for (let i = 0; i < allDatesForStateKey.length; i++) {
@@ -164,7 +194,6 @@ export default class IndiaCovidshowComponent extends Component {
                 stateInfo.recovered = 0;
             }
             if (typeof allDates[allDatesForStateKey[i]].delta !== 'undefined') {
-                // // // console.log('not undefined')
                 if (typeof allDates[allDatesForStateKey[i]].delta.confirmed !== 'undefined') {
                     stateInfo.deltaconfirmed = allDates[allDatesForStateKey[i]].delta.confirmed;
                 } else {
@@ -256,9 +285,10 @@ export default class IndiaCovidshowComponent extends Component {
                     this.setState({
                         ...this.state,
                         freshShow: false
-                    })
+                    });
+
                 }, 10);
-            })
+            });
 
         }
     }
@@ -432,9 +462,14 @@ export default class IndiaCovidshowComponent extends Component {
         this.setState(state => {
             this.provideDataOfPlace.bind(this, { code: 'TT', type: '', });
             state.searchList = [];
+            state.timeWiseDataOfNationOrState = [];
+            state.timeWiseDataOfNationOrState.push(...state.timeWiseDataOfIndia)
+            state.timeWiseDataOfDistrict = [];
             return state;
         }, () => {
             this.creatingInfoListForQuickCompleteStateData();
+            this.creatingBarChartSimply();
+            this.creatingLineChartSimply();
         })
     }
 
@@ -461,6 +496,7 @@ export default class IndiaCovidshowComponent extends Component {
         const { completeDetailsOfRegion, searchList, freshShow, selectedCode, placeType, quickCompleteData, sortType,
             completeDetailsOfDistrict, tableTitle, tile, showtile, nationOrDistrictName, placeSearch,
             timeWiseDataOfNationOrState, timeWiseDataOfDistrict } = this.state;
+        // console.log('this.state ', this.state)
 
         return (
             <div>
@@ -570,20 +606,6 @@ export default class IndiaCovidshowComponent extends Component {
                 }
 
 
-
-
-                {/* <div id="quickgrphof7">
-                    <div id="last7days">
-                        <TitleIconComponent icon="local_activity" title={`Last 7 Days in ${nationOrDistrictName}`} />
-                        <div className="main_lastUpdt">
-                            Quick View on Last few days
-                            </div>
-
-                    </div>
-                    <div id="cov_id_india"></div>
-                </div> */}
-
-
                 {!freshShow &&
                     <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'detsin', 'wayupanimation')}>
                         <div id="detsin">
@@ -595,12 +617,6 @@ export default class IndiaCovidshowComponent extends Component {
                                 title={tableTitle} icon="equalizer" />
                         </div>
                     </Waypoint>}
-                {/* 
-                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'indiagrs', 'wayupanimation4')}>
-                    <div id="indiagrs"> */}
-                {/* <IndiaQuickGraphsComponent addAnimationToWayUp={this.addAnimationToWayUp.bind(this)} /> */}
-                {/* </div>
-                </Waypoint> */}
 
             </div>
         )
