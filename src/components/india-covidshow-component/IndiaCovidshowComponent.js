@@ -496,7 +496,6 @@ export default class IndiaCovidshowComponent extends Component {
         const { completeDetailsOfRegion, searchList, freshShow, selectedCode, placeType, quickCompleteData, sortType,
             completeDetailsOfDistrict, tableTitle, tile, showtile, nationOrDistrictName, placeSearch,
             timeWiseDataOfNationOrState, timeWiseDataOfDistrict } = this.state;
-        console.log('this.state ', this.state)
 
         return (
             <div>

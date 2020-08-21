@@ -28,7 +28,7 @@ export default class SearchDetailedComponent extends Component {
                 })
                 i++;
                 this.nameLooper(name, i);
-            }, 100);
+            }, 250);
 
         }
 
