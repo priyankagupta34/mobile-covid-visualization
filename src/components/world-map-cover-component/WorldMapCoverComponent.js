@@ -89,7 +89,7 @@ export default class WorldMapCoverComponent extends Component {
         }).addTo(this.map);
 
         let geojsonMarkerOptions = {
-            radius: 5,
+            radius: 6.7,
             fillColor: "#a50404",
             color: "#000",
             weight: 1,

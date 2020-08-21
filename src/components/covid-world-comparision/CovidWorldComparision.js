@@ -18,7 +18,8 @@ export default class CovidWorldComparision extends Component {
             countrycList: [],
             countryList: [],
             eventType: 'Active',
-            showLoader: true
+            showLoader: true,
+            resize: window.innerWidth
         }
         this.resizingWindowHandler = this.resizingWindowHandler.bind(this);
     }
@@ -32,7 +33,9 @@ export default class CovidWorldComparision extends Component {
     }
 
     resizingWindowHandler(event) {
-        this.drawingComparisionGraph();
+        if (window.innerWidth !== this.state.resize) {
+            this.drawingComparisionGraph();
+        }
     }
 
     componentDidUpdate(prev) {

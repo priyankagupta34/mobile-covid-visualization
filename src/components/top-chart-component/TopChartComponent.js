@@ -10,7 +10,8 @@ export default class TopChartComponent extends Component {
         super(props);
         this.state = {
             topData: 'top10',
-            eventData: 'NewConfirmed'
+            eventData: 'NewConfirmed',
+            resize: window.innerWidth
         }
         this.resizingWindowHandler = this.resizingWindowHandler.bind(this);
     }
@@ -153,7 +154,9 @@ export default class TopChartComponent extends Component {
     }
 
     resizingWindowHandler(event) {
-        this.drawNewDeathChartForCurrent(this.props.summaryDataCountries, this.state.topData, this.state.eventData);
+        if (window.innerWidth !== this.state.resize) {
+            this.drawNewDeathChartForCurrent(this.props.summaryDataCountries, this.state.topData, this.state.eventData);
+        }
     }
 
     componentWillUnmount() {

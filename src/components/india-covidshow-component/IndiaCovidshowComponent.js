@@ -33,7 +33,8 @@ export default class IndiaCovidshowComponent extends Component {
                 event: 'active',
                 sorting: true
             },
-            tableTitle: 'All States Info'
+            tableTitle: 'All States Info',
+            resize: window.innerWidth
         }
         this.resizingWindowHandler = this.resizingWindowHandler.bind(this);
     }
@@ -49,8 +50,10 @@ export default class IndiaCovidshowComponent extends Component {
     }
 
     resizingWindowHandler(event) {
-        this.creatingLineChartSimply();
-        this.creatingBarChartSimply();
+        if (window.innerWidth !== this.state.resize) {
+            this.creatingLineChartSimply();
+            this.creatingBarChartSimply();
+        }
     }
 
     getTimeWiseData() {
@@ -532,45 +535,45 @@ export default class IndiaCovidshowComponent extends Component {
 
                 {!freshShow && placeType === 'district' && <div className="displayjoe backgroundDistInfo">
                     {/* {(completeDetailsOfDistrict.info1 !== '' && completeDetailsOfDistrict.info2 !== '') && */}
-                        <>
-                            <div id="swooshTile">
-                                <QuickTileViewStateDistrictComponent
-                                    title={"games"}
-                                    stateInfoLoader={stateInfoLoader}
-                                    tile={tile}
-                                    completeDetailsOfRegion={completeDetailsOfDistrict}
-                                    state={completeDetailsOfDistrict.info3.place}
-                                    deltaconfirmed={completeDetailsOfDistrict.info1.delta.confirmed}
-                                    active={completeDetailsOfDistrict.info1.active}
-                                    deltarecovered={completeDetailsOfDistrict.info1.delta.recovered}
-                                    recovered={completeDetailsOfDistrict.info1.recovered}
-                                    confirmed={completeDetailsOfDistrict.info1.confirmed}
-                                    deltadeaths={completeDetailsOfDistrict.info1.delta.deceased}
-                                    deaths={completeDetailsOfDistrict.info1.deceased}
-                                    lastupdatedtime={completeDetailsOfDistrict.info3.lastupdatedtime}
-                                    convertDateToDate={this.props.convertDateToDate}
-                                    addAnimationToWayUp={this.addAnimationToWayUp.bind(this)}
-                                    backgroundClickForTile={this.backgroundClickForTile.bind(this)}
-                                    transitionIdList={['difter1', 'difter2', 'difter3', 'difter4', 'difter5']}
-                                    chartIdList={['tick4', 'tick5', 'tick6']}
-                                    timewiseData={timeWiseDataOfDistrict}
-                                />
-                            </div>
+                    <>
+                        <div id="swooshTile">
+                            <QuickTileViewStateDistrictComponent
+                                title={"games"}
+                                stateInfoLoader={stateInfoLoader}
+                                tile={tile}
+                                completeDetailsOfRegion={completeDetailsOfDistrict}
+                                state={completeDetailsOfDistrict.info3.place}
+                                deltaconfirmed={completeDetailsOfDistrict.info1.delta.confirmed}
+                                active={completeDetailsOfDistrict.info1.active}
+                                deltarecovered={completeDetailsOfDistrict.info1.delta.recovered}
+                                recovered={completeDetailsOfDistrict.info1.recovered}
+                                confirmed={completeDetailsOfDistrict.info1.confirmed}
+                                deltadeaths={completeDetailsOfDistrict.info1.delta.deceased}
+                                deaths={completeDetailsOfDistrict.info1.deceased}
+                                lastupdatedtime={completeDetailsOfDistrict.info3.lastupdatedtime}
+                                convertDateToDate={this.props.convertDateToDate}
+                                addAnimationToWayUp={this.addAnimationToWayUp.bind(this)}
+                                backgroundClickForTile={this.backgroundClickForTile.bind(this)}
+                                transitionIdList={['difter1', 'difter2', 'difter3', 'difter4', 'difter5']}
+                                chartIdList={['tick4', 'tick5', 'tick6']}
+                                timewiseData={timeWiseDataOfDistrict}
+                            />
+                        </div>
 
-                            {typeof timeWiseDataOfDistrict !== 'undefined' && timeWiseDataOfDistrict.length !== 0 &&
-                                <>
-                                    <div className="main_lastUpdt">
-                                        Tap on the above tiles to change the graph.
+                        {typeof timeWiseDataOfDistrict !== 'undefined' && timeWiseDataOfDistrict.length !== 0 &&
+                            <>
+                                <div className="main_lastUpdt">
+                                    Tap on the above tiles to change the graph.
                             </div>
-                                    <div id="cov_id_state"></div>
-                                    <div className="main_lastUpdt graphti2">
-                                        {showtile} Covid19 situation in <font color="darkblue"><b>{placeSearch}</b></font>
-                                    </div>
-                                </>
-                            }
-                        </>
+                                <div id="cov_id_state"></div>
+                                <div className="main_lastUpdt graphti2">
+                                    {showtile} Covid19 situation in <font color="darkblue"><b>{placeSearch}</b></font>
+                                </div>
+                            </>
+                        }
+                    </>
                     {/* } */}
-                    </div>}
+                </div>}
 
 
                 {!freshShow && <div className="displayjoe">
