@@ -12,9 +12,7 @@ export default class CDCInfoComponent extends Component {
                     Download below available pdf files by
                     </div>
                 <div className="main_lastUpdt">
-                    <font color="darkblue">
-                        <small>Centers of Disease Control and Prevention</small>
-                    </font>
+                        Centers of Disease Control and Prevention <font color="darkblue"> <small>(CDC)</small></font>
                 </div>
                 <div className="boxCompoForCDC">
                     <ul>
