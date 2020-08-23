@@ -41,7 +41,8 @@
     border-radius: 5px;
     padding-top: 0;
     animation: searchbox 1s;
-   
+    width: 72vw;
+    max-width: 346px;
     position: relative;
 }
 

@@ -7,7 +7,7 @@ export default class CDCInfoComponent extends Component {
         return (
             <div>
 
-                <TitleIconComponent icon="attach_file" title="CDC Guidline" />
+                <TitleIconComponent icon="attach_file" title="CDC Guidlines" />
                 <div className="main_lastUpdt">
                     Download below available pdf files by
                     </div>

@@ -630,12 +630,12 @@ export default class IndiaCovidshowComponent extends Component {
                                 title={tableTitle} icon="equalizer" />
                         </div>
                     </Waypoint>}
-
-                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'cdcinfolock', 'wayupanimation')}>
+                    {!freshShow &&
+                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'cdcinfolock', 'wayupanimation3')}>
                     <div id="cdcinfolock">
                         <CDCInfoComponent />
                     </div>
-                </Waypoint>
+                </Waypoint>}
 
             </div>
         )
