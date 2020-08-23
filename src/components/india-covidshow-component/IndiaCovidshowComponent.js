@@ -9,6 +9,7 @@ import StateGridViewComponent from '../state-grid-view-component/StateGridViewCo
 import TitleIconComponent from '../title-icon-component/TitleIconComponent';
 import './IndiaCovidshowComponent.css';
 import { LineChartServices } from '../../chart-services/LineChartServices';
+import CDCInfoComponent from '../cdc-info-component/CDCInfoComponent';
 
 export default class IndiaCovidshowComponent extends Component {
     constructor(props) {
@@ -629,6 +630,12 @@ export default class IndiaCovidshowComponent extends Component {
                                 title={tableTitle} icon="equalizer" />
                         </div>
                     </Waypoint>}
+
+                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'cdcinfolock', 'wayupanimation')}>
+                    <div id="cdcinfolock">
+                        <CDCInfoComponent />
+                    </div>
+                </Waypoint>
 
             </div>
         )
