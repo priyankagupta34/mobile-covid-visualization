@@ -631,7 +631,7 @@ export default class IndiaCovidshowComponent extends Component {
                         </div>
                     </Waypoint>}
                     {!freshShow &&
-                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'cdcinfolock', 'wayupanimation3')}>
+                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'cdcinfolock', 'wayupanimation2')}>
                     <div id="cdcinfolock">
                         <CDCInfoComponent />
                     </div>
