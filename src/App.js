@@ -72,7 +72,7 @@ export default class App extends Component {
         );
         setTimeout(() => {
           this.loadStateWiseInfo();
-      }, 60000);
+      }, 80000);
       }).catch((err) => {
         this.setState({
           ...this.state,

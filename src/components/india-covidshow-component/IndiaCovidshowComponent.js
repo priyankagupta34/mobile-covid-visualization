@@ -119,7 +119,7 @@ export default class IndiaCovidshowComponent extends Component {
 
                 setTimeout(() => {
                     this.getTimeWiseData();
-                }, 60000);
+                }, 80000);
             }).catch((err) => {
 
             });

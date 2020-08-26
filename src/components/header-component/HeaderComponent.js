@@ -75,7 +75,10 @@ export default class HeaderComponent extends Component {
                         ...this.state,
                         notificationLoader: false,
                         notificationCompleteset: response.data.reverse()
-                    })
+                    });
+                    setTimeout(() => {
+                        this.getNotificationLogs();   
+                    }, 80000);
                 })
                 .catch(error => {
 
