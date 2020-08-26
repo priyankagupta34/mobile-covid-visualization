@@ -115,10 +115,16 @@ export default class IndiaCovidshowComponent extends Component {
                     }
                     state.timeWiseDataOfDistrict = timewisedataofDistrict;
                     return state;
-                })
+                });
+
+                setTimeout(() => {
+                    this.getTimeWiseData();
+                }, 60000);
             }).catch((err) => {
 
             });
+
+
     }
 
     creatingLineChartSimply() {
@@ -630,12 +636,12 @@ export default class IndiaCovidshowComponent extends Component {
                                 title={tableTitle} icon="equalizer" />
                         </div>
                     </Waypoint>}
-                    {!freshShow &&
-                <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'cdcinfolock', 'wayupanimation2')}>
-                    <div id="cdcinfolock">
-                        <CDCInfoComponent />
-                    </div>
-                </Waypoint>}
+                {!freshShow &&
+                    <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'cdcinfolock', 'wayupanimation2')}>
+                        <div id="cdcinfolock">
+                            <CDCInfoComponent />
+                        </div>
+                    </Waypoint>}
 
             </div>
         )

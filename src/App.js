@@ -60,14 +60,19 @@ export default class App extends Component {
             stateDistrictCodeList.push(districtCodeObject);
           }
         }
-        this.setState({
-          ...this.state,
-          stateInfoLoader: true,
-          stateInfoWithCode: result[0].data,
-          completeStateInfoWithDelta: result[1].data,
-          codeWiseQuick4Data: result[2].data,
-          stateDistrictCodeList
-        })
+        this.setState(
+        state=>{
+          state.stateInfoLoader =  true;
+          state.stateInfoWithCode = result[0].data;
+          state.completeStateInfoWithDelta = result[1].data;
+          state.codeWiseQuick4Data = result[2].data;
+          state.stateDistrictCodeList = stateDistrictCodeList;
+          return state;
+        }
+        );
+        setTimeout(() => {
+          this.loadStateWiseInfo();
+      }, 60000);
       }).catch((err) => {
         this.setState({
           ...this.state,
