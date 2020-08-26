@@ -13,7 +13,7 @@
     /* background: #5b89b14a; */
     position: absolute;
     z-index: 1;
-    border-radius: 6px;
+    /* border-radius: 6px; */
     animation: main_tile 1s;
 }
 
