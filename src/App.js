@@ -205,8 +205,8 @@ export default class App extends Component {
         <div className="no_compatibility_mobile">
           <div className="no_compat">
             <div>This is designed just for mobile</div>
-            //<div>To continue viewing on desktop device please below.</div>
-            //<a href="https://covid-visualization-live.netlify.app/" >covid-visualization</a>
+            {/* <div>To continue viewing on desktop device please below.</div>
+            <a href="https://covid-visualization-live.netlify.app/" >covid-visualization</a> */}
           </div>
         </div>
 
