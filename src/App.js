@@ -36,7 +36,6 @@ export default class App extends Component {
     CovidServices.stateWiseForIndiaForActiveCase()
     ])
       .then((result) => {
-
         let stateDistrictCodeList = [];
         const mainObject = result[0].data;
         const objectKeyOfMainObject = Object.keys(mainObject);

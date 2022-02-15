@@ -56,22 +56,22 @@ function getCountryPopulation(countrycode) {
 
 
 function getNotifications() {
-    return axios.get('https://api.covid19india.org/updatelog/log.json');
+    return axios.get('https://data.covid19india.org/updatelog/log.json');
 }
 
 function stateWiseForIndiaMinComplete() {
-    return axios.get('https://api.covid19india.org/v5/min/data.min.json');
+    return axios.get('https://data.covid19india.org/v4/min/data.min.json');
 }
 
 function stateWiseForIndia() {
-    return axios.get('https://api.covid19india.org/state_district_wise.json');
+    return axios.get('https://data.covid19india.org/state_district_wise.json');
 }
 
 function stateWiseForIndiaForActiveCase() {
-    return axios.get('https://api.covid19india.org/data.json');
+    return axios.get('https://data.covid19india.org/data.json');
 }
 
 
 function timeWiseDataOfDistrict(placecode){
-    return axios.get(`https://api.covid19india.org/v4/min/timeseries-${placecode}.min.json`);
+    return axios.get(`https://data.covid19india.org/v4/min/timeseries-${placecode}.min.json`);
 }

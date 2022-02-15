@@ -479,6 +479,7 @@ export default class IndiaCovidshowComponent extends Component {
         this.setState(state => {
             this.provideDataOfPlace.bind(this, { code: 'TT', type: '', });
             state.searchList = [];
+            state.selectedCode = "TT";
             state.timeWiseDataOfNationOrState = [];
             state.timeWiseDataOfNationOrState.push(...state.timeWiseDataOfIndia)
             state.timeWiseDataOfDistrict = [];
@@ -520,7 +521,7 @@ export default class IndiaCovidshowComponent extends Component {
                 {selectedCode !== 'TT' && <div className="flexCenterX centered">
                     <button className="inLakhCrore" onClick={this.backToIndiaInfo.bind(this)}>
                         <i className="material-icons  pointInd material-icons-outlined">replay</i>
-                    India's Collective Info</button>
+                        India's Collective Info</button>
                 </div>}
 
                 <Waypoint onEnter={this.addAnimationToWayUp.bind(this, 'search', 'wayupanimation')}>
@@ -571,7 +572,7 @@ export default class IndiaCovidshowComponent extends Component {
                             <>
                                 <div className="main_lastUpdt">
                                     Tap on the above tiles to change the graph.
-                            </div>
+                                </div>
                                 <div id="cov_id_state"></div>
                                 <div className="main_lastUpdt graphti2">
                                     {showtile} Covid19 situation in <font color="darkblue"><b>{placeSearch}</b></font>
@@ -616,7 +617,7 @@ export default class IndiaCovidshowComponent extends Component {
                     <>
                         <div className="main_lastUpdt">
                             Tap on the above tiles to change the graph.
-                </div>
+                        </div>
                         <div id="cov_id_india"></div>
                         <div className="main_lastUpdt graphti2">
                             {showtile} Covid19 situation in <font color="darkblue"><b>{nationOrDistrictName}</b></font>

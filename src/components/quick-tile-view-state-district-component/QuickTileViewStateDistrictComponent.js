@@ -202,16 +202,16 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                                         <>
                                             {state === 'Total' ? <>
                                                 <i className="material-icons fontSize1 ">arrow_upward</i>
-                                                {LimitServices.inLakhsOrCrores(typeof completeDetailsOfRegion.info2.delta.tested.states.samples !== 'undefined'
-                                                    && Number(completeDetailsOfRegion.info2.delta.tested.states.samples))}</>
+                                                {LimitServices.inLakhsOrCrores(typeof completeDetailsOfRegion.info2.delta.tested !== 'undefined'
+                                                    && Number(completeDetailsOfRegion.info2.delta.tested))}</>
                                                 :
                                                 <>
                                                     {(completeDetailsOfRegion.info2 !== '' &&
                                                         typeof completeDetailsOfRegion.info2.delta !== 'undefined' &&
                                                         typeof completeDetailsOfRegion.info2.delta.tested !== 'undefined') && <>
                                                             <i className="material-icons fontSize1 ">arrow_upward</i>
-                                                            {typeof completeDetailsOfRegion.info2.delta.tested.samples !== 'undefined'
-                                                                && LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info2.delta.tested.samples))}
+                                                            {typeof completeDetailsOfRegion.info2.delta.tested !== 'undefined'
+                                                                && LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info2.delta.tested))}
                                                         </>}
                                                 </>
                                             }
@@ -222,13 +222,13 @@ export default class QuickTileViewStateDistrictComponent extends Component {
                                     <>
                                         {state === 'Total' ?
                                             <div className="qvdc_nm">
-                                                {typeof completeDetailsOfRegion.info2.total.tested.states.samples !== 'undefined'
+                                                {completeDetailsOfRegion.info2.total.tested.states && completeDetailsOfRegion.info2.total.tested.states.samples
                                                     && LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info2.total.tested.states.samples))}</div>
                                             :
 
                                             <div className="qvdc_nm">
-                                                {(typeof completeDetailsOfRegion.info2.total.tested.samples !== 'undefined')
-                                                    && LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info2.total.tested.samples))}
+                                                {(typeof completeDetailsOfRegion.info2.total.tested !== 'undefined')
+                                                    && LimitServices.inLakhsOrCrores(Number(completeDetailsOfRegion.info2.total.tested))}
                                             </div>}
                                     </>
                                     :
